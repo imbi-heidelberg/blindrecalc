@@ -4,15 +4,25 @@
 \alias{simulation}
 \title{Simulate rejection probability and sample size for Student's t-test}
 \usage{
-simulation(s, n1, nuisance, recalculate = TRUE, Delta_star, iters = 1000, ...)
+simulation(
+  s,
+  n1,
+  nuisance,
+  recalculation = TRUE,
+  Delta_star,
+  iters = 1000,
+  ...
+)
 }
 \arguments{
+\item{s}{object of class \code{TestStatistc} created by \code{setup}}
+
 \item{n1}{number of patients that are recruited before the sample size
 is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
 
-\item{recalculate}{logical: should the sample size be recalcuated after n1
+\item{recalculation}{logical: should the sample size be recalcuated after n1
 patients are recruited?}
 
 \item{Delta_star}{effect measure under which the rejection probabilities are computed}
@@ -20,8 +30,6 @@ patients are recruited?}
 \item{iters}{number of simulation iterations}
 
 \item{...}{further optional arguments}
-
-\item{design}{trial design created by \code{\link{setupStudent}}}
 }
 \description{
 This function simulates the probability that a test defined by

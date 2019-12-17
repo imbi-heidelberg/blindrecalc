@@ -13,6 +13,8 @@ n_fix(s, nuisance, ...)
 \item{s}{test statistic object}
 
 \item{nuisance}{nuisance parameter}
+
+\item{...}{further optional arguments}
 }
 \description{
 Returns the sample size for the corresponding one-stage design without

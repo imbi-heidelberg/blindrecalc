@@ -9,15 +9,17 @@ Description: This package computes key characteristics
     size recalculation.
     Continuous as well as binary endpoints are supported
     in superiority and non-inferiority trials.
-License: MIT LICENSE
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Suggests: 
-    testthat
+    testthat,
+    covr
 Imports:
     methods
 Collate:
     test_statistics.R
     methods.R
     Student.R
+    blindrecalc.R
 RoxygenNote: 7.0.2

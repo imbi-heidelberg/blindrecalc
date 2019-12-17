@@ -20,9 +20,9 @@ setupChiSquare(alpha, beta, r = 1, delta, n_max = Inf, ...)
 \item{...}{further optional arguments}
 }
 \description{
-This function creates an object of class \code{ChiSquare} that can
-be used for sample size recalculation.
+This function creates an object of class \code{\link{ChiSquare-class}} that
+can be used for sample size recalculation.
 }
 \details{
-For non-inferiority trials use the function \code{\link{setupFarringtionManning}}.
+For non-inferiority trials use the function \code{\link{setupFarringtonManning}}.
 }

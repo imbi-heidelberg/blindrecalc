@@ -22,6 +22,6 @@ setupStudent(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf, ...)
 \item{...}{further optional arguments}
 }
 \description{
-This function creates an object of class \code{Student} that can
+This function creates an object of class \code{\link{Student-class}} that can
 be used for sample size recalculation.
 }

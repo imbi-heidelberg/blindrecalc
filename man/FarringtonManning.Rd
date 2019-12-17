@@ -22,7 +22,7 @@ setupFarringtonManning(alpha, beta, r = 1, delta, delta_NI, n_max = Inf, ...)
 \item{...}{further optional arguments}
 }
 \description{
-This function creates an object of class \code{FarringtonManning} that can
-be used for sample size recalculation in non-inferiority trials with
+This function creates an object of class \code{\link{FarringtonManning-class}}
+that can be used for sample size recalculation in non-inferiority trials with
 binary endpoints.
 }

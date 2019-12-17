@@ -5,11 +5,12 @@
 #' for one or several values of the nuisance parameter.
 #'
 #' @template methods
+#' @template dotdotdot
 #'
 #' @return one type I error rate value for every nuisance parameter
 #'
 #' @export
-setGeneric("toer", function(s, n1, nuisance, ...) standardGeneric("toer"))
+setGeneric("toer", function(s, n1, nuisance, recalculation, ...) standardGeneric("toer"))
 
 
 
@@ -17,17 +18,19 @@ setGeneric("toer", function(s, n1, nuisance, ...) standardGeneric("toer"))
 #' Power
 #'
 #' @template methods
+#' @template dotdotdot
 #'
 #' @export
-setGeneric("pow", function(s, n1, nuisance, ...) standardGeneric("pow"))
+setGeneric("pow", function(s, n1, nuisance, recalculation, ...) standardGeneric("pow"))
 
 
 #' Distribution of the sample size
 #'
 #' @template methods
+#' @template dotdotdot
 #'
 #' @export
-setGeneric("sample_size_dist", function(s, n1, nuisance, ...) standardGeneric("sample_size_dist"))
+setGeneric("sample_size_dist", function(s, n1, nuisance, recalculation,  ...) standardGeneric("sample_size_dist"))
 
 
 #' Fixed sample size
@@ -37,6 +40,7 @@ setGeneric("sample_size_dist", function(s, n1, nuisance, ...) standardGeneric("s
 #'
 #' @param s test statistic object
 #' @param nuisance nuisance parameter
+#' @template dotdotdot
 #'
 #' @export
 setGeneric("n_fix", function(s, nuisance, ...) standardGeneric("n_fix"))

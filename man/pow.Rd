@@ -5,20 +5,24 @@
 \alias{pow,Student-method}
 \title{Power}
 \usage{
-pow(s, n1, nuisance, ...)
+pow(s, n1, nuisance, recalculation, ...)
 
 \S4method{pow}{Student}(s, n1, nuisance, recalculation = TRUE, iters, ...)
 }
 \arguments{
+\item{s}{object of class \code{TestStatistc} created by \code{setup}}
+
 \item{n1}{number of patients that are recruited before the sample size
 is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
 
-\item{design}{trial design created by \code{\link{setupStudent}}}
-
-\item{recalculate}{logical: should the sample size be recalcuated after n1
+\item{recalculation}{logical: should the sample size be recalcuated after n1
 patients are recruited?}
+
+\item{...}{further optional arguments}
+
+\item{iters}{number of simulation iterations}
 }
 \description{
 Power

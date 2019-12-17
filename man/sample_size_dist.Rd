@@ -4,18 +4,20 @@
 \alias{sample_size_dist}
 \title{Distribution of the sample size}
 \usage{
-sample_size_dist(s, n1, nuisance, ...)
+sample_size_dist(s, n1, nuisance, recalculation, ...)
 }
 \arguments{
+\item{s}{object of class \code{TestStatistc} created by \code{setup}}
+
 \item{n1}{number of patients that are recruited before the sample size
 is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
 
-\item{design}{trial design created by \code{\link{setupStudent}}}
-
-\item{recalculate}{logical: should the sample size be recalcuated after n1
+\item{recalculation}{logical: should the sample size be recalcuated after n1
 patients are recruited?}
+
+\item{...}{further optional arguments}
 }
 \description{
 Distribution of the sample size

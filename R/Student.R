@@ -16,7 +16,7 @@
 #' Pharmaceutical Statistics 15: 208-215.
 #'
 #' @export
-simulation <- function(s, n1, nuisance, recalculate = TRUE, Delta_star, iters = 1000, ...) {
+simulation <- function(s, n1, nuisance, recalculation = TRUE, Delta_star, iters = 1000, ...) {
             if (s@r != 1) stop("the unbalanced case is not implemented yet!")
 
             # Step 1
@@ -27,7 +27,7 @@ simulation <- function(s, n1, nuisance, recalculate = TRUE, Delta_star, iters = 
             var_hat <- nuisance^2 / (2 * n1 - 1) * (v1 + (z1 + sqrt(n1 / 2) * Delta_star / nuisance)^2)
 
             # Step 3
-            if (recalculate == FALSE) {
+            if (recalculation == FALSE) {
               n <- n1
               } else {
                 n_recalc <- 2 * (stats::qnorm(1 - s@alpha) + stats::qnorm(1 - s@beta))^2 / (s@delta - s@delta_NI)^2 * var_hat
@@ -64,7 +64,7 @@ simulation <- function(s, n1, nuisance, recalculate = TRUE, Delta_star, iters = 
 }
 
 
-
+#' @template iters
 #' @rdname toer
 #' @export
 setMethod("toer", signature("Student"),
@@ -74,7 +74,7 @@ setMethod("toer", signature("Student"),
           })
 
 
-
+#' @template iters
 #' @rdname pow
 #' @export
 setMethod("pow", signature("Student"),
@@ -82,7 +82,6 @@ setMethod("pow", signature("Student"),
             sapply(nuisance, function(sigma)
               simulation(s, n1, sigma, recalculation, s@delta, iters, ...)$rejection_probability)
           })
-
 
 
 #' @rdname n_fix
