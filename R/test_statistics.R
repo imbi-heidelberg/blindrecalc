@@ -104,4 +104,3 @@ setupFarringtonManning <- function(alpha, beta, r = 1, delta, delta_NI, n_max = 
   new("FarringtonManning", alpha = alpha, beta = beta, r = r, delta = delta,
       delta_NI = delta_NI, n_max = n_max)
 }
-
