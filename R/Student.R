@@ -64,3 +64,34 @@ simulation <- function(s, n1, nuisance, recalculate = TRUE, Delta_star, iters = 
 }
 
 
+
+#' @rdname toer
+#' @export
+setMethod("toer", signature("Student"),
+          function(s, n1, nuisance, recalculation = TRUE, iters, ...) {
+            sapply(nuisance, function(sigma)
+              simulation(s, n1, sigma, recalculation, s@delta_NI, iters, ...)$rejection_probability)
+          })
+
+
+
+#' @rdname pow
+#' @export
+setMethod("pow", signature("Student"),
+          function(s, n1, nuisance, recalculation = TRUE, iters, ...) {
+            sapply(nuisance, function(sigma)
+              simulation(s, n1, sigma, recalculation, s@delta, iters, ...)$rejection_probability)
+          })
+
+
+
+#' @rdname n_fix
+#' @export
+setMethod("n_fix", signature("Student"),
+          function(s, nuisance, ...) {
+            (1 + s@r) * 2 * (stats::qnorm(1 - s@alpha) + stats::qnorm(1 - s@beta))^2 /
+              (s@delta - s@delta_NI)^2 * nuisance^2
+          })
+
+
+

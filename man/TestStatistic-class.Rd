@@ -3,6 +3,7 @@
 \docType{class}
 \name{TestStatistic-class}
 \alias{TestStatistic-class}
+\alias{TestStatistic}
 \title{Test statistics}
 \description{
 In \code{blindrecalc}, different test statistics are implemented.

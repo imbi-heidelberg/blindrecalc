@@ -6,7 +6,8 @@
 #' outcomes and the Farrington Manning test for non-inferiority tests for
 #' binary outcomes.
 #'
-#' @export
+#' @aliases TestStatistic
+#' @exportClass TestStatistic
 setClass("TestStatistic", representation(
   alpha    = "numeric",
   beta     = "numeric",
@@ -23,7 +24,6 @@ setClass("TestStatistic", representation(
 #'
 #' @aliases Student
 #' @exportClass Student
-#' @export
 setClass("Student", contains = "TestStatistic")
 
 setClass("ChiSquare", contains = "TestStatistic")

@@ -11,6 +11,9 @@
 #' @export
 setGeneric("toer", function(s, n1, nuisance, ...) standardGeneric("toer"))
 
+
+
+
 #' Power
 #'
 #' @template methods
