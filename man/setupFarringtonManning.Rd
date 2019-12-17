@@ -4,7 +4,7 @@
 \alias{setupFarringtonManning}
 \title{Setup a Farrington Manning test}
 \usage{
-setupFarringtonManning(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf)
+setupFarringtonManning(alpha, beta, r = 1, delta, delta_NI, n_max = Inf, ...)
 }
 \arguments{
 \item{alpha}{one-sided type I error rate}
@@ -18,6 +18,8 @@ setupFarringtonManning(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf)
 \item{delta_NI}{non-inferiority margin}
 
 \item{n_max}{maximal overall sample size}
+
+\item{...}{further optional arguments}
 }
 \description{
 This function creates an object of class \code{FarringtonManning} that can

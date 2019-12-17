@@ -4,7 +4,7 @@
 \alias{setupStudent}
 \title{Setup Student's t-test}
 \usage{
-setupStudent(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf)
+setupStudent(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf, ...)
 }
 \arguments{
 \item{alpha}{one-sided type I error rate}
@@ -18,6 +18,8 @@ setupStudent(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf)
 \item{delta_NI}{non-inferiority margin}
 
 \item{n_max}{maximal overall sample size}
+
+\item{...}{further optional arguments}
 }
 \description{
 This function creates an object of class \code{Student} that can

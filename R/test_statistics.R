@@ -29,9 +29,11 @@ setClass("FarringtonManning", contains = "TestStatistic")
 #' be used for sample size recalculation.
 #'
 #' @template setup
+#' @template NI
+#' @template dotdotdot
 #'
 #' @export
-setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf) {
+setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf, ...) {
   new("Student", alpha = alpha, beta = beta, r = r, delta = delta,
       delta_NI = delta_NI, n_max = n_max)
 }
@@ -44,11 +46,12 @@ setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf) {
 #' be used for sample size recalculation.
 #'
 #' @template setup
+#' @template dotdotdot
 #'
 #' @details For non-inferiority trials use the function \code{\link{setupFarringtionManning}}.
 #'
 #' @export
-setupChiSquare <- function(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf) {
+setupChiSquare <- function(alpha, beta, r = 1, delta, n_max = Inf, ...) {
   new("ChiSquare", alpha = alpha, beta = beta, r = r, delta = delta,
       delta_NI = delta_NI, n_max = n_max)
 }
@@ -63,9 +66,12 @@ setupChiSquare <- function(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf)
 #' binary endpoints.
 #'
 #' @template setup
+#' @template NI
+#' @template dotdotdot
 #'
 #' @export
-setupFarringtonManning <- function(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf) {
+setupFarringtonManning <- function(alpha, beta, r = 1, delta, delta_NI, n_max = Inf, ...) {
+  if (delta_NI == 0) warning("The non-inferiority margin equals 0! Do you want to conduct a chi square test?")
   new("FarringtonManning", alpha = alpha, beta = beta, r = r, delta = delta,
       delta_NI = delta_NI, n_max = n_max)
 }

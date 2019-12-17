@@ -4,7 +4,7 @@
 \alias{setupChiSquare}
 \title{Setup a Chi^2 test}
 \usage{
-setupChiSquare(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf)
+setupChiSquare(alpha, beta, r = 1, delta, n_max = Inf, ...)
 }
 \arguments{
 \item{alpha}{one-sided type I error rate}
@@ -15,9 +15,9 @@ setupChiSquare(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf)
 
 \item{delta}{difference of effect size between alternative and null hypothesis}
 
-\item{delta_NI}{non-inferiority margin}
-
 \item{n_max}{maximal overall sample size}
+
+\item{...}{further optional arguments}
 }
 \description{
 This function creates an object of class \code{ChiSquare} that can
