@@ -16,4 +16,8 @@ Suggests:
     testthat
 Imports:
     methods
+Collate:
+    test_statistics.R
+    methods.R
+    Student.R
 RoxygenNote: 7.0.2
