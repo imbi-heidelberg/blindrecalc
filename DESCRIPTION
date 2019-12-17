@@ -1,0 +1,14 @@
+Package: blindrecalc
+Type: Package
+Title: Blinded Sample Size Recalculation
+Version: 0.1.0
+Author: Lukas Baumann and Maximilian Pilz
+Maintainer: Maximilian Pilz <pilz@imbi.uni-heidelberg.de>
+Description: This package computes key characteristics
+    and allows the creation of plots for blinded sample
+    size recalculation.
+    Continuous as well as binary endpoints are supported
+    in superiority and non-inferiority trials.
+License: MIT LICENSE
+Encoding: UTF-8
+LazyData: true
