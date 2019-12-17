@@ -16,6 +16,14 @@ setClass("TestStatistic", representation(
   n_max    = "numeric"
 ))
 
+
+#' Student's t test
+#'
+#' TODO
+#'
+#' @aliases Student
+#' @exportClass Student
+#' @export
 setClass("Student", contains = "TestStatistic")
 
 setClass("ChiSquare", contains = "TestStatistic")

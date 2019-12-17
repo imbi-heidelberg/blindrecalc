@@ -12,4 +12,8 @@ Description: This package computes key characteristics
 License: MIT LICENSE
 Encoding: UTF-8
 LazyData: true
+Suggests: 
+    testthat
+Imports:
+    methods
 RoxygenNote: 7.0.2
