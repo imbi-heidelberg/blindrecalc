@@ -1,4 +1,4 @@
-#' Simulate rejection probability and sample size for Student's t-test
+#' Simulate Rejection Probability and Sample Size for Student's t-Test
 #'
 #' This function simulates the probability that a test defined by
 #' \code{\link{setupStudent}} rejects the null hypothesis.
@@ -16,8 +16,8 @@
 #' Pharmaceutical Statistics 15: 208-215.
 #'
 #' @export
-simulation <- function(s, n1, nuisance, recalculation = TRUE, Delta_star, iters = 1000, ...) {
-            if (s@r != 1) stop("the unbalanced case is not implemented yet!")
+simulation <- function(design, n1, nuisance, recalculation = TRUE, Delta_star, iters = 1000, ...) {
+            if (design@r != 1) stop("the unbalanced case is not implemented yet!")
 
             # Step 1
             z1 <- stats::rnorm(n = iters, mean = 0, sd = 1)
@@ -30,15 +30,15 @@ simulation <- function(s, n1, nuisance, recalculation = TRUE, Delta_star, iters 
             if (recalculation == FALSE) {
               n <- n1
               } else {
-                n_recalc <- 2 * (stats::qnorm(1 - s@alpha) + stats::qnorm(1 - s@beta))^2 / (s@delta - s@delta_NI)^2 * var_hat
-                n        <- sapply(n_recalc, function(m) min(s@n_max, max(ceiling(m), n1)))
+                n_recalc <- 2 * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 / (design@delta - design@delta_NI)^2 * var_hat
+                n        <- sapply(n_recalc, function(m) min(design@n_max, max(ceiling(m), n1)))
               }
             n2 <- n - n1
 
             f <- function(i) {
               # Step 4
               if(n2[i] == 0) {
-                test_statistic <- (z1[i] + sqrt(n1 / 2) * (Delta_star - s@delta_NI) / nuisance) / sqrt(v1[i] / (2 * n1 - 2))
+                test_statistic <- (z1[i] + sqrt(n1 / 2) * (Delta_star - design@delta_NI) / nuisance) / sqrt(v1[i] / (2 * n1 - 2))
                 } else {
                   # Step 5
                   z2 <- stats::rnorm(n = 1, mean = 0, sd = 1)
@@ -47,14 +47,14 @@ simulation <- function(s, n1, nuisance, recalculation = TRUE, Delta_star, iters 
 
                   test_statistic <-
                     (sqrt(n1 / n[i]) * z1[i] + sqrt(n2[i] / n[i]) * z2 + sqrt(n[i] / 2) *
-                       (Delta_star - s@delta_NI) / nuisance) / sqrt((v1[i] + v2) / (2 * n[i] - 2))
+                       (Delta_star - design@delta_NI) / nuisance) / sqrt((v1[i] + v2) / (2 * n[i] - 2))
                   }
               return(test_statistic)
             }
 
             test_statistic <- sapply(seq(1, iters, 1), f)
 
-            critical_value <- stats::qt(1 - s@alpha, df = 2 * n - 2)
+            critical_value <- stats::qt(1 - design@alpha, df = 2 * n - 2)
             reject <- ifelse(test_statistic >= critical_value, 1, 0)
 
             return(list(
@@ -68,9 +68,9 @@ simulation <- function(s, n1, nuisance, recalculation = TRUE, Delta_star, iters 
 #' @rdname toer
 #' @export
 setMethod("toer", signature("Student"),
-          function(s, n1, nuisance, recalculation = TRUE, iters, ...) {
+          function(design, n1, nuisance, recalculation = TRUE, iters, ...) {
             sapply(nuisance, function(sigma)
-              simulation(s, n1, sigma, recalculation, s@delta_NI, iters, ...)$rejection_probability)
+              simulation(design, n1, sigma, recalculation, design@delta_NI, iters, ...)$rejection_probability)
           })
 
 
@@ -78,18 +78,18 @@ setMethod("toer", signature("Student"),
 #' @rdname pow
 #' @export
 setMethod("pow", signature("Student"),
-          function(s, n1, nuisance, recalculation = TRUE, iters, ...) {
+          function(design, n1, nuisance, recalculation = TRUE, iters, ...) {
             sapply(nuisance, function(sigma)
-              simulation(s, n1, sigma, recalculation, s@delta, iters, ...)$rejection_probability)
+              simulation(design, n1, sigma, recalculation, design@delta, iters, ...)$rejection_probability)
           })
 
 
 #' @rdname n_fix
 #' @export
 setMethod("n_fix", signature("Student"),
-          function(s, nuisance, ...) {
-            (1 + s@r) * 2 * (stats::qnorm(1 - s@alpha) + stats::qnorm(1 - s@beta))^2 /
-              (s@delta - s@delta_NI)^2 * nuisance^2
+          function(design, nuisance, ...) {
+            (1 + design@r) * 2 * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
+              (design@delta - design@delta_NI)^2 * nuisance^2
           })
 
 
