@@ -2,21 +2,12 @@
 % Please edit documentation in R/Student.R
 \name{simulation}
 \alias{simulation}
-\title{Simulate rejection probability and sample size for Student's t-test}
+\title{Simulate Rejection Probability and Sample Size for Student's t-Test}
 \usage{
-simulation(
-  s,
-  n1,
-  nuisance,
-  recalculation = TRUE,
-  Delta_star,
-  iters = 1000,
-  ...
-)
+simulation(design, n1, nuisance, recalculation = TRUE, Delta_star,
+  iters = 1000, ...)
 }
 \arguments{
-\item{s}{object of class \code{TestStatistc} created by \code{setup}}
-
 \item{n1}{number of patients that are recruited before the sample size
 is recalculated}
 
@@ -30,6 +21,8 @@ patients are recruited?}
 \item{iters}{number of simulation iterations}
 
 \item{...}{further optional arguments}
+
+\item{s}{object of class \code{TestStatistc} created by \code{setup}}
 }
 \description{
 This function simulates the probability that a test defined by
