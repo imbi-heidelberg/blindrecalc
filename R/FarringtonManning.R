@@ -18,10 +18,10 @@ setMethod("n_fix", signature("FarringtonManning"),
 
     if (rounded) {
       n <- ceiling(n)
-      if (n %% (r + 1) == 0) {
+      if (n %% (design@r + 1) == 0) {
         return(n)
       } else {
-        n <- n + r + 1 - n %% (r + 1)
+        n <- n + design@r + 1 - n %% (design@r + 1)
         return(n)
       }
     } else {

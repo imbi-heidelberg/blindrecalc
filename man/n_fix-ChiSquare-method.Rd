@@ -6,7 +6,7 @@
 \title{Sample Size Calculation for the Chi-Squared Test}
 \usage{
 \S4method{n_fix}{ChiSquare}(design, nuisance,
-  variance = c("heterogeneous", "homogeneous"), ...)
+  variance = c("heterogeneous", "homogeneous"), rounded = TRUE, ...)
 }
 \arguments{
 \item{design}{an object of class \code{ChiSquare} created by \code{setupChiSquare()}.}

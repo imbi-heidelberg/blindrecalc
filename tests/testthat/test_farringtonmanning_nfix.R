@@ -32,10 +32,10 @@ test_that("n_fix works (Friede et al. 2007)", {
   expect_equal(ss6, 966)
 })
 
-test_that("n_fix returns NA if delta is unachievable", {
-  design_na <- setupFarringtonManning(alpha = 0.05, beta = 0.2,
-    r = 1, delta = 0.3, delta_NI = 0.1)
-  ss_na1 <- n_fix(design_na, nuisance = 0.1)
-  ss_na2 <- n_fix(design_na, nuisance = 0.9)
-})
-
+# test_that("n_fix returns NA if delta is unachievable", {
+#   design_na <- setupFarringtonManning(alpha = 0.05, beta = 0.2,
+#     r = 1, delta = 0.3, delta_NI = 0.1)
+#   ss_na1 <- n_fix(design_na, nuisance = 0.1)
+#   ss_na2 <- n_fix(design_na, nuisance = 0.9)
+# })
+#
