@@ -1,4 +1,4 @@
-#' Type I error rate
+#' Type I Error Rate
 #'
 #' Computes the type I error rate of a design with blinded sample size recalculation
 #' by simulation (in the continuous case) or exactly (in the binary case)
@@ -10,9 +10,9 @@
 #' @return one type I error rate value for every nuisance parameter
 #'
 #' @export
-setGeneric("toer", function(s, n1, nuisance, recalculation, ...) standardGeneric("toer"))
-
-
+setGeneric("toer", function(design, n1, nuisance, recalculation, ...) {
+  standardGeneric("toer")
+  })
 
 
 #' Power
@@ -21,19 +21,23 @@ setGeneric("toer", function(s, n1, nuisance, recalculation, ...) standardGeneric
 #' @template dotdotdot
 #'
 #' @export
-setGeneric("pow", function(s, n1, nuisance, recalculation, ...) standardGeneric("pow"))
+setGeneric("pow", function(design, n1, nuisance, recalculation, ...) {
+  standardGeneric("pow")
+})
 
 
-#' Distribution of the sample size
+#' Distribution of the Sample Size
 #'
 #' @template methods
 #' @template dotdotdot
 #'
 #' @export
-setGeneric("sample_size_dist", function(s, n1, nuisance, recalculation,  ...) standardGeneric("sample_size_dist"))
+setGeneric("sample_size_dist", function(design, n1, nuisance, recalculation,  ...) {
+  standardGeneric("sample_size_dist")
+})
 
 
-#' Fixed sample size
+#' Fixed Sample Size
 #'
 #' Returns the sample size for the corresponding one-stage design without
 #' sample size recalculation.
@@ -43,4 +47,6 @@ setGeneric("sample_size_dist", function(s, n1, nuisance, recalculation,  ...) st
 #' @template dotdotdot
 #'
 #' @export
-setGeneric("n_fix", function(s, nuisance, ...) standardGeneric("n_fix"))
+setGeneric("n_fix", function(design, nuisance, ...) {
+  standardGeneric("n_fix")
+})

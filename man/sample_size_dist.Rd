@@ -2,13 +2,11 @@
 % Please edit documentation in R/methods.R
 \name{sample_size_dist}
 \alias{sample_size_dist}
-\title{Distribution of the sample size}
+\title{Distribution of the Sample Size}
 \usage{
-sample_size_dist(s, n1, nuisance, recalculation, ...)
+sample_size_dist(design, n1, nuisance, recalculation, ...)
 }
 \arguments{
-\item{s}{object of class \code{TestStatistc} created by \code{setup}}
-
 \item{n1}{number of patients that are recruited before the sample size
 is recalculated}
 
@@ -18,7 +16,9 @@ is recalculated}
 patients are recruited?}
 
 \item{...}{further optional arguments}
+
+\item{s}{object of class \code{TestStatistc} created by \code{setup}}
 }
 \description{
-Distribution of the sample size
+Distribution of the Sample Size
 }

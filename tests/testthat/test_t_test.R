@@ -8,12 +8,12 @@ test_that("Example of Lu can be reproduced", {
   expect_equal(
     toer(design, 20, 5.5, TRUE, its),
     design@alpha,
-    tolerance = 1 / sqrt(its), scale = 1)
+    tolerance = 2 / sqrt(its), scale = 1)
 
 
   expect_equal(
     pow(design, 20, 5.5, TRUE, its),
     1 - design@beta,
-    tolerance = 1 / sqrt(its), scale = 1)
+    tolerance = 2 / sqrt(its), scale = 1)
 
 })

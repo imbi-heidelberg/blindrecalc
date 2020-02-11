@@ -10,5 +10,4 @@ r_packages:
   - devtools
 
 after_success:
-    - Rscript -e 'covr::codecov()'
-    - Rscript -e 'library(covr); covr::codecov()'
+  - travis_wait 60 Rscript -e 'library(covr); covr::codecov()'

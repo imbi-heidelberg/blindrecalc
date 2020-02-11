@@ -9,12 +9,13 @@
 #' @aliases TestStatistic
 #' @exportClass TestStatistic
 setClass("TestStatistic", slots = c(
-  alpha    = "numeric",
-  beta     = "numeric",
-  r        = "numeric",
-  delta    = "numeric",
-  delta_NI = "numeric",
-  n_max    = "numeric"
+  alpha       = "numeric",
+  beta        = "numeric",
+  r           = "numeric",
+  delta       = "numeric",
+  delta_NI    = "numeric",
+  alternative = "character",
+  n_max       = "numeric"
 ))
 
 
@@ -79,9 +80,10 @@ setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf, .
 #'
 #' @rdname ChiSquare
 #' @export
-setupChiSquare <- function(alpha, beta, r = 1, delta, n_max = Inf, ...) {
+setupChiSquare <- function(alpha, beta, r = 1, delta, alternative = "greater",
+                           n_max = Inf, ...) {
   new("ChiSquare", alpha = alpha, beta = beta, r = r, delta = delta,
-      delta_NI = 0, n_max = n_max)
+      delta_NI = 0, alternative = alternative, n_max = n_max)
 }
 
 
@@ -102,5 +104,5 @@ setupChiSquare <- function(alpha, beta, r = 1, delta, n_max = Inf, ...) {
 setupFarringtonManning <- function(alpha, beta, r = 1, delta, delta_NI, n_max = Inf, ...) {
   if (delta_NI == 0) warning("The non-inferiority margin equals 0! Do you want to conduct a chi square test?")
   new("FarringtonManning", alpha = alpha, beta = beta, r = r, delta = delta,
-      delta_NI = delta_NI, n_max = n_max)
+      delta_NI = delta_NI, alternative = "greater", n_max = n_max)
 }

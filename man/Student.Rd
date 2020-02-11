@@ -4,7 +4,8 @@
 \alias{setupStudent}
 \title{Setup Student's t-test}
 \usage{
-setupStudent(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf, ...)
+setupStudent(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf,
+  ...)
 }
 \arguments{
 \item{alpha}{one-sided type I error rate}
