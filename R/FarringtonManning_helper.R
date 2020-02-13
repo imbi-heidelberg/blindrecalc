@@ -15,3 +15,133 @@ p_rml <- function(p_c, p_e, r, margin) {
 
   return(c(pt_c, pt_e))
 }
+
+fm_fix_reject <- function(design, n, nuisance, type = c("size", "power"),
+                          ...) {
+
+  p0_e <- nuisance - design@delta_NI / (1 + design@r)
+  p0_c <- p0_e + design@delta_NI
+  if (p0_e < 0 | p0_c > 1) {
+    stop("combination of nuisance and delta_NI implies probabilities outside [0, 1]")
+  }
+
+  if (type == "power") {
+    p1_e <- nuisance - design@delta / (1 + design@r)
+    p1_c <- p1_e + design@delta
+    if (p1_e < 0 | p1_c > 1) {
+      stop("combination of nuisance and delta implies probabilities outside [0, 1]")
+    }
+  }
+
+  reject_prob <- 0
+  krit <- stats::qnorm(1 - design@alpha / 2)
+  n_c <- ceiling(n / (design@r + 1))
+  n_e <- ceiling(n * design@r / (design@r + 1))
+  for (i in 0:n_c) {
+    for (j in 0:n_e) {
+      if(i + j == 0 | i + j == n) next
+      p_c <- i / n_c
+      p_e <- j / n_e
+      pt <- p_rml(p_c, p_e, design@r, design@delta_NI)
+      pt_c <- pt[1]
+      pt_e <- pt[2]
+
+      se <- sqrt((design@r * pt_c * (1 - pt_c) + pt_e * (1 - pt_e)) / n_c)
+      ts <- (p_e - p_c + design@delta_NI) / se
+
+      ind <- ts > krit
+      if (ind & type == "size") {
+        reject_prob <- reject_prob + choose(n_c, i) * choose(n_e, j) * p0_c^i *
+          (1 - p0_c)^(n_c - i) * p0_e^j * (1 - p0_e)^(n_e - j)
+      } else if (ind & type == "power") {
+        reject_prob <- reject_prob + choose(n_c, i) * choose(n_e, j) * p1_c^i *
+          (1 - p1_c)^(n_c - i) * p1_e^j * (1 - p1_e)^(n_e - j)
+      }
+    }
+  }
+  return(reject_prob)
+}
+
+fm_recalc_reject <- function(design, n1, nuisance, type = c("size", "power"),
+                             allocation = c("exact", "approximate"), ...) {
+  p0_e <- nuisance - design@delta_NI / (1 + design@r)
+  p0_c <- p0_e + design@delta_NI
+  if (p0_e < 0 | p0_c > 1) {
+    stop("combination of nuisance and delta_NI implies probabilities outside [0, 1]")
+  }
+
+  if (type == "power") {
+    p1_e <- nuisance - design@delta / (1 + design@r)
+    p1_c <- p1_e + design@delta
+    if (p1_e < 0 | p1_c > 1) {
+      stop("combination of nuisance and delta implies probabilities outside [0, 1]")
+    }
+  }
+
+  reject_prob <- 0
+  krit <- stats::qnorm(1 - design@alpha / 2)
+  n_c1 <- ceiling(n1 / (design@r + 1))
+  n_e1 <- ceiling(n1 * design@r / (design@r + 1))
+
+  for (i in 0:n_c1) {
+    for (j in 0:n_e1) {
+      p_c <- i / n_c1
+      p_e <- j / n_e1
+      p_hat <- (i + j) / (n_c1 + n_e1)
+
+      if (allocation == "exact") {
+        n_new <- n_fix(design, p_hat, ...)
+      } else {
+        n_new <- ceiling(n_fix(design, p_hat,
+          rounded = FALSE, ...))
+      }
+      n_new <- min(n_new, design@n_max)
+
+      if ((n_new > 0 & n_new <= n1) | is.na(n_new)) {
+        pt <- p_rml(p_c, p_e, design@r, design@delta_NI)
+        pt_c <- pt[1]
+        pt_e <- pt[2]
+        se <- sqrt((design@r * pt_c * (1 - pt_c) + pt_e * (1 - pt_e)) / n_c1)
+        ts <- (p_e - p_c + design@delta_NI) / se
+        ind <- ts > krit
+        if (ind & type == "size") {
+          reject_prob <- reject_prob + choose(n_c1, i) * choose(n_e1, j) *
+            p0_c^i * (1 - p0_c)^(n_c1 - i) * p0_e^j * (1 - p0_e)^(n_e1 - j)
+        } else if (ind & type == "power") {
+          # fehlt
+        }
+      } else {
+        n2 <- n_new - (n_c1 + n_e1)
+        n_c2 <- ceiling(n2 / (design@r + 1))
+        n_e2 <- ceiling(n2 * design@r / (design@r + 1))
+
+        for (k in 0:n_c2) {
+          for (l in 0:n_e2) {
+            n_cdot <- n_c1 + n_c2
+            n_edot <- n_e1 + n_e2
+            p_c <- (i + k) / n_cdot
+            p_e <- (j + l) / n_edot
+            pt <- p_rml(p_c, p_e, design@r, design@delta_NI)
+            pt_c <- pt[1]
+            pt_e <- pt[2]
+            se <- sqrt((design@r * pt_c * (1 - pt_c) + pt_e * (1 - pt_e)) / n_cdot)
+            ts <- (p_e - p_c + design@delta_NI) / se
+            ind <- ts > krit
+            if (ind & type == "size") {
+              reject_prob <- reject_prob + choose(n_c1, i) * choose(n_e1, j) *
+                choose(n_c2, k) * choose(n_e2, l) * p0_c^(i + k) *
+                (1 - p0_c)^(n_cdot - (i + k)) * p0_e^(j + l) *
+                (1 - p0_e)^(n_edot - (j + l))
+            } else if (ind & type == "power") {
+              reject_prob <- reject_prob + choose(n_c1, i) * choose(n_e1, j) *
+                choose(n_c2, k) * choose(n_e2, l) * p1_c^(i + k) *
+                (1 - p1_c)^(n_cdot - (i + k)) * p1_e^(j + l) *
+                (1 - p1_e)^(n_edot - (j + l))
+            }
+          }
+        }
+      }
+    }
+  }
+  return(reject_prob)
+}

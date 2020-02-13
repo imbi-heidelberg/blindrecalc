@@ -21,6 +21,8 @@ test_that("Example of Lu can be reproduced", {
 
 
 test_that("Alpha can be adjusted in non-inferiority case", {
+  set.seed(2020)
+
   design <- setupStudent(alpha = .025, beta = .2, r = 2, delta = 3.5,
                          delta_NI = -1.5, n_max = Inf)
 

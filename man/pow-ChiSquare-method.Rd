@@ -19,7 +19,7 @@ sample size of the first stage (if \code{design} is \code{"ips"})}
 
 \item{nuisance}{the overall response rate.}
 
-\item{recalculation}{}
+\item{allocation}{}
 }
 \value{
 

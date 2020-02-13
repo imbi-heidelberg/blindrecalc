@@ -16,7 +16,8 @@ Suggests:
     testthat,
     covr
 Imports:
-    methods
+    methods,
+    Rcpp
 Collate:
     test_statistics.R
     methods.R
@@ -26,4 +27,7 @@ Collate:
 	ChiSquare_helper.R
 	FarringtonManning.R 
 	FarringtonManning_helper.R
+	RcppExports.R
 RoxygenNote: 7.0.2
+LinkingTo: 
+    Rcpp
