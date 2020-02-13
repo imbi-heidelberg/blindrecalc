@@ -5,6 +5,7 @@
 #' for one or several values of the nuisance parameter.
 #'
 #' @template methods
+#' @template recalculation
 #' @template dotdotdot
 #'
 #' @return one type I error rate value for every nuisance parameter
@@ -18,6 +19,7 @@ setGeneric("toer", function(design, n1, nuisance, recalculation, ...) {
 #' Power
 #'
 #' @template methods
+#' @template recalculation
 #' @template dotdotdot
 #'
 #' @export
@@ -29,12 +31,30 @@ setGeneric("pow", function(design, n1, nuisance, recalculation, ...) {
 #' Distribution of the Sample Size
 #'
 #' @template methods
+#' @template recalculation
 #' @template dotdotdot
 #'
 #' @export
 setGeneric("sample_size_dist", function(design, n1, nuisance, recalculation,  ...) {
   standardGeneric("sample_size_dist")
 })
+
+
+
+#' Adjusted level of significance
+#'
+#' This method returns an adjusted significance level that can be used
+#' such that the actual type I error rate is protected.
+#'
+#' @template methods
+#' @param tol desired absolute tolerance
+#'
+#' @export
+setGeneric("adjusted_alpha", function(design, n1, nuisance, tol, ...) {
+  standardGeneric("adjusted_alpha")
+})
+
+
 
 
 #' Fixed Sample Size

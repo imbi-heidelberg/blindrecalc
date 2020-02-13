@@ -4,8 +4,15 @@
 \alias{simulation}
 \title{Simulate Rejection Probability and Sample Size for Student's t-Test}
 \usage{
-simulation(design, n1, nuisance, recalculation = TRUE, Delta_star,
-  iters = 1000, ...)
+simulation(
+  design,
+  n1,
+  nuisance,
+  recalculation = TRUE,
+  Delta_star,
+  iters = 1000,
+  ...
+)
 }
 \arguments{
 \item{n1}{number of patients that are recruited before the sample size
