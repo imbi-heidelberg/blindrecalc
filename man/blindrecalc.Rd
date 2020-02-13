@@ -3,7 +3,6 @@
 \docType{package}
 \name{blindrecalc}
 \alias{blindrecalc}
-\alias{blindrecalc-package}
 \title{Blinded Sample Size Recalculation}
 \description{
 The package \pkg{blindrecalc} provides characteristics and plots
