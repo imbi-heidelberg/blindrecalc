@@ -14,7 +14,7 @@ sample size of the first stage (if \code{design} is \code{"ips"})}
 
 \item{nuisance}{the overall response rate.}
 
-\item{recalculation}{}
+\item{allocation}{}
 }
 \description{
 Calculation of the power of the chi-squared test for the fixed sample design and the

@@ -9,7 +9,9 @@
 #' For superiority trials with binary endpoint, the chi^2-test is implemented.
 #' The Farrington Manning test covers non-inferiority trials with binary endpoint.
 #'
+#' @useDynLib blindrecalc
 #' @import methods
+#' @importFrom Rcpp sourceCpp
 #' @docType package
 #' @name blindrecalc
 NULL

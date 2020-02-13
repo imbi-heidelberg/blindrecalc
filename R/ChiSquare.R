@@ -60,6 +60,7 @@ setMethod("n_fix", signature("ChiSquare"),
 #' sample size of the first stage (if \code{design} is \code{"ips"})
 #' @param nuisance the overall response rate.
 #' @param recalculation
+#' @param allocation
 #'
 #' @return
 #' @export
@@ -71,7 +72,7 @@ setMethod("toer", signature("ChiSquare"),
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
       if (n1 %% (design@r + 1) != 0) {
-        stop("no integer sample sizes for first stage")
+        stop("no integer sample sizes")
       }
       if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
         stop("no integer sample sizes for n_max")
@@ -80,11 +81,15 @@ setMethod("toer", signature("ChiSquare"),
     if (nuisance < 0 | nuisance > 1) {
       stop("nuisance has to be within [0, 1]")
     }
+    if (design@n_max < n1) {
+      stop("n_max is smaller than n1")
+    }
 
     if (recalculation) {
-      chisq_recalc_reject(design, n1, nuisance, "size", allocation, ...)
+      nmat <- get_nmat_chisq(design, n1, allocation, ...)
+      chisq_recalc_reject(design, n1, nuisance, "size", nmat)
     } else {
-      chisq_fix_reject(design, n1, nuisance, "size", ...)
+      chisq_fix_reject(design, n1, nuisance, "size")
     }
   })
 
@@ -98,6 +103,7 @@ setMethod("toer", signature("ChiSquare"),
 #' sample size of the first stage (if \code{design} is \code{"ips"})
 #' @param nuisance the overall response rate.
 #' @param recalculation
+#' @param allocation
 #'
 #' @return
 #' @export
@@ -120,8 +126,9 @@ setMethod("pow", signature("ChiSquare"),
     }
 
     if (recalculation) {
-      chisq_recalc_reject(design, n1, nuisance, "power", allocation, ...)
+      nmat <- get_nmat_chisq(design, n1, allocation, ...)
+      chisq_recalc_reject(design, n1, nuisance, "power", nmat)
     } else {
-      chisq_fix_reject(design, n1, nuisance, "power", ...)
+      chisq_fix_reject(design, n1, nuisance, "power")
     }
   })

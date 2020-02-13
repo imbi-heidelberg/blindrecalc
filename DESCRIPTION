@@ -27,6 +27,7 @@ Collate:
 	ChiSquare_helper.R
 	FarringtonManning.R 
 	FarringtonManning_helper.R
+	RcppExports.R
 RoxygenNote: 7.0.2
 LinkingTo: 
     Rcpp
