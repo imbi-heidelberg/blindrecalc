@@ -61,9 +61,10 @@ setClass("FarringtonManning", contains = "TestStatistic")
 #'
 #' @rdname Student
 #' @export
-setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf, ...) {
+setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0, alternative = "greater",
+                         n_max = Inf, ...) {
   new("Student", alpha = alpha, beta = beta, r = r, delta = delta,
-      delta_NI = delta_NI, n_max = n_max)
+      delta_NI = delta_NI, alternative = alternative, n_max = n_max)
 }
 
 
