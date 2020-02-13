@@ -6,6 +6,7 @@
 #' of the outcome variable sigma^2.
 #'
 #' @template methods
+#' @template recalculation
 #' @param Delta_star effect measure under which the rejection probabilities are computed
 #' @template iters
 #' @template dotdotdot
@@ -93,3 +94,32 @@ setMethod("n_fix", signature("Student"),
               (design@delta - design@delta_NI)^2 * nuisance^2
           })
 
+
+#' @template iters
+#' @rdname adjusted_alpha
+#'
+#' @details In the case of the Student's t-test, the adjusted alpha is calculated
+#' using the algorithm by Kieser and Friede (2000):
+#' "Re-calculating the sample size in internal pilot study designs
+#' with control of the type I error rate"
+#'
+#' @export
+setMethod("adjusted_alpha", signature("Student"),
+          function(design, n1, nuisance, tol, iters, ...) {
+            alpha_max <- function(alp) {
+              d       <- design
+              d@alpha <- alp
+              return(max(toer(d, n1, nuisance, TRUE, iters)))
+            }
+
+            alpha_adj <- design@alpha
+            alpha_act <- alpha_max(alpha_adj)
+
+            while(alpha_act - design@alpha > tol) {
+              alpha_adj <- alpha_adj * design@alpha / alpha_act
+              alpha_act <- alpha_max(alpha_adj)
+            }
+
+            return(alpha_adj)
+
+          })
