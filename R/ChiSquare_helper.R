@@ -1,3 +1,25 @@
+get_nmat_chisq <- function(design, n1, allocation, ...) {
+  n_c1 <- ceiling(n1 / (design@r + 1))
+  n_e1 <- ceiling(n1 * design@r / (design@r + 1))
+  p_hatfun <- function(i, j, n_c1, n_e1) {
+    (i + j) / (n_c1 + n_e1)
+  }
+  out.mat <- expand.grid(i = 0:n_c1, j = 0:n_e1)
+
+  out.mat$p_hat <- mapply(p_hatfun, i = out.mat$i, j = out.mat$j,
+    MoreArgs = list(n_c1 = n_c1, n_e1 = n_e1))
+
+  if (allocation == "exact") {
+    out.mat$n <- sapply(out.mat$p_hat, function(x) n_fix(design, nuisance = x, ...))
+  } else {
+    out.mat$n <- ceiling(sapply(out.mat$p_hat, function(x) n_fix(design, nuisance = x,
+      rounded = FALSE, ...)))
+  }
+  out.mat$n <- pmin(out.mat$n, design@n_max)
+  out.mat$n <- ifelse(is.na(out.mat$n), -99, out.mat$n)
+  return(as.matrix(out.mat))
+}
+
 # chisq_fix_reject <- function(design, n, nuisance, type = c("size", "power"),
 #                              ...) {
 #   reject_prob <- 0
@@ -42,28 +64,6 @@
 #   }
 #   return(reject_prob)
 # }
-
-get_nmat_chisq <- function(design, n1, allocation, ...) {
-  n_c1 <- ceiling(n1 / (design@r + 1))
-  n_e1 <- ceiling(n1 * design@r / (design@r + 1))
-  p_hatfun <- function(i, j, n_c1, n_e1) {
-    (i + j) / (n_c1 + n_e1)
-  }
-  out.mat <- expand.grid(i = 0:n_c1, j = 0:n_e1)
-
-  out.mat$p_hat <- mapply(p_hatfun, i = out.mat$i, j = out.mat$j,
-    MoreArgs = list(n_c1 = n_c1, n_e1 = n_e1))
-
-  if (allocation == "exact") {
-    out.mat$n <- sapply(out.mat$p_hat, function(x) n_fix(design, nuisance = x, ...))
-  } else {
-    out.mat$n <- ceiling(sapply(out.mat$p_hat, function(x) n_fix(design, nuisance = x,
-      rounded = FALSE, ...)))
-  }
-  out.mat$n <- pmin(out.mat$n, design@n_max)
-  out.mat$n <- ifelse(is.na(out.mat$n), -99, out.mat$n)
-  return(as.matrix(out.mat))
-}
 
 # chisq_recalc_reject1 <- function(design, n1, nuisance, type = c("size", "power"),
 #                                 allocation = c("exact", "approximate"), ...) {

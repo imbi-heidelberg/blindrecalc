@@ -78,9 +78,10 @@ setMethod("toer", signature("FarringtonManning"),
     }
 
     if (recalculation) {
-      fm_recalc_reject(design, n1, nuisance, "size", allocation)
+      nmat <- get_nmat_fm(design, n1, allocation, ...)
+      fm_recalc_reject(design, n1, nuisance, "size", nmat)
     } else {
-      fm_fix_reject(design, n1, nuisance, "size", ...)
+      fm_fix_reject(design, n1, nuisance, "size")
     }
   })
 
@@ -116,9 +117,11 @@ function(design, n1, nuisance, recalculation,
     stop("nuisance has to be within [0, 1]")
   }
 
+
   if (recalculation) {
-    fm_recalc_reject(design, n1, nuisance, "power", allocation, ...)
+    nmat <- get_nmat_fm(design, n1, allocation, ...)
+    fm_recalc_reject(design, n1, nuisance, "power", nmat)
   } else {
-    fm_fix_reject(design, n1, nuisance, "power", ...)
+    fm_fix_reject(design, n1, nuisance, "power")
   }
 })
