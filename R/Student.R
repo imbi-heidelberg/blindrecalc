@@ -103,7 +103,8 @@ setMethod("sample_size_dist", signature("Student"),
             if (plot == TRUE) {
               graphics::par(c(list(mfrow = c(1, length(nuisance)))))
               for (i in 1:length(nuisance)) {
-                graphics::boxplot(n[, i], range = 0, xlab = paste(expression(sigma),"=",nuisance[i]))
+                graphics::boxplot(n[, i], range = 0, xlab = paste(expression(sigma),"=",nuisance[i]),
+                                  ylim = c(min(n), max(n)))
               }
             }
 
