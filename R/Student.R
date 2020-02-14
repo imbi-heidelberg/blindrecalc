@@ -66,6 +66,8 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, Delta_star, i
 }
 
 
+
+
 #' @template iters
 #' @rdname toer
 #' @export
@@ -76,6 +78,8 @@ setMethod("toer", signature("Student"),
           })
 
 
+
+
 #' @template iters
 #' @rdname pow
 #' @export
@@ -84,6 +88,8 @@ setMethod("pow", signature("Student"),
             n <- sapply(nuisance, function(sigma)
               simulation(design, n1, sigma, recalculation, design@delta, iters, ...)$sample_sizes)
           })
+
+
 
 
 #' @template iters
@@ -111,6 +117,8 @@ setMethod("sample_size_dist", signature("Student"),
           })
 
 
+
+
 #' @rdname n_fix
 #' @export
 setMethod("n_fix", signature("Student"),
@@ -118,6 +126,8 @@ setMethod("n_fix", signature("Student"),
             (1 + design@r) * 2 * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
               (design@delta - design@delta_NI)^2 * nuisance^2
           })
+
+
 
 
 #' @param tol desired absolute tolerance
