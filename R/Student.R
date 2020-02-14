@@ -81,8 +81,33 @@ setMethod("toer", signature("Student"),
 #' @export
 setMethod("pow", signature("Student"),
           function(design, n1, nuisance, recalculation = TRUE, iters, ...) {
-            sapply(nuisance, function(sigma)
-              simulation(design, n1, sigma, recalculation, design@delta, iters, ...)$rejection_probability)
+            n <- sapply(nuisance, function(sigma)
+              simulation(design, n1, sigma, recalculation, design@delta, iters, ...)$sample_sizes)
+          })
+
+
+#' @template iters
+#' @rdname sample_size_dist
+#' @export
+setMethod("sample_size_dist", signature("Student"),
+          function(design, n1, nuisance, summary, plot, iters, ...) {
+            n <- sapply(nuisance, function(sigma)
+              simulation(design, n1, sigma, recalculation = TRUE, design@delta, iters, ...)$sample_sizes)
+
+            if (plot == TRUE) {
+              graphics::par(c(list(mfrow = c(1, length(nuisance)))))
+              for (i in 1:length(nuisance)) {
+                graphics::boxplot(n[, i], range = 0, xlab = paste(expression(sigma),"=",nuisance[i]))
+              }
+            }
+
+            n <- data.frame(n)
+            for (i in 1:ncol(n))
+              colnames(n)[i] <- paste(expression(sigma),"=",nuisance[i])
+
+            if (summary == TRUE) return(summary(n))
+            else return(n)
+
           })
 
 
@@ -95,6 +120,7 @@ setMethod("n_fix", signature("Student"),
           })
 
 
+#' @param tol desired absolute tolerance
 #' @template iters
 #' @rdname adjusted_alpha
 #'
