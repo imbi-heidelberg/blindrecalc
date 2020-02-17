@@ -73,8 +73,19 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, Delta_star, i
 #' @export
 setMethod("toer", signature("Student"),
           function(design, n1, nuisance, recalculation = TRUE, iters, ...) {
-            sapply(nuisance, function(sigma)
-              simulation(design, n1, sigma, recalculation, design@delta_NI, iters, ...)$rejection_probability)
+            if (length(nuisance) > 1 && length(n1) > 1) {
+              stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
+            }
+
+            if (length(nuisance) > 1) {
+              sapply(nuisance, function(sigma)
+                simulation(design, n1, sigma, recalculation, design@delta_NI, iters, ...)$rejection_probability)
+            }
+
+            if (length(n1) > 1) {
+              sapply(n1, function(n1)
+                simulation(design, n1, nuisance, recalculation, design@delta_NI, iters, ...)$rejection_probability)
+            }
           })
 
 
@@ -85,8 +96,20 @@ setMethod("toer", signature("Student"),
 #' @export
 setMethod("pow", signature("Student"),
           function(design, n1, nuisance, recalculation = TRUE, iters, ...) {
-            n <- sapply(nuisance, function(sigma)
-              simulation(design, n1, sigma, recalculation, design@delta, iters, ...)$sample_sizes)
+            if (length(nuisance) > 1 && length(n1) > 1) {
+              stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
+            }
+
+            if (length(nuisance) > 1) {
+              sapply(nuisance, function(sigma)
+                simulation(design, n1, sigma, recalculation, design@delta, iters, ...)$rejection_probability)
+            }
+
+            if (length(n1) > 1) {
+              sapply(n1, function(n1)
+                simulation(design, n1, nuisance, recalculation, design@delta, iters, ...)$rejection_probability)
+            }
+
           })
 
 
@@ -97,23 +120,50 @@ setMethod("pow", signature("Student"),
 #' @export
 setMethod("sample_size_dist", signature("Student"),
           function(design, n1, nuisance, summary, plot, iters, ...) {
-            n <- sapply(nuisance, function(sigma)
-              simulation(design, n1, sigma, recalculation = TRUE, design@delta, iters, ...)$sample_sizes)
-
-            if (plot == TRUE) {
-              graphics::par(c(list(mfrow = c(1, length(nuisance)))))
-              for (i in 1:length(nuisance)) {
-                graphics::boxplot(n[, i], range = 0, xlab = paste(expression(sigma),"=",nuisance[i]),
-                                  ylim = c(min(n), max(n)))
-              }
+            if (length(nuisance) > 1 && length(n1) > 1) {
+              stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
 
-            n <- data.frame(n)
-            for (i in 1:ncol(n))
-              colnames(n)[i] <- paste(expression(sigma),"=",nuisance[i])
+            if (length(nuisance) > 1) {
+              n <- sapply(nuisance, function(sigma)
+                simulation(design, n1, sigma, recalculation = TRUE, design@delta, iters, ...)$sample_sizes)
 
-            if (summary == TRUE) return(summary(n))
-            else return(n)
+              if (plot == TRUE) {
+                graphics::par(c(list(mfrow = c(1, length(nuisance)))))
+                for (i in 1:length(nuisance)) {
+                  graphics::boxplot(n[, i], range = 0, xlab = paste(expression(sigma),"=",nuisance[i]),
+                                    ylim = c(min(n), max(n)))
+                }
+              }
+
+              n <- data.frame(n)
+              for (i in 1:ncol(n))
+                colnames(n)[i] <- paste(expression(sigma),"=",nuisance[i])
+
+              if (summary == TRUE) return(summary(n))
+              else return(n)
+            }
+
+            if (length(n1) > 1) {
+              n <- sapply(n1, function(n1)
+                simulation(design, n1, nuisance, recalculation = TRUE, design@delta, iters, ...)$sample_sizes)
+
+              if (plot == TRUE) {
+                graphics::par(c(list(mfrow = c(1, length(n1)))))
+                for (i in 1:length(n1)) {
+                  graphics::boxplot(n[, i], range = 0, xlab = paste(expression(n_1),"=",n1[i]),
+                                    ylim = c(min(n), max(n)))
+                }
+              }
+
+              n <- data.frame(n)
+              for (i in 1:ncol(n))
+                colnames(n)[i] <- paste(expression(n_1),"=",n1[i])
+
+              if (summary == TRUE) return(summary(n))
+              else return(n)
+            }
+
 
           })
 
@@ -124,8 +174,10 @@ setMethod("sample_size_dist", signature("Student"),
 #' @export
 setMethod("n_fix", signature("Student"),
           function(design, nuisance, ...) {
-            (1 + design@r)^2 / design@r * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
-              (design@delta - design@delta_NI)^2 * nuisance^2
+            sapply(nuisance, function(sigma)
+              (1 + design@r)^2 / design@r * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
+                (design@delta - design@delta_NI)^2 * sigma^2
+            )
           })
 
 
