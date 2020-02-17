@@ -73,19 +73,19 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, Delta_star, i
 #' @rdname toer
 #' @export
 setMethod("toer", signature("Student"),
-          function(design, n1, nuisance, recalculation = TRUE, iters, seed, ...) {
+          function(design, n1, nuisance, recalculation = TRUE, iters = 1e4, seed = NULL, ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
 
-            if (length(nuisance) > 1) {
-              sapply(nuisance, function(sigma)
-                simulation(design, n1, sigma, recalculation, design@delta_NI, iters, seed, ...)$rejection_probability)
+            if (length(n1) == 1) {
+              return(sapply(nuisance, function(sigma)
+                simulation(design, n1, sigma, recalculation, design@delta_NI, iters, seed, ...)$rejection_probability))
             }
 
-            if (length(n1) > 1) {
-              sapply(n1, function(n1)
-                simulation(design, n1, nuisance, recalculation, design@delta_NI, iters, seed, ...)$rejection_probability)
+            if (length(nuisance) == 1) {
+              return(sapply(n1, function(n1)
+                simulation(design, n1, nuisance, recalculation, design@delta_NI, iters, seed, ...)$rejection_probability))
             }
           })
 
@@ -96,19 +96,19 @@ setMethod("toer", signature("Student"),
 #' @rdname pow
 #' @export
 setMethod("pow", signature("Student"),
-          function(design, n1, nuisance, recalculation = TRUE, iters, seed, ...) {
+          function(design, n1, nuisance, recalculation = TRUE, iters = 1e4, seed = NULL, ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
 
-            if (length(nuisance) > 1) {
-              sapply(nuisance, function(sigma)
-                simulation(design, n1, sigma, recalculation, design@delta, iters, seed, ...)$rejection_probability)
+            if (length(n1) == 1) {
+              return(sapply(nuisance, function(sigma)
+                simulation(design, n1, sigma, recalculation, design@delta, iters, seed, ...)$rejection_probability))
             }
 
-            if (length(n1) > 1) {
-              sapply(n1, function(n1)
-                simulation(design, n1, nuisance, recalculation, design@delta, iters, seed, ...)$rejection_probability)
+            if (length(nuisance) == 1) {
+              return(sapply(n1, function(n1)
+                simulation(design, n1, nuisance, recalculation, design@delta, iters, seed, ...)$rejection_probability))
             }
 
           })
@@ -120,12 +120,12 @@ setMethod("pow", signature("Student"),
 #' @rdname sample_size_dist
 #' @export
 setMethod("sample_size_dist", signature("Student"),
-          function(design, n1, nuisance, summary, plot, iters, seed, ...) {
+          function(design, n1, nuisance, summary = TRUE, plot = FALSE, iters = 1e4, seed = NULL, ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
 
-            if (length(nuisance) > 1) {
+            if (length(n1) == 1) {
               n <- sapply(nuisance, function(sigma)
                 simulation(design, n1, sigma, recalculation = TRUE, design@delta, iters, seed, ...)$sample_sizes)
 
@@ -140,12 +140,9 @@ setMethod("sample_size_dist", signature("Student"),
               n <- data.frame(n)
               for (i in 1:ncol(n))
                 colnames(n)[i] <- paste(expression(sigma),"=",nuisance[i])
-
-              if (summary == TRUE) return(summary(n))
-              else return(n)
             }
 
-            if (length(n1) > 1) {
+            if (length(nuisance) == 1) {
               n <- sapply(n1, function(n1)
                 simulation(design, n1, nuisance, recalculation = TRUE, design@delta, iters, seed, ...)$sample_sizes)
 
@@ -160,11 +157,10 @@ setMethod("sample_size_dist", signature("Student"),
               n <- data.frame(n)
               for (i in 1:ncol(n))
                 colnames(n)[i] <- paste(expression(n_1),"=",n1[i])
-
-              if (summary == TRUE) return(summary(n))
-              else return(n)
             }
 
+            if (summary == TRUE) return(summary(n))
+            else return(n)
 
           })
 
@@ -195,7 +191,7 @@ setMethod("n_fix", signature("Student"),
 #'
 #' @export
 setMethod("adjusted_alpha", signature("Student"),
-          function(design, n1, nuisance, tol, iters, seed, ...) {
+          function(design, n1, nuisance, tol, iters = 1e4, seed = NULL, ...) {
             alpha_max <- function(alp) {
               d       <- design
               d@alpha <- alp
