@@ -11,6 +11,7 @@ simulation(
   recalculation = TRUE,
   Delta_star,
   iters = 1000,
+  seed = NULL,
   ...
 )
 }
@@ -26,6 +27,8 @@ patients are recruited?}
 \item{Delta_star}{effect measure under which the rejection probabilities are computed}
 
 \item{iters}{number of simulation iterations}
+
+\item{seed}{random seed for simulation}
 
 \item{...}{further optional arguments}
 

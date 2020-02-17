@@ -73,19 +73,19 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, Delta_star, i
 #' @rdname toer
 #' @export
 setMethod("toer", signature("Student"),
-          function(design, n1, nuisance, recalculation = TRUE, iters, ...) {
+          function(design, n1, nuisance, recalculation = TRUE, iters, seed, ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
 
             if (length(nuisance) > 1) {
               sapply(nuisance, function(sigma)
-                simulation(design, n1, sigma, recalculation, design@delta_NI, iters, ...)$rejection_probability)
+                simulation(design, n1, sigma, recalculation, design@delta_NI, iters, seed, ...)$rejection_probability)
             }
 
             if (length(n1) > 1) {
               sapply(n1, function(n1)
-                simulation(design, n1, nuisance, recalculation, design@delta_NI, iters, ...)$rejection_probability)
+                simulation(design, n1, nuisance, recalculation, design@delta_NI, iters, seed, ...)$rejection_probability)
             }
           })
 
@@ -96,19 +96,19 @@ setMethod("toer", signature("Student"),
 #' @rdname pow
 #' @export
 setMethod("pow", signature("Student"),
-          function(design, n1, nuisance, recalculation = TRUE, iters, ...) {
+          function(design, n1, nuisance, recalculation = TRUE, iters, seed, ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
 
             if (length(nuisance) > 1) {
               sapply(nuisance, function(sigma)
-                simulation(design, n1, sigma, recalculation, design@delta, iters, ...)$rejection_probability)
+                simulation(design, n1, sigma, recalculation, design@delta, iters, seed, ...)$rejection_probability)
             }
 
             if (length(n1) > 1) {
               sapply(n1, function(n1)
-                simulation(design, n1, nuisance, recalculation, design@delta, iters, ...)$rejection_probability)
+                simulation(design, n1, nuisance, recalculation, design@delta, iters, seed, ...)$rejection_probability)
             }
 
           })
@@ -120,14 +120,14 @@ setMethod("pow", signature("Student"),
 #' @rdname sample_size_dist
 #' @export
 setMethod("sample_size_dist", signature("Student"),
-          function(design, n1, nuisance, summary, plot, iters, ...) {
+          function(design, n1, nuisance, summary, plot, iters, seed, ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
 
             if (length(nuisance) > 1) {
               n <- sapply(nuisance, function(sigma)
-                simulation(design, n1, sigma, recalculation = TRUE, design@delta, iters, ...)$sample_sizes)
+                simulation(design, n1, sigma, recalculation = TRUE, design@delta, iters, seed, ...)$sample_sizes)
 
               if (plot == TRUE) {
                 graphics::par(c(list(mfrow = c(1, length(nuisance)))))
@@ -147,7 +147,7 @@ setMethod("sample_size_dist", signature("Student"),
 
             if (length(n1) > 1) {
               n <- sapply(n1, function(n1)
-                simulation(design, n1, nuisance, recalculation = TRUE, design@delta, iters, ...)$sample_sizes)
+                simulation(design, n1, nuisance, recalculation = TRUE, design@delta, iters, seed, ...)$sample_sizes)
 
               if (plot == TRUE) {
                 graphics::par(c(list(mfrow = c(1, length(n1)))))
@@ -195,11 +195,11 @@ setMethod("n_fix", signature("Student"),
 #'
 #' @export
 setMethod("adjusted_alpha", signature("Student"),
-          function(design, n1, nuisance, tol, iters, ...) {
+          function(design, n1, nuisance, tol, iters, seed, ...) {
             alpha_max <- function(alp) {
               d       <- design
               d@alpha <- alp
-              return(max(toer(d, n1, nuisance, TRUE, iters)))
+              return(max(toer(d, n1, nuisance, TRUE, iters, seed)))
             }
 
             alpha_adj <- design@alpha

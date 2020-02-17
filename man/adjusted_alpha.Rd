@@ -7,7 +7,7 @@
 \usage{
 adjusted_alpha(design, n1, nuisance, tol, ...)
 
-\S4method{adjusted_alpha}{Student}(design, n1, nuisance, tol, iters, ...)
+\S4method{adjusted_alpha}{Student}(design, n1, nuisance, tol, iters, seed, ...)
 }
 \arguments{
 \item{n1}{number of patients that are recruited before the sample size
@@ -18,6 +18,8 @@ is recalculated}
 \item{tol}{desired absolute tolerance}
 
 \item{iters}{number of simulation iterations}
+
+\item{seed}{random seed for simulation}
 
 \item{s}{object of class \code{TestStatistc} created by \code{setup}}
 }

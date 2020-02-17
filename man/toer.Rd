@@ -7,7 +7,7 @@
 \usage{
 toer(design, n1, nuisance, recalculation, ...)
 
-\S4method{toer}{Student}(design, n1, nuisance, recalculation = TRUE, iters, ...)
+\S4method{toer}{Student}(design, n1, nuisance, recalculation = TRUE, iters, seed, ...)
 }
 \arguments{
 \item{n1}{number of patients that are recruited before the sample size
@@ -21,6 +21,8 @@ patients are recruited?}
 \item{...}{further optional arguments}
 
 \item{iters}{number of simulation iterations}
+
+\item{seed}{random seed for simulation}
 
 \item{s}{object of class \code{TestStatistc} created by \code{setup}}
 }
