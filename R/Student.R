@@ -124,7 +124,7 @@ setMethod("sample_size_dist", signature("Student"),
 #' @export
 setMethod("n_fix", signature("Student"),
           function(design, nuisance, ...) {
-            (1 + design@r) * 2 * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
+            (1 + design@r)^2 / design@r * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
               (design@delta - design@delta_NI)^2 * nuisance^2
           })
 
