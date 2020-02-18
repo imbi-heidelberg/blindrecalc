@@ -52,7 +52,7 @@ setGeneric("sample_size_dist", function(design, n1, nuisance, summary = TRUE, pl
 #' @param tol desired absolute tolerance
 #'
 #' @export
-setGeneric("adjusted_alpha", function(design, n1, nuisance, tol, ...) {
+setGeneric("adjusted_alpha", function(design, n1, nuisance, ...) {
   standardGeneric("adjusted_alpha")
 })
 

@@ -2,7 +2,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-double chisq_fix_reject(S4 design, int n1, double nuisance, String type) {
+double chisq_fix_reject(S4 design, double n1, double nuisance, String type) {
   double reject_prob = 0;
   double r = design.slot("r");
   double alpha = design.slot("alpha");
@@ -11,12 +11,13 @@ double chisq_fix_reject(S4 design, int n1, double nuisance, String type) {
   double krit = R::qnorm(1 - alpha / 2, 0, 1, TRUE, FALSE);
   double n_c = ceil(n1 / (r + 1));
   double n_e = ceil(n1 * r / (r + 1));
+  double r_act = n_e / n_c;
   bool ind = false;
   double p1_e = 0;
   double p1_c = 0;
 
   if (type == "power") {
-    p1_e = nuisance + delta / (1 + r);
+    p1_e = nuisance + delta / (1 + r_act);
     p1_c = p1_e - delta;
 
     if ((p1_e > 1) | (p1_e < 0) | (p1_c < 0) | (p1_c > 1)) {
@@ -56,7 +57,7 @@ double chisq_fix_reject(S4 design, int n1, double nuisance, String type) {
 }
 
 // [[Rcpp::export]]
-double chisq_recalc_reject(S4 design, int n1, double nuisance,
+double chisq_recalc_reject(S4 design, double n1, double nuisance,
                            String type, NumericMatrix nmat) {
   bool ind;
   double p1_e, p1_c, n2, p_c, p_e, p_hat, n_new, ts, x;
@@ -70,9 +71,10 @@ double chisq_recalc_reject(S4 design, int n1, double nuisance,
   double krit = R::qnorm(1 - alpha / 2, 0, 1, TRUE, FALSE);
   double n_c1 = ceil(n1 / (r + 1));
   double n_e1 = ceil(n1 * r / (r + 1));
+  double r_act = n_e1 / n_c1;
 
   if (type == "power") {
-    p1_e = nuisance + delta / (1 + r);
+    p1_e = nuisance + delta / (1 + r_act);
     p1_c = p1_e - delta;
 
     if ((p1_e > 1) | (p1_e < 0) | (p1_c < 0) | (p1_c > 1)) {
@@ -103,7 +105,7 @@ double chisq_recalc_reject(S4 design, int n1, double nuisance,
 
         if (ind & (type == "size")) {
           sum_prob = Rf_choose(n_c1, i) * Rf_choose(n_e1, j) *
-            pow(nuisance, i + j) * pow(1 - nuisance, n1 - i - j);
+            pow(nuisance, i + j) * pow(1 - nuisance, n_e1 + n_c1 - i - j);
           reject_prob += sum_prob;
         } else if (ind & (type == "power")) {
           sum_prob = Rf_choose(n_c1, i) * Rf_choose(n_e1, j) *

@@ -5,9 +5,9 @@
 \alias{adjusted_alpha,Student-method}
 \title{Adjusted level of significance}
 \usage{
-adjusted_alpha(design, n1, nuisance, tol, ...)
+adjusted_alpha(design, n1, nuisance, ...)
 
-\S4method{adjusted_alpha}{Student}(design, n1, nuisance, tol, iters, seed, ...)
+\S4method{adjusted_alpha}{Student}(design, n1, nuisance, tol, iters = 10000, seed = NULL, ...)
 }
 \arguments{
 \item{n1}{number of patients that are recruited before the sample size

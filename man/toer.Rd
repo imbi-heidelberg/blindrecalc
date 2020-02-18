@@ -7,7 +7,15 @@
 \usage{
 toer(design, n1, nuisance, recalculation, ...)
 
-\S4method{toer}{Student}(design, n1, nuisance, recalculation = TRUE, iters, seed, ...)
+\S4method{toer}{Student}(
+  design,
+  n1,
+  nuisance,
+  recalculation = TRUE,
+  iters = 10000,
+  seed = NULL,
+  ...
+)
 }
 \arguments{
 \item{n1}{number of patients that are recruited before the sample size

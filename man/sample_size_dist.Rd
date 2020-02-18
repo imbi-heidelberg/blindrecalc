@@ -7,7 +7,16 @@
 \usage{
 sample_size_dist(design, n1, nuisance, summary = TRUE, plot = FALSE, ...)
 
-\S4method{sample_size_dist}{Student}(design, n1, nuisance, summary, plot, iters, seed, ...)
+\S4method{sample_size_dist}{Student}(
+  design,
+  n1,
+  nuisance,
+  summary = TRUE,
+  plot = FALSE,
+  iters = 10000,
+  seed = NULL,
+  ...
+)
 }
 \arguments{
 \item{n1}{number of patients that are recruited before the sample size
