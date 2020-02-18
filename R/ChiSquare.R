@@ -62,7 +62,6 @@ setMethod("n_fix", signature("ChiSquare"),
 #' @param nuisance the overall response rate.
 #' @param recalculation
 #' @param allocation
-#' @param plot
 #'
 #' @return
 #' @export
@@ -125,7 +124,6 @@ setMethod("toer", signature("ChiSquare"),
 #' @param nuisance the overall response rate.
 #' @param recalculation
 #' @param allocation
-#' @param plot
 #'
 #' @return
 #' @export
