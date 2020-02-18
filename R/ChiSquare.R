@@ -18,8 +18,9 @@ setMethod("n_fix", signature("ChiSquare"),
     variance <- match.arg(variance)
     if (length(nuisance) > 1) {
       sapply(nuisance, function(x) n_fix(design = design, nuisance = x,
-        variance = variance))
+        variance = variance, rounded = rounded, ...))
     } else {
+
       p_e <- nuisance + design@delta / (1 + design@r)
       p_c <- p_e - design@delta
       z_a <- stats::qnorm(1 - design@alpha / 2)
@@ -61,6 +62,7 @@ setMethod("n_fix", signature("ChiSquare"),
 #' @param nuisance the overall response rate.
 #' @param recalculation
 #' @param allocation
+#' @param plot
 #'
 #' @return
 #' @export
@@ -71,25 +73,44 @@ setMethod("toer", signature("ChiSquare"),
            allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
-      if (n1 %% (design@r + 1) != 0) {
+      if (sum(n1 %% (design@r + 1) != 0) > 0) {
         stop("no integer sample sizes")
       }
       if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
         stop("no integer sample sizes for n_max")
       }
     }
-    if (nuisance < 0 | nuisance > 1) {
+    if (sum(nuisance < 0) + sum(nuisance > 1) != 0) {
       stop("nuisance has to be within [0, 1]")
     }
-    if (design@n_max < n1) {
+    if (sum(design@n_max < n1) > 0) {
       stop("n_max is smaller than n1")
     }
 
-    if (recalculation) {
-      nmat <- get_nmat_chisq(design, n1, allocation, ...)
-      chisq_recalc_reject(design, n1, nuisance, "size", nmat)
+    if ((length(n1) > 1) & (length(nuisance) > 1)) {
+      stop("only one of n1 and nuisance can have length > 1")
+    } else if (length(n1) > 1) {
+      if (recalculation) {
+        nmat <- lapply(n1, function(x) get_nmat_chisq(design, x, allocation, ...))
+        mapply(chisq_recalc_reject, n1 = n1, nmat = nmat,
+          MoreArgs = list(design = design, nuisance = nuisance, type = "size"))
+      } else {
+        sapply(n1, function(x) chisq_fix_reject(design, x, nuisance, "size"))
+      }
+    } else if (length(nuisance) > 1) {
+      if (recalculation) {
+        nmat <- get_nmat_chisq(design, n1, allocation, ...)
+        sapply(nuisance, function(x) chisq_recalc_reject(design, n1, x, "size", nmat))
+      } else {
+        sapply(nuisance, function(x) chisq_fix_reject(design, n1, x, "size"))
+      }
     } else {
-      chisq_fix_reject(design, n1, nuisance, "size")
+      if (recalculation) {
+        nmat <- get_nmat_chisq(design, n1, allocation, ...)
+        chisq_recalc_reject(design, n1, nuisance, "size", nmat)
+      } else {
+        chisq_fix_reject(design, n1, nuisance, "size")
+      }
     }
   })
 
@@ -104,6 +125,7 @@ setMethod("toer", signature("ChiSquare"),
 #' @param nuisance the overall response rate.
 #' @param recalculation
 #' @param allocation
+#' @param plot
 #'
 #' @return
 #' @export
@@ -121,14 +143,88 @@ setMethod("pow", signature("ChiSquare"),
         stop("no integer sample sizes for n_max")
       }
     }
-    if (nuisance < 0 | nuisance > 1) {
+    if (sum(nuisance < 0) + sum(nuisance > 1) > 0) {
+      stop("nuisance has to be within [0, 1]")
+    }
+    if (sum(design@n_max < n1) > 0) {
+      stop("n_max is smaller than n1")
+    }
+
+    if ((length(n1) > 1) & (length(nuisance) > 1)) {
+      stop("only one of n1 and nuisance can have length > 1")
+    } else if (length(n1) > 1) {
+      if (recalculation) {
+        nmat <- lapply(n1, function(x) get_nmat_chisq(design, x, allocation, ...))
+        mapply(chisq_recalc_reject, n1 = n1, nmat = nmat,
+          MoreArgs = list(design = design, nuisance = nuisance, type = "power"))
+      } else {
+        sapply(n1, function(x) chisq_fix_reject(design, x, nuisance, "power"))
+      }
+    } else if (length(nuisance) > 1) {
+      if (recalculation) {
+        nmat <- get_nmat_chisq(design, n1, allocation, ...)
+        sapply(nuisance, function(x) chisq_recalc_reject(design, n1, x, "power", nmat))
+      } else {
+        sapply(nuisance, function(x) chisq_fix_reject(design, n1, x, "power"))
+      }
+    } else {
+      if (recalculation) {
+        nmat <- get_nmat_chisq(design, n1, allocation, ...)
+        chisq_recalc_reject(design, n1, nuisance, "power", nmat)
+      } else {
+        chisq_fix_reject(design, n1, nuisance, "power")
+      }
+    }
+
+
+  })
+
+#' Calculation of the Adjusted Alpha for the Chi-Squared Test
+#'
+#' Calculates the adjusted alpha that is necessary to maintain the nominimal type 1
+#' error rate for the fixed sample design and the internal pilot study design in the
+#' Chi-Squared test.
+#'
+#' @param design
+#' @param n1 Either the total sample size or sample size of the first stage
+#' @param nuisance A vector of nuisance parameters
+#' @param precision
+#' @param recalculation
+#' @param allocation
+#' @param ...
+setMethod("adjusted_alpha", signature("ChiSquare"),
+  function(design, n1, nuisance, precision = 0.001, recalculation,
+           allocation = c("exact", "approximate"), ...) {
+    allocation <- match.arg(allocation)
+    if (allocation == "exact") {
+      if (n1 %% (design@r + 1) != 0) {
+        stop("no integer sample sizes for first stage")
+      }
+      if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
+        stop("no integer sample sizes for n_max")
+      }
+    }
+    if (sum(nuisance < 0) + sum(nuisance >1) > 0) {
       stop("nuisance has to be within [0, 1]")
     }
 
+    alpha_nom <- design@alpha / 2
     if (recalculation) {
-      nmat <- get_nmat_chisq(design, n1, allocation, ...)
-      chisq_recalc_reject(design, n1, nuisance, "power", nmat)
+      repeat {
+        nmat <- get_nmat_chisq(design, n1, allocation, ...)
+        alpha_max <- max(sapply(nuisance,
+          function(x) chisq_recalc_reject(design, n1, x, "size", nmat)))
+        if (alpha_max <= alpha_nom) break
+        design@alpha <- design@alpha - precision
+      }
     } else {
-      chisq_fix_reject(design, n1, nuisance, "power")
+      repeat {
+        alpha_max <- max(sapply(nuisance,
+          function(x) chisq_fix_reject(design, n1, x, "size")))
+        if (alpha_max <= alpha_nom) break
+        design@alpha <- design@alpha - precision
+      }
     }
+    return(design@alpha)
   })
+

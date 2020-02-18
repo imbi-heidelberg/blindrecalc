@@ -105,7 +105,7 @@ double chisq_recalc_reject(S4 design, double n1, double nuisance,
 
         if (ind & (type == "size")) {
           sum_prob = Rf_choose(n_c1, i) * Rf_choose(n_e1, j) *
-            pow(nuisance, i + j) * pow(1 - nuisance, n1 - i - j);
+            pow(nuisance, i + j) * pow(1 - nuisance, n_e1 + n_c1 - i - j);
           reject_prob += sum_prob;
         } else if (ind & (type == "power")) {
           sum_prob = Rf_choose(n_c1, i) * Rf_choose(n_e1, j) *

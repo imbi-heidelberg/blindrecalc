@@ -12,8 +12,8 @@ get_nmat_fm <- function(design, n1, allocation, ...) {
   if (allocation == "exact") {
     out.mat$n <- sapply(out.mat$p_hat, function(x) n_fix(design, nuisance = x, ...))
   } else {
-    out.mat$n <- ceiling(sapply(out.mat$p_hat, function(x) n_fix(design, nuisance = x,
-      rounded = FALSE, ...)))
+    out.mat$n <- sapply(out.mat$p_hat, function(x) n_fix(design, nuisance = x,
+      rounded = FALSE, ...))
   }
   out.mat$n <- pmin(out.mat$n, design@n_max)
   out.mat$n <- ifelse(is.na(out.mat$n), -99, out.mat$n)

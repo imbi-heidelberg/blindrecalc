@@ -63,25 +63,44 @@ setMethod("toer", signature("FarringtonManning"),
            allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
-      if (n1 %% (design@r + 1) != 0) {
+      if (sum(n1 %% (design@r + 1) != 0) > 0) {
         stop("no integer sample sizes")
       }
       if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
         stop("no integer sample sizes for n_max")
       }
     }
-    if (nuisance < 0 | nuisance > 1) {
+    if (sum(nuisance < 0) + sum(nuisance > 1) > 0) {
       stop("nuisance has to be within [0, 1]")
     }
-    if (design@n_max < n1) {
+    if (sum(design@n_max < n1) > 0) {
       stop("n_max is smaller than n1")
     }
 
-    if (recalculation) {
-      nmat <- get_nmat_fm(design, n1, allocation, ...)
-      fm_recalc_reject(design, n1, nuisance, "size", nmat)
+    if ((length(n1) > 1) & (length(nuisance) > 1)) {
+      stop("only one of n1 and nuisance can have length > 1")
+    } else if (length(n1) > 1) {
+      if (recalculation) {
+        nmat <- lapply(n1, function(x) get_nmat_fm(design, x, allocation, ...))
+        mapply(fm_recalc_reject, n1 = n1, nmat = nmat,
+          MoreArgs = list(design = design, nuisance = nuisance, type = "size"))
+      } else {
+        sapply(n1, function(x) fm_fix_reject(design, x, nuisance, "size"))
+      }
+    } else if (length(nuisance) > 1) {
+      if (recalculation) {
+        nmat <- get_nmat_fm(design, n1, allocation, ...)
+        sapply(nuisance, function(x) fm_recalc_reject(design, n1, x, "size", nmat))
+      } else {
+        sapply(nuisance, function(x) fm_fix_reject(design, n1, x, "size"))
+      }
     } else {
-      fm_fix_reject(design, n1, nuisance, "size")
+      if (recalculation) {
+        nmat <- get_nmat_fm(design, n1, allocation, ...)
+        fm_recalc_reject(design, n1, nuisance, "size", nmat)
+      } else {
+        fm_fix_reject(design, n1, nuisance, "size")
+      }
     }
   })
 
@@ -103,25 +122,95 @@ setMethod("toer", signature("FarringtonManning"),
 #' @examples
 setMethod("pow", signature("FarringtonManning"),
 function(design, n1, nuisance, recalculation,
-  allocation = c("exact", "approximate"), ...) {
+         allocation = c("exact", "approximate"), ...) {
   allocation <- match.arg(allocation)
   if (allocation == "exact") {
-    if (n1 %% (design@r + 1) != 0) {
+    if (sum(n1 %% (design@r + 1) != 0) > 0) {
       stop("no integer sample sizes for first stage")
     }
     if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
       stop("no integer sample sizes for n_max")
     }
   }
-  if (nuisance < 0 | nuisance > 1) {
+  if (sum(nuisance < 0) + sum(nuisance > 1) > 0) {
     stop("nuisance has to be within [0, 1]")
   }
+  if (sum(design@n_max < n1) > 0) {
+    stop("n_max is smaller than n1")
+  }
 
-
-  if (recalculation) {
-    nmat <- get_nmat_fm(design, n1, allocation, ...)
-    fm_recalc_reject(design, n1, nuisance, "power", nmat)
+  if ((length(n1) > 1) & (length(nuisance) > 1)) {
+    stop("only one of n1 and nuisance can have length > 1")
+  } else if (length(n1) > 1) {
+    if (recalculation) {
+      nmat <- lapply(n1, function(x) get_nmat_fm(design, x, allocation, ...))
+      mapply(fm_recalc_reject, n1 = n1, nmat = nmat,
+        MoreArgs = list(design = design, nuisance = nuisance, type = "power"))
+    } else {
+      sapply(n1, function(x) fm_fix_reject(design, x, nuisance, "power"))
+    }
+  } else if (length(nuisance) > 1) {
+    if (recalculation) {
+      nmat <- get_nmat_fm(design, n1, allocation, ...)
+      sapply(nuisance, function(x) fm_recalc_reject(design, n1, x, "power", nmat))
+    } else {
+      sapply(nuisance, function(x) fm_fix_reject(design, n1, x, "power"))
+    }
   } else {
-    fm_fix_reject(design, n1, nuisance, "power")
+    if (recalculation) {
+      nmat <- get_nmat_fm(design, n1, allocation, ...)
+      fm_recalc_reject(design, n1, nuisance, "power", nmat)
+    } else {
+      fm_fix_reject(design, n1, nuisance, "power")
+    }
   }
 })
+
+#' Calculation of the Adjusted Alpha for the Farrington-Manning
+#'
+#' Calculates the adjusted alpha that is necessary to maintain the nominimal type 1
+#' error rate for the fixed sample design and the internal pilot study design in the
+#' Farrington-Manning test.
+#'
+#' @param design
+#' @param n1 Either the total sample size or sample size of the first stage
+#' @param nuisance A vector of nuisance parameters
+#' @param precision
+#' @param recalculation
+#' @param allocation
+#' @param ...
+setMethod("adjusted_alpha", signature("FarringtonManning"),
+  function(design, n1, nuisance, precision = 0.001, recalculation,
+    allocation = c("exact", "approximate"), ...) {
+    allocation <- match.arg(allocation)
+    if (allocation == "exact") {
+      if (n1 %% (design@r + 1) != 0) {
+        stop("no integer sample sizes for first stage")
+      }
+      if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
+        stop("no integer sample sizes for n_max")
+      }
+    }
+    if (sum(nuisance < 0) + sum(nuisance >1) > 0) {
+      stop("nuisance has to be within [0, 1]")
+    }
+
+    alpha_nom <- design@alpha / 2
+    if (recalculation) {
+      repeat {
+        nmat <- get_nmat_fm(design, n1, allocation, ...)
+        alpha_max <- max(sapply(nuisance,
+          function(x) fm_recalc_reject(design, n1, x, "size", nmat)))
+        if (alpha_max <= alpha_nom) break
+        design@alpha <- design@alpha - precision
+      }
+    } else {
+      repeat {
+        alpha_max <- max(sapply(nuisance,
+          function(x) fm_fix_reject(design, n1, x, "size")))
+        if (alpha_max <= alpha_nom) break
+        design@alpha <- design@alpha - precision
+      }
+    }
+    return(design@alpha)
+  })

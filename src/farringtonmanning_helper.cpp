@@ -4,7 +4,7 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericVector p_rml(double p_c, double p_e, double r, double margin) {
   double x;
-  double pi = 3.14159265358979323846;
+  double pi = std::atan(1)*4;
   NumericVector pt(2);
 
   double a = 1 + (1 / r);
@@ -129,7 +129,7 @@ double fm_recalc_reject(S4 design, double n1, double nuisance,
       p_e = j / n_e1;
       n_new = nmat((i + j * (n_c1 + 1)), 3);
 
-      if (((n_new > 0) & (n_new <= n1)) | (n_new == -99)) {
+      if (((n_new > 0) & (n_new <= (n_c1 + n_e1))) | (n_new == -99)) {
         pt = p_rml(p_c, p_e, r_act1, delta_NI);
         pt_c = pt[0];
         pt_e = pt[1];
