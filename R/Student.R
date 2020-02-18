@@ -133,7 +133,7 @@ setMethod("sample_size_dist", signature("Student"),
                 graphics::par(c(list(mfrow = c(1, length(nuisance)))))
                 for (i in 1:length(nuisance)) {
                   graphics::boxplot(n[, i], range = 0, xlab = paste(expression(sigma),"=",nuisance[i]),
-                                    ylim = c(min(n), max(n)))
+                                    ylab = "n", ylim = c(min(n), max(n)))
                 }
               }
 
@@ -150,7 +150,7 @@ setMethod("sample_size_dist", signature("Student"),
                 graphics::par(c(list(mfrow = c(1, length(n1)))))
                 for (i in 1:length(n1)) {
                   graphics::boxplot(n[, i], range = 0, xlab = paste(expression(n_1),"=",n1[i]),
-                                    ylim = c(min(n), max(n)))
+                                    ylab = "n", ylim = c(min(n), max(n)))
                 }
               }
 
