@@ -6,13 +6,13 @@
 using namespace Rcpp;
 
 // chisq_fix_reject
-double chisq_fix_reject(S4 design, int n1, double nuisance, String type);
+double chisq_fix_reject(S4 design, double n1, double nuisance, String type);
 RcppExport SEXP _blindrecalc_chisq_fix_reject(SEXP designSEXP, SEXP n1SEXP, SEXP nuisanceSEXP, SEXP typeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< S4 >::type design(designSEXP);
-    Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
+    Rcpp::traits::input_parameter< double >::type n1(n1SEXP);
     Rcpp::traits::input_parameter< double >::type nuisance(nuisanceSEXP);
     Rcpp::traits::input_parameter< String >::type type(typeSEXP);
     rcpp_result_gen = Rcpp::wrap(chisq_fix_reject(design, n1, nuisance, type));
@@ -20,13 +20,13 @@ BEGIN_RCPP
 END_RCPP
 }
 // chisq_recalc_reject
-double chisq_recalc_reject(S4 design, int n1, double nuisance, String type, NumericMatrix nmat);
+double chisq_recalc_reject(S4 design, double n1, double nuisance, String type, NumericMatrix nmat);
 RcppExport SEXP _blindrecalc_chisq_recalc_reject(SEXP designSEXP, SEXP n1SEXP, SEXP nuisanceSEXP, SEXP typeSEXP, SEXP nmatSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< S4 >::type design(designSEXP);
-    Rcpp::traits::input_parameter< int >::type n1(n1SEXP);
+    Rcpp::traits::input_parameter< double >::type n1(n1SEXP);
     Rcpp::traits::input_parameter< double >::type nuisance(nuisanceSEXP);
     Rcpp::traits::input_parameter< String >::type type(typeSEXP);
     Rcpp::traits::input_parameter< NumericMatrix >::type nmat(nmatSEXP);
@@ -34,10 +34,56 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// p_rml
+NumericVector p_rml(double p_c, double p_e, double r, double margin);
+RcppExport SEXP _blindrecalc_p_rml(SEXP p_cSEXP, SEXP p_eSEXP, SEXP rSEXP, SEXP marginSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< double >::type p_c(p_cSEXP);
+    Rcpp::traits::input_parameter< double >::type p_e(p_eSEXP);
+    Rcpp::traits::input_parameter< double >::type r(rSEXP);
+    Rcpp::traits::input_parameter< double >::type margin(marginSEXP);
+    rcpp_result_gen = Rcpp::wrap(p_rml(p_c, p_e, r, margin));
+    return rcpp_result_gen;
+END_RCPP
+}
+// fm_fix_reject
+double fm_fix_reject(S4 design, double n, double nuisance, String type);
+RcppExport SEXP _blindrecalc_fm_fix_reject(SEXP designSEXP, SEXP nSEXP, SEXP nuisanceSEXP, SEXP typeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< S4 >::type design(designSEXP);
+    Rcpp::traits::input_parameter< double >::type n(nSEXP);
+    Rcpp::traits::input_parameter< double >::type nuisance(nuisanceSEXP);
+    Rcpp::traits::input_parameter< String >::type type(typeSEXP);
+    rcpp_result_gen = Rcpp::wrap(fm_fix_reject(design, n, nuisance, type));
+    return rcpp_result_gen;
+END_RCPP
+}
+// fm_recalc_reject
+double fm_recalc_reject(S4 design, double n1, double nuisance, String type, NumericMatrix nmat);
+RcppExport SEXP _blindrecalc_fm_recalc_reject(SEXP designSEXP, SEXP n1SEXP, SEXP nuisanceSEXP, SEXP typeSEXP, SEXP nmatSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< S4 >::type design(designSEXP);
+    Rcpp::traits::input_parameter< double >::type n1(n1SEXP);
+    Rcpp::traits::input_parameter< double >::type nuisance(nuisanceSEXP);
+    Rcpp::traits::input_parameter< String >::type type(typeSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type nmat(nmatSEXP);
+    rcpp_result_gen = Rcpp::wrap(fm_recalc_reject(design, n1, nuisance, type, nmat));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_blindrecalc_chisq_fix_reject", (DL_FUNC) &_blindrecalc_chisq_fix_reject, 4},
     {"_blindrecalc_chisq_recalc_reject", (DL_FUNC) &_blindrecalc_chisq_recalc_reject, 5},
+    {"_blindrecalc_p_rml", (DL_FUNC) &_blindrecalc_p_rml, 4},
+    {"_blindrecalc_fm_fix_reject", (DL_FUNC) &_blindrecalc_fm_fix_reject, 4},
+    {"_blindrecalc_fm_recalc_reject", (DL_FUNC) &_blindrecalc_fm_recalc_reject, 5},
     {NULL, NULL, 0}
 };
 
