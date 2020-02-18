@@ -4,10 +4,20 @@
 \alias{simulation}
 \title{Simulate Rejection Probability and Sample Size for Student's t-Test}
 \usage{
-simulation(design, n1, nuisance, recalculation = TRUE, Delta_star,
-  iters = 1000, ...)
+simulation(
+  design,
+  n1,
+  nuisance,
+  recalculation = TRUE,
+  Delta_star,
+  iters = 1000,
+  seed = NULL,
+  ...
+)
 }
 \arguments{
+\item{design}{object of class \code{TestStatistc} created by \code{setup}}
+
 \item{n1}{number of patients that are recruited before the sample size
 is recalculated}
 
@@ -20,9 +30,9 @@ patients are recruited?}
 
 \item{iters}{number of simulation iterations}
 
-\item{...}{further optional arguments}
+\item{seed}{random seed for simulation}
 
-\item{s}{object of class \code{TestStatistc} created by \code{setup}}
+\item{...}{further optional arguments}
 }
 \description{
 This function simulates the probability that a test defined by

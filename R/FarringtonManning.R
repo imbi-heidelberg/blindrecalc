@@ -7,8 +7,7 @@
 #' by \code{setupFarringtonManning()}.
 #' @param nuisance the overall response rate.
 #' @param rounded
-#'
-#' @return
+
 #' @export
 #'
 #' @examples
@@ -48,13 +47,15 @@ setMethod("n_fix", signature("FarringtonManning"),
 #' Calculation of the actual level of the chi-squared test for the fixed sample design and the
 #' internal pilot study design.
 #'
+#' @param design an object of class \code{FarringtonManning} created
+#'    by \code{setupFarringtonManning()}.
 #' @param n1 Either the total sample size (if \code{design} is \code{"fixed"}) or
-#' sample size of the first stage (if \code{design} is \code{"ips"})
+#'    sample size of the first stage (if \code{design} is \code{"ips"})
 #' @param nuisance the overall response rate.
-#' @param recalculation
-#' @param allocation
+#' @template recalculation
+#' @tempalte allocation
+#' @template dotdotdot
 #'
-#' @return
 #' @export
 #'
 #' @examples
@@ -113,10 +114,10 @@ setMethod("toer", signature("FarringtonManning"),
 #' @param n1 Either the total sample size (if \code{design} is \code{"fixed"}) or
 #' sample size of the first stage (if \code{design} is \code{"ips"})
 #' @param nuisance the overall response rate.
-#' @param recalculation
-#' @param allocation
+#' @template recalculation
+#' @template allocation
+#' @template dotdotdot
 #'
-#' @return
 #' @export
 #'
 #' @examples
@@ -176,9 +177,11 @@ function(design, n1, nuisance, recalculation,
 #' @param n1 Either the total sample size or sample size of the first stage
 #' @param nuisance A vector of nuisance parameters
 #' @param precision
-#' @param recalculation
-#' @param allocation
-#' @param ...
+#' @template recalculation
+#' @template allocation
+#' @template dotdotdot
+#'
+#' @export
 setMethod("adjusted_alpha", signature("FarringtonManning"),
   function(design, n1, nuisance, precision = 0.001, recalculation,
     allocation = c("exact", "approximate"), ...) {

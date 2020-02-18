@@ -7,6 +7,7 @@
 #' @param nuisance the overall response rate.
 #' @param variance a character string indicating whether the "\code{heterogenous}" (default)
 #' or the "\code{homogeneous}" variance formula should be used.
+#' @template dotdotdot
 #'
 #' @return
 #' @export
@@ -60,8 +61,9 @@ setMethod("n_fix", signature("ChiSquare"),
 #' @param n1 Either the total sample size (if \code{design} is \code{"fixed"}) or
 #' sample size of the first stage (if \code{design} is \code{"ips"})
 #' @param nuisance the overall response rate.
-#' @param recalculation
-#' @param allocation
+#' @template recalculation
+#' @template allocation
+#' @template dotdotdot
 #'
 #' @return
 #' @export
@@ -122,8 +124,9 @@ setMethod("toer", signature("ChiSquare"),
 #' @param n1 Either the total sample size (if \code{design} is \code{"fixed"}) or
 #' sample size of the first stage (if \code{design} is \code{"ips"})
 #' @param nuisance the overall response rate.
-#' @param recalculation
-#' @param allocation
+#' @template recalculation
+#' @template allocation
+#' @template dotdotdot
 #'
 #' @return
 #' @export
@@ -187,9 +190,11 @@ setMethod("pow", signature("ChiSquare"),
 #' @param n1 Either the total sample size or sample size of the first stage
 #' @param nuisance A vector of nuisance parameters
 #' @param precision
-#' @param recalculation
-#' @param allocation
-#' @param ...
+#' @template recalculation
+#' @template allocation
+#' @template dotdotdot
+#'
+#' @export
 setMethod("adjusted_alpha", signature("ChiSquare"),
   function(design, n1, nuisance, precision = 0.001, recalculation,
            allocation = c("exact", "approximate"), ...) {

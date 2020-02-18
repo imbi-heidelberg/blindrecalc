@@ -31,11 +31,13 @@ setGeneric("pow", function(design, n1, nuisance, recalculation, ...) {
 #' Distribution of the Sample Size
 #'
 #' @template methods
-#' @template recalculation
+#' @param summary logical - is a summary of the sample size distribution desired?
+#'    Otherwise, a vector with sample sizes is returned.
+#' @template plot
 #' @template dotdotdot
 #'
 #' @export
-setGeneric("sample_size_dist", function(design, n1, nuisance, recalculation,  ...) {
+setGeneric("sample_size_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE, ...) {
   standardGeneric("sample_size_dist")
 })
 
@@ -62,7 +64,7 @@ setGeneric("adjusted_alpha", function(design, n1, nuisance, ...) {
 #' Returns the sample size for the corresponding one-stage design without
 #' sample size recalculation.
 #'
-#' @param s test statistic object
+#' @param design test statistic object
 #' @param nuisance nuisance parameter
 #' @template dotdotdot
 #'

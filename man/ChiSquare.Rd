@@ -4,8 +4,15 @@
 \alias{setupChiSquare}
 \title{Setup a Chi^2 test}
 \usage{
-setupChiSquare(alpha, beta, r = 1, delta, alternative = c("greater",
-  "smaller"), n_max = Inf, ...)
+setupChiSquare(
+  alpha,
+  beta,
+  r = 1,
+  delta,
+  alternative = c("greater", "smaller"),
+  n_max = Inf,
+  ...
+)
 }
 \arguments{
 \item{alpha}{one-sided type I error rate}

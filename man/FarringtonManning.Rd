@@ -4,8 +4,7 @@
 \alias{setupFarringtonManning}
 \title{Setup a Farrington Manning test}
 \usage{
-setupFarringtonManning(alpha, beta, r = 1, delta, delta_NI,
-  n_max = Inf, ...)
+setupFarringtonManning(alpha, beta, r = 1, delta, delta_NI, n_max = Inf, ...)
 }
 \arguments{
 \item{alpha}{one-sided type I error rate}
