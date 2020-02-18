@@ -81,9 +81,7 @@ setMethod("toer", signature("Student"),
             if (length(n1) == 1) {
               return(sapply(nuisance, function(sigma)
                 simulation(design, n1, sigma, recalculation, design@delta_NI, iters, seed, ...)$rejection_probability))
-            }
-
-            if (length(nuisance) == 1) {
+            } else if (length(nuisance) == 1) {
               return(sapply(n1, function(n1)
                 simulation(design, n1, nuisance, recalculation, design@delta_NI, iters, seed, ...)$rejection_probability))
             }
@@ -104,9 +102,7 @@ setMethod("pow", signature("Student"),
             if (length(n1) == 1) {
               return(sapply(nuisance, function(sigma)
                 simulation(design, n1, sigma, recalculation, design@delta, iters, seed, ...)$rejection_probability))
-            }
-
-            if (length(nuisance) == 1) {
+            } else if (length(nuisance) == 1) {
               return(sapply(n1, function(n1)
                 simulation(design, n1, nuisance, recalculation, design@delta, iters, seed, ...)$rejection_probability))
             }
@@ -140,9 +136,7 @@ setMethod("sample_size_dist", signature("Student"),
               n <- data.frame(n)
               for (i in 1:ncol(n))
                 colnames(n)[i] <- paste(expression(sigma),"=",nuisance[i])
-            }
-
-            if (length(nuisance) == 1) {
+            } else if (length(nuisance) == 1) {
               n <- sapply(n1, function(n1)
                 simulation(design, n1, nuisance, recalculation = TRUE, design@delta, iters, seed, ...)$sample_sizes)
 
@@ -207,5 +201,4 @@ setMethod("adjusted_alpha", signature("Student"),
             }
 
             return(alpha_adj)
-
-          })
+        })
