@@ -10,6 +10,8 @@ adjusted_alpha(design, n1, nuisance, ...)
 \S4method{adjusted_alpha}{Student}(design, n1, nuisance, tol, iters = 10000, seed = NULL, ...)
 }
 \arguments{
+\item{design}{object of class \code{TestStatistc} created by \code{setup}}
+
 \item{n1}{number of patients that are recruited before the sample size
 is recalculated}
 
@@ -20,8 +22,6 @@ is recalculated}
 \item{iters}{number of simulation iterations}
 
 \item{seed}{random seed for simulation}
-
-\item{s}{object of class \code{TestStatistc} created by \code{setup}}
 }
 \description{
 This method returns an adjusted significance level that can be used

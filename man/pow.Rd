@@ -18,6 +18,8 @@ pow(design, n1, nuisance, recalculation, ...)
 )
 }
 \arguments{
+\item{design}{object of class \code{TestStatistc} created by \code{setup}}
+
 \item{n1}{number of patients that are recruited before the sample size
 is recalculated}
 
@@ -31,8 +33,6 @@ patients are recruited?}
 \item{iters}{number of simulation iterations}
 
 \item{seed}{random seed for simulation}
-
-\item{s}{object of class \code{TestStatistc} created by \code{setup}}
 }
 \description{
 Power

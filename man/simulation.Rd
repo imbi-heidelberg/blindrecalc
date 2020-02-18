@@ -16,6 +16,8 @@ simulation(
 )
 }
 \arguments{
+\item{design}{object of class \code{TestStatistc} created by \code{setup}}
+
 \item{n1}{number of patients that are recruited before the sample size
 is recalculated}
 
@@ -31,8 +33,6 @@ patients are recruited?}
 \item{seed}{random seed for simulation}
 
 \item{...}{further optional arguments}
-
-\item{s}{object of class \code{TestStatistc} created by \code{setup}}
 }
 \description{
 This function simulates the probability that a test defined by

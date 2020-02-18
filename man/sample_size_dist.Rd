@@ -19,6 +19,8 @@ sample_size_dist(design, n1, nuisance, summary = TRUE, plot = FALSE, ...)
 )
 }
 \arguments{
+\item{design}{object of class \code{TestStatistc} created by \code{setup}}
+
 \item{n1}{number of patients that are recruited before the sample size
 is recalculated}
 
@@ -34,8 +36,6 @@ Otherwise, a vector with sample sizes is returned.}
 \item{iters}{number of simulation iterations}
 
 \item{seed}{random seed for simulation}
-
-\item{s}{object of class \code{TestStatistc} created by \code{setup}}
 }
 \description{
 Distribution of the Sample Size
