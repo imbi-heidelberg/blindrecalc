@@ -18,6 +18,13 @@
 \item{n1}{Either the total sample size or sample size of the first stage}
 
 \item{nuisance}{A vector of nuisance parameters}
+
+\item{recalculation}{logical: should the sample size be recalcuated after n1
+patients are recruited?}
+
+\item{allocation}{TODO}
+
+\item{...}{further optional arguments}
 }
 \description{
 Calculates the adjusted alpha that is necessary to maintain the nominimal type 1

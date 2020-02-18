@@ -10,11 +10,11 @@ n_fix(design, nuisance, ...)
 \S4method{n_fix}{Student}(design, nuisance, ...)
 }
 \arguments{
+\item{design}{test statistic object}
+
 \item{nuisance}{nuisance parameter}
 
 \item{...}{further optional arguments}
-
-\item{s}{test statistic object}
 }
 \description{
 Returns the sample size for the corresponding one-stage design without

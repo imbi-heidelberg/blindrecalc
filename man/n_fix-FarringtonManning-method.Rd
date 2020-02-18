@@ -11,11 +11,6 @@
 by \code{setupFarringtonManning()}.}
 
 \item{nuisance}{the overall response rate.}
-
-\item{rounded}{}
-}
-\value{
-
 }
 \description{
 Calculates the sample size for the Farrington-Manning test for the corresponding

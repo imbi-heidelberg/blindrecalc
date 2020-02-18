@@ -14,15 +14,18 @@
 )
 }
 \arguments{
+\item{design}{an object of class \code{FarringtonManning} created
+by \code{setupFarringtonManning()}.}
+
 \item{n1}{Either the total sample size (if \code{design} is \code{"fixed"}) or
 sample size of the first stage (if \code{design} is \code{"ips"})}
 
 \item{nuisance}{the overall response rate.}
 
-\item{allocation}{}
-}
-\value{
+\item{recalculation}{logical: should the sample size be recalcuated after n1
+patients are recruited?}
 
+\item{...}{further optional arguments}
 }
 \description{
 Calculation of the actual level of the chi-squared test for the fixed sample design and the

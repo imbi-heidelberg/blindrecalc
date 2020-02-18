@@ -64,7 +64,7 @@ setGeneric("adjusted_alpha", function(design, n1, nuisance, ...) {
 #' Returns the sample size for the corresponding one-stage design without
 #' sample size recalculation.
 #'
-#' @param s test statistic object
+#' @param design test statistic object
 #' @param nuisance nuisance parameter
 #' @template dotdotdot
 #'

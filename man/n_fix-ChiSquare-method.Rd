@@ -19,6 +19,8 @@
 
 \item{variance}{a character string indicating whether the "\code{heterogenous}" (default)
 or the "\code{homogeneous}" variance formula should be used.}
+
+\item{...}{further optional arguments}
 }
 \value{
 

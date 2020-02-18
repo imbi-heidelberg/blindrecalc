@@ -19,7 +19,12 @@ sample size of the first stage (if \code{design} is \code{"ips"})}
 
 \item{nuisance}{the overall response rate.}
 
-\item{allocation}{}
+\item{recalculation}{logical: should the sample size be recalcuated after n1
+patients are recruited?}
+
+\item{allocation}{TODO}
+
+\item{...}{further optional arguments}
 }
 \value{
 
