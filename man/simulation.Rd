@@ -9,7 +9,7 @@ simulation(
   n1,
   nuisance,
   recalculation = TRUE,
-  Delta_star,
+  delta_true,
   iters = 1000,
   seed = NULL,
   ...
@@ -26,7 +26,7 @@ is recalculated}
 \item{recalculation}{logical: should the sample size be recalcuated after n1
 patients are recruited?}
 
-\item{Delta_star}{effect measure under which the rejection probabilities are computed}
+\item{delta_true}{effect measure under which the rejection probabilities are computed}
 
 \item{iters}{number of simulation iterations}
 

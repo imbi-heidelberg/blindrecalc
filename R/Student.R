@@ -7,7 +7,7 @@
 #'
 #' @template methods
 #' @template recalculation
-#' @param Delta_star effect measure under which the rejection probabilities are computed
+#' @param delta_true effect measure under which the rejection probabilities are computed
 #' @template iters
 #' @template dotdotdot
 #'
@@ -17,7 +17,7 @@
 #' Pharmaceutical Statistics 15: 208-215.
 #'
 #' @export
-simulation <- function(design, n1, nuisance, recalculation = TRUE, Delta_star, iters = 1000, seed = NULL, ...) {
+simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true, iters = 1000, seed = NULL, ...) {
   if (!is.null(seed)) set.seed(seed)
 
   alloc <- design@r / (1 + design@r)^2
@@ -27,7 +27,7 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, Delta_star, i
   v1 <- stats::rchisq(n = iters, df = n1 - 2)
 
   # Step 2
-  var_hat <- nuisance^2 / (n1 - 1) * (v1 + (z1 + sqrt(n1 * alloc) * Delta_star / nuisance)^2)
+  var_hat <- nuisance^2 / (n1 - 1) * (v1 + (z1 + sqrt(n1 * alloc) * delta_true / nuisance)^2)
 
   # Step 3
   if (recalculation == FALSE) {
@@ -43,7 +43,7 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, Delta_star, i
   f <- function(i) {
     # Step 4
     if(n2[i] == 0) {
-      test_statistic <- (z1[i] + sqrt(n1 * alloc) * (Delta_star - design@delta_NI) / nuisance) / sqrt(v1[i] / (n1 - 2))
+      test_statistic <- (z1[i] + sqrt(n1 * alloc) * (delta_true - design@delta_NI) / nuisance) / sqrt(v1[i] / (n1 - 2))
       } else {
         # Step 5
         z2 <- stats::rnorm(n = 1, mean = 0, sd = 1)
@@ -52,7 +52,7 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, Delta_star, i
 
         test_statistic <-
           (sqrt(n1 / n[i]) * z1[i] + sqrt(n2[i] / n[i]) * z2 + sqrt(n[i] * alloc) *
-             (Delta_star - design@delta_NI) / nuisance) / sqrt((v1[i] + v2) / (n[i] - 2))
+             (delta_true - design@delta_NI) / nuisance) / sqrt((v1[i] + v2) / (n[i] - 2))
         }
     return(test_statistic)
     }
