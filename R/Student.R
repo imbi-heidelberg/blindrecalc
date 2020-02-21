@@ -116,7 +116,7 @@ setMethod("pow", signature("Student"),
 #' @rdname sample_size_dist
 #' @export
 setMethod("sample_size_dist", signature("Student"),
-          function(design, n1, nuisance, summary = TRUE, plot = FALSE, iters = 1e4, seed = NULL, ...) {
+          function(design, n1, nuisance, summary = TRUE, plot = FALSE, iters = 1e4, seed = NULL, range = 0,...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
@@ -124,34 +124,18 @@ setMethod("sample_size_dist", signature("Student"),
             if (length(n1) == 1) {
               n <- sapply(nuisance, function(sigma)
                 simulation(design, n1, sigma, recalculation = TRUE, design@delta, iters, seed, ...)$sample_sizes)
-
-              if (plot == TRUE) {
-                graphics::par(c(list(mfrow = c(1, length(nuisance)))))
-                for (i in 1:length(nuisance)) {
-                  graphics::boxplot(n[, i], range = 0, xlab = paste(expression(sigma),"=",nuisance[i]),
-                                    ylab = "n", ylim = c(min(n), max(n)))
-                }
-              }
-
               n <- data.frame(n)
               for (i in 1:ncol(n))
                 colnames(n)[i] <- paste(expression(sigma),"=",nuisance[i])
             } else if (length(nuisance) == 1) {
               n <- sapply(n1, function(n1)
                 simulation(design, n1, nuisance, recalculation = TRUE, design@delta, iters, seed, ...)$sample_sizes)
-
-              if (plot == TRUE) {
-                graphics::par(c(list(mfrow = c(1, length(n1)))))
-                for (i in 1:length(n1)) {
-                  graphics::boxplot(n[, i], range = 0, xlab = paste(expression(n_1),"=",n1[i]),
-                                    ylab = "n", ylim = c(min(n), max(n)))
-                }
-              }
-
               n <- data.frame(n)
               for (i in 1:ncol(n))
                 colnames(n)[i] <- paste(expression(n_1),"=",n1[i])
             }
+
+            if (plot == TRUE) graphics::boxplot(n, range = range, ...)
 
             if (summary == TRUE) return(summary(n))
             else return(n)
