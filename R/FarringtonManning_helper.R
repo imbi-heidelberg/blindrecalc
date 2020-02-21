@@ -20,6 +20,37 @@ get_nmat_fm <- function(design, n1, allocation, ...) {
   return(as.matrix(out.mat))
 }
 
+n_distrib_fm <- function(design, n1, nuisance, allocation, ...) {
+  p_e <- nuisance + design@delta / (1 + design@r)
+  p_c <- p_e - design@delta
+  n_c1 <- ceiling(n1 / (design@r + 1))
+  n_e1 <- ceiling(n1 - n_c1)
+
+  n_new <- prob <- numeric()
+
+  for (i in 0:n_c1) {
+    for (j in 0:n_e1) {
+      if (i + j == 0 | i +j == n1) next
+      p1 <- i / n_c1
+      p2 <- j / n_e1
+      p_hat <- (i + j) / (n_c1 + n_e1)
+      if (allocation == "exact") {
+        n_new <- c(n_new, n_fix(design, nuisance = p_hat, ...))
+      } else {
+        n_new <- c(n_new, ceiling(n_fix(design, nuisance = p_hat, rounded = FALSE, ...)))
+      }
+      prob <- c(prob, choose(n_c1, i) * choose(n_e1, j) * p_c^i * (1 - p_c)^(n_c1 - i) *
+          p_e^j * (1 - p_e)^(n_e1 - j))
+    }
+  }
+
+  n_new[which(is.na(n_new))] <- n1
+  n_new[which(n_new < n1)] <- n1
+  out <- aggregate(prob, list(n_new), sum)
+  colnames(out) <- c("n", "prob")
+  return(out)
+}
+
 # p_rml1 <- function(p_c, p_e, r, margin) {
 #   a <- 1 + (1 / r)
 #   b <- -(1 + (1 / r) + p_e + (1 / r) * p_c - margin * ((1 / r) + 2))
