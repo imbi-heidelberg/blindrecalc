@@ -8,7 +8,7 @@ double chisq_fix_reject(S4 design, double n1, double nuisance, String type) {
   double alpha = design.slot("alpha");
   double delta = design.slot("delta");
   String alternative = design.slot("alternative");
-  double krit = R::qnorm(1 - alpha / 2, 0, 1, TRUE, FALSE);
+  double krit = R::qnorm(1 - alpha, 0, 1, TRUE, FALSE);
   double n_c = ceil(n1 / (r + 1));
   double n_e = ceil(n1 * r / (r + 1));
   double r_act = n_e / n_c;
@@ -68,7 +68,7 @@ double chisq_recalc_reject(S4 design, double n1, double nuisance,
   double alpha = design.slot("alpha");
   double delta = design.slot("delta");
   String alternative = design.slot("alternative");
-  double krit = R::qnorm(1 - alpha / 2, 0, 1, TRUE, FALSE);
+  double krit = R::qnorm(1 - alpha, 0, 1, TRUE, FALSE);
   double n_c1 = ceil(n1 / (r + 1));
   double n_e1 = ceil(n1 * r / (r + 1));
   double r_act = n_e1 / n_c1;

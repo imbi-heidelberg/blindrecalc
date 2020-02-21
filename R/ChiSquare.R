@@ -24,7 +24,7 @@ setMethod("n_fix", signature("ChiSquare"),
 
       p_e <- nuisance + design@delta / (1 + design@r)
       p_c <- p_e - design@delta
-      z_a <- stats::qnorm(1 - design@alpha / 2)
+      z_a <- stats::qnorm(1 - design@alpha)
       z_b <- stats::qnorm(1 - design@beta)
 
       if (p_e < 0 | p_c < 0 | p_e > 1 | p_c > 1) {
@@ -211,7 +211,7 @@ setMethod("adjusted_alpha", signature("ChiSquare"),
       stop("nuisance has to be within [0, 1]")
     }
 
-    alpha_nom <- design@alpha / 2
+    alpha_nom <- design@alpha
     if (recalculation) {
       repeat {
         nmat <- get_nmat_chisq(design, n1, allocation, ...)
@@ -231,3 +231,56 @@ setMethod("adjusted_alpha", signature("ChiSquare"),
     return(design@alpha)
   })
 
+#' @rdname sample_size_dist
+#' @export
+setMethod("sample_size_dist", signature("ChiSquare"),
+  function(design, n1, nuisance, summary, plot,
+           allocation = c("exact", "approximate"), ...) {
+    allocation <- match.arg(allocation)
+    if (allocation == "exact") {
+      if (sum(n1 %% (design@r + 1) != 0) > 0) {
+        stop("no integer sample sizes for first stage")
+      }
+      if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
+        stop("no integer sample sizes for n_max")
+      }
+    }
+    if (sum(nuisance < 0) + sum(nuisance > 1) > 0) {
+      stop("nuisance has to be within [0, 1]")
+    }
+
+    if (((length(n1) > 1) & (length(nuisance) > 1)) |
+        ((length(n1) == 1) & (length(nuisance) == 1))) {
+      stop("one of n1 and nuisance must have length > 1")
+    } else if (length(nuisance) > 1) {
+      out <- lapply(nuisance, function(x) n_distrib_chisq(design, n1, x, allocation, ...))
+      out <- Map(cbind, out, nuisance = nuisance)
+      out <- do.call("rbind", out)
+      out <- with(out, data.frame(n = rep(n, prob * 10000), p = rep(nuisance, prob * 10000)))
+      out.list <- split(out$n, paste0("p = ", out$p))
+
+      if (plot) {
+        boxplot(out.list, ...)
+      }
+      if (summary) {
+        sapply(out.list, summary)
+      } else {
+        out.list
+      }
+    } else {
+      out <- lapply(n1, function(x) n_distrib_chisq(design, x, nuisance, allocation, ...))
+      out <- Map(cbind, out, n1 = n1)
+      out <- do.call("rbind", out)
+      out <- with(out, data.frame(n = rep(n, prob * 10000), n1 = rep(n1, prob * 10000)))
+      out.list <- split(out$n, paste0("n1 = ", out$n1))
+
+      if (plot) {
+        boxplot(out.list, ...)
+      }
+      if (summary) {
+        sapply(out.list, summary)
+      } else {
+        out.list
+      }
+    }
+  })

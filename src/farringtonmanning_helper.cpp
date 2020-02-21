@@ -42,7 +42,7 @@ double fm_fix_reject(S4 design, double n, double nuisance, String type) {
   bool ind;
 
   double reject_prob = 0;
-  double krit = R::qnorm(1 - alpha / 2, 0, 1, TRUE, FALSE);
+  double krit = R::qnorm(1 - alpha, 0, 1, TRUE, FALSE);
   double n_c = ceil(n / (r + 1));
   double n_e = ceil(n * r / (r + 1));
   double r_act = n_e / n_c;
@@ -102,7 +102,7 @@ double fm_recalc_reject(S4 design, double n1, double nuisance,
   bool ind;
 
   double reject_prob = 0;
-  double krit = R::qnorm(1 - alpha / 2, 0, 1, TRUE, FALSE);
+  double krit = R::qnorm(1 - alpha, 0, 1, TRUE, FALSE);
   double p0_e = nuisance - delta_NI / (1 + r);
   double p0_c = p0_e + delta_NI;
   double n_c1 = ceil(n1 / (r + 1));
