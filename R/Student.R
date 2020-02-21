@@ -116,7 +116,7 @@ setMethod("pow", signature("Student"),
 #' @rdname sample_size_dist
 #' @export
 setMethod("sample_size_dist", signature("Student"),
-          function(design, n1, nuisance, summary = TRUE, plot = FALSE, iters = 1e4, seed = NULL, range = 0,...) {
+          function(design, n1, nuisance, summary = TRUE, plot = FALSE, iters = 1e4, seed = NULL, range = 0, ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
