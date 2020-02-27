@@ -236,9 +236,9 @@ setMethod("adjusted_alpha", signature("ChiSquare"),
     return(design@alpha)
   })
 
-#' @rdname sample_size_dist
+#' @rdname n_dist
 #' @export
-setMethod("sample_size_dist", signature("ChiSquare"),
+setMethod("n_dist", signature("ChiSquare"),
   function(design, n1, nuisance, summary, plot,
            allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)

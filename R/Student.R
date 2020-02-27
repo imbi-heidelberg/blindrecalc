@@ -135,9 +135,9 @@ setMethod("pow", signature("Student"),
 
 
 #' @template iters
-#' @rdname sample_size_dist
+#' @rdname n_dist
 #' @export
-setMethod("sample_size_dist", signature("Student"),
+setMethod("n_dist", signature("Student"),
           function(design, n1, nuisance, summary = TRUE, plot = FALSE, iters = 1e4,
                    seed = NULL, range = 0, allocation = c("approximate", "exact"), ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {

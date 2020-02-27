@@ -37,8 +37,8 @@ setGeneric("pow", function(design, n1, nuisance, recalculation, ...) {
 #' @template dotdotdot
 #'
 #' @export
-setGeneric("sample_size_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE, ...) {
-  standardGeneric("sample_size_dist")
+setGeneric("n_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE, ...) {
+  standardGeneric("n_dist")
 })
 
 

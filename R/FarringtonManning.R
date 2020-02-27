@@ -223,9 +223,9 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
     return(design@alpha)
   })
 
-#' @rdname sample_size_dist
+#' @rdname n_dist
 #' @export
-setMethod("sample_size_dist", signature("FarringtonManning"),
+setMethod("n_dist", signature("FarringtonManning"),
   function(design, n1, nuisance, summary, plot,
     allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)
