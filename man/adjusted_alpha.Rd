@@ -17,6 +17,8 @@ is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
 
+\item{...}{further optional arguments}
+
 \item{tol}{desired absolute tolerance}
 
 \item{iters}{number of simulation iterations}

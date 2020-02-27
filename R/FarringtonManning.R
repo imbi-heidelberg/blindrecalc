@@ -7,10 +7,8 @@
 #' by \code{setupFarringtonManning()}.
 #' @param nuisance the overall response rate.
 #' @param rounded
-
-#' @export
 #'
-#' @examples
+#' @export
 setMethod("n_fix", signature("FarringtonManning"),
   function(design, nuisance, rounded = TRUE, ...) {
     if (design@delta_NI <= 0) stop("delta_NI has to be positive")
@@ -53,12 +51,10 @@ setMethod("n_fix", signature("FarringtonManning"),
 #'    sample size of the first stage (if \code{design} is \code{"ips"})
 #' @param nuisance the overall response rate.
 #' @template recalculation
-#' @tempalte allocation
+#' @template allocation
 #' @template dotdotdot
 #'
 #' @export
-#'
-#' @examples
 setMethod("toer", signature("FarringtonManning"),
   function(design, n1, nuisance, recalculation,
            allocation = c("exact", "approximate"), ...) {
@@ -223,9 +219,9 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
     return(design@alpha)
   })
 
-#' @rdname sample_size_dist
+#' @rdname n_dist
 #' @export
-setMethod("sample_size_dist", signature("FarringtonManning"),
+setMethod("n_dist", signature("FarringtonManning"),
   function(design, n1, nuisance, summary, plot,
     allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)
@@ -252,7 +248,7 @@ setMethod("sample_size_dist", signature("FarringtonManning"),
       out.list <- split(out$n, paste0("p = ", out$p))
 
       if (plot) {
-        boxplot(out.list, ...)
+        graphics::boxplot(out.list, ...)
       }
       if (summary) {
         sapply(out.list, summary)
@@ -267,7 +263,7 @@ setMethod("sample_size_dist", signature("FarringtonManning"),
       out.list <- split(out$n, paste0("n1 = ", out$n1))
 
       if (plot) {
-        boxplot(out.list, ...)
+        graphics::boxplot(out.list, ...)
       }
       if (summary) {
         sapply(out.list, summary)

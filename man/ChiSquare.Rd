@@ -23,6 +23,9 @@ setupChiSquare(
 
 \item{delta}{difference of effect size between alternative and null hypothesis}
 
+\item{alternative}{character value indicating if the alternative contains greater
+(option "greater") or smaller (option "smaller") values than the null hypothesis}
+
 \item{n_max}{maximal overall sample size}
 
 \item{...}{further optional arguments}

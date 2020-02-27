@@ -57,13 +57,21 @@ setClass("FarringtonManning", contains = "TestStatistic")
 #'
 #' @template setup
 #' @template NI
+#' @template alternative
 #' @template dotdotdot
 #'
 #' @rdname Student
 #' @export
-setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf, ...) {
+setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0,
+                         alternative = c("greater", "smaller"), n_max = Inf, ...) {
+
+  if (delta_NI < 0) stop("the non-inferiority margin must be non-negative!")
+
+  if (alternative == "smaller" & delta_NI != 0)
+    stop("smaller alternatives are not possible for non-inferiority tests!")
+
   new("Student", alpha = alpha, beta = beta, r = r, delta = delta,
-      delta_NI = delta_NI, alternative = "greater", n_max = n_max)
+      delta_NI = -delta_NI, alternative = match.arg(alternative), n_max = n_max)
 }
 
 
@@ -74,6 +82,7 @@ setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf, .
 #' can be used for sample size recalculation.
 #'
 #' @template setup
+#' @template alternative
 #' @template dotdotdot
 #'
 #' @details For non-inferiority trials use the function \code{\link{setupFarringtonManning}}.

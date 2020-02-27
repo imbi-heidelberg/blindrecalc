@@ -8,6 +8,7 @@
   design,
   n1,
   nuisance,
+  nuis_ass,
   precision = 0.001,
   recalculation,
   allocation = c("exact", "approximate"),
@@ -22,7 +23,7 @@
 \item{recalculation}{logical: should the sample size be recalcuated after n1
 patients are recruited?}
 
-\item{allocation}{TODO}
+\item{allocation}{should the allocation ratio be hold exactly (option 'exact') or approximately (option 'approximate')?}
 
 \item{...}{further optional arguments}
 }

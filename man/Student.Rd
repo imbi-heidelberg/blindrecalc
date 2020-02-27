@@ -4,7 +4,16 @@
 \alias{setupStudent}
 \title{Setup Student's t-test}
 \usage{
-setupStudent(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf, ...)
+setupStudent(
+  alpha,
+  beta,
+  r = 1,
+  delta,
+  delta_NI = 0,
+  alternative = c("greater", "smaller"),
+  n_max = Inf,
+  ...
+)
 }
 \arguments{
 \item{alpha}{one-sided type I error rate}
@@ -16,6 +25,9 @@ setupStudent(alpha, beta, r = 1, delta, delta_NI = 0, n_max = Inf, ...)
 \item{delta}{difference of effect size between alternative and null hypothesis}
 
 \item{delta_NI}{non-inferiority margin}
+
+\item{alternative}{character value indicating if the alternative contains greater
+(option "greater") or smaller (option "smaller") values than the null hypothesis}
 
 \item{n_max}{maximal overall sample size}
 

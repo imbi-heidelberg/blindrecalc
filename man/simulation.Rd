@@ -12,6 +12,7 @@ simulation(
   delta_true,
   iters = 1000,
   seed = NULL,
+  allocation = c("approximate", "exact"),
   ...
 )
 }
@@ -32,6 +33,8 @@ patients are recruited?}
 
 \item{seed}{random seed for simulation}
 
+\item{allocation}{should the allocation ratio be hold exactly (option 'exact') or approximately (option 'approximate')?}
+
 \item{...}{further optional arguments}
 }
 \description{
@@ -45,4 +48,6 @@ The implementation follows the algorithm in Lu (2019):
 Distribution of the two-sample t-test statistic following blinded
 sample size re-estimation.
 Pharmaceutical Statistics 15: 208-215.
+Since Lu (2019) assumes negative non-inferiority margins, the non-inferiority
+margin of \code{design} is multiplied with -1 internally.
 }

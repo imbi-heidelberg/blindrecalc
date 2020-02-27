@@ -14,6 +14,7 @@ pow(design, n1, nuisance, recalculation, ...)
   recalculation = TRUE,
   iters = 10000,
   seed = NULL,
+  allocation = c("approximate", "exact"),
   ...
 )
 }
@@ -33,6 +34,8 @@ patients are recruited?}
 \item{iters}{number of simulation iterations}
 
 \item{seed}{random seed for simulation}
+
+\item{allocation}{should the allocation ratio be hold exactly (option 'exact') or approximately (option 'approximate')?}
 }
 \description{
 Power
