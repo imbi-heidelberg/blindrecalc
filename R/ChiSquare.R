@@ -196,7 +196,7 @@ setMethod("pow", signature("ChiSquare"),
 #'
 #' @export
 setMethod("adjusted_alpha", signature("ChiSquare"),
-  function(design, n1, nuisance, precision = 0.001, recalculation,
+  function(design, n1, nuisance, nuis_ass, precision = 0.001, recalculation,
            allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
@@ -226,6 +226,11 @@ setMethod("adjusted_alpha", signature("ChiSquare"),
           function(x) chisq_fix_reject(design, n1, x, "size")))
         if (alpha_max <= alpha_nom) break
         design@alpha <- design@alpha - precision
+        if (allocation == "exact") {
+          n1 <- n_fix(design, nuis_ass, ...)
+        } else {
+          n1 <- n_fix(design, nuis_ass, rounded = FALSE, ...)
+        }
       }
     }
     return(design@alpha)
