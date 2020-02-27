@@ -22,7 +22,7 @@ test_that("Example of Lu can be reproduced", {
 
 test_that("Alpha can be adjusted in non-inferiority case", {
   design <- setupStudent(alpha = .025, beta = .2, r = 2, delta = 3.5,
-                         delta_NI = -1.5, n_max = Inf)
+                         delta_NI = 1.5, n_max = Inf)
 
   expect_gte(
     toer(design, 10, 5, TRUE, its, seed = 2020),
@@ -48,7 +48,7 @@ test_that("Alpha can be adjusted in non-inferiority case", {
 
 test_that("Vectorization works", {
   design <- setupStudent(alpha = .025, beta = .2, r = 2, delta = 3.5,
-                         delta_NI = -1.5, n_max = Inf)
+                         delta_NI = 1.5, n_max = Inf)
 
   expect_error(
     n_dist(design, c(10,20), c(4, 5), T, T, 1e4)

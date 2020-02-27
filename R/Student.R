@@ -16,6 +16,8 @@
 #' Distribution of the two-sample t-test statistic following blinded
 #' sample size re-estimation.
 #' Pharmaceutical Statistics 15: 208-215.
+#' Since Lu (2019) assumes negative non-inferiority margins, the non-inferiority
+#' margin of \code{design} is multiplied with -1 internally.
 #'
 #' @export
 simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,

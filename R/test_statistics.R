@@ -64,11 +64,13 @@ setClass("FarringtonManning", contains = "TestStatistic")
 setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0,
                          alternative = c("greater", "smaller"), n_max = Inf, ...) {
 
+  if (delta_NI < 0) stop("the non-inferiority margin must be non-negative!")
+
   if (alternative == "smaller" && delta_NI != 0)
     stop("smaller alternatives are not possible for non-inferiority tests!")
 
   new("Student", alpha = alpha, beta = beta, r = r, delta = delta,
-      delta_NI = delta_NI, alternative = match.arg(alternative), n_max = n_max)
+      delta_NI = -delta_NI, alternative = match.arg(alternative), n_max = n_max)
 }
 
 
