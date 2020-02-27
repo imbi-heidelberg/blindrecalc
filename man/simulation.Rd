@@ -12,6 +12,7 @@ simulation(
   delta_true,
   iters = 1000,
   seed = NULL,
+  allocation = c("approximate", "exact"),
   ...
 )
 }
@@ -31,6 +32,8 @@ patients are recruited?}
 \item{iters}{number of simulation iterations}
 
 \item{seed}{random seed for simulation}
+
+\item{allocation}{should the allocation ratio be hold exactly (option 'exact') or approximately (option 'approximate')?}
 
 \item{...}{further optional arguments}
 }

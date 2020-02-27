@@ -9,6 +9,7 @@
 #' @template recalculation
 #' @param delta_true effect measure under which the rejection probabilities are computed
 #' @template iters
+#' @template allocation
 #' @template dotdotdot
 #'
 #' @details The implementation follows the algorithm in Lu (2019):
@@ -17,8 +18,21 @@
 #' Pharmaceutical Statistics 15: 208-215.
 #'
 #' @export
-simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true, iters = 1000, seed = NULL, ...) {
+simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
+                       iters = 1000, seed = NULL, allocation = c("approximate", "exact"), ...) {
+
   if (!is.null(seed)) set.seed(seed)
+  allocation <- match.arg(allocation)
+
+  if (allocation == "exact") {
+    if (sum(n1 %% (design@r + 1) != 0) > 0) {
+      stop("n1 cannot be allocated exactly!")
+    }
+    if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
+      stop("n_max cannot be allocated exactly!")
+    }
+  }
+
 
   alloc <- design@r / (1 + design@r)^2
 
@@ -32,17 +46,20 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true, i
   # Step 3
   if (recalculation == FALSE) {
     n <- n1
-    } else {
-      n_recalc <- 1 / alloc * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
-        (design@delta - design@delta_NI)^2 * var_hat
-      n        <- sapply(n_recalc, function(m) min(design@n_max, max(ceiling(m), n1)))
+  } else {
+    n_recalc <- ceiling(1 / alloc * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
+      (design@delta - design@delta_NI)^2 * var_hat)
+    if (allocation == "exact") {
+      while ((sum(n_recalc %% (design@r + 1) != 0) > 0)) n_recalc <- n_recalc + 1
     }
+    n <- sapply(n_recalc, function(m) min(design@n_max, max(m, n1)))
+  }
 
   n2 <- n - n1
 
   f <- function(i) {
     # Step 4
-    if(n2[i] == 0) {
+    if (n2[i] == 0) {
       test_statistic <- (z1[i] + sqrt(n1 * alloc) * (delta_true - design@delta_NI) / nuisance) / sqrt(v1[i] / (n1 - 2))
       } else {
         # Step 5
@@ -70,20 +87,24 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true, i
 
 
 #' @template iters
+#' @template allocation
 #' @rdname toer
 #' @export
 setMethod("toer", signature("Student"),
-          function(design, n1, nuisance, recalculation = TRUE, iters = 1e4, seed = NULL, ...) {
+          function(design, n1, nuisance, recalculation = TRUE, iters = 1e4, seed = NULL,
+                   allocation = c("approximate", "exact"), ...) {
+
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
 
+
             if (length(n1) == 1) {
               return(sapply(nuisance, function(sigma)
-                simulation(design, n1, sigma, recalculation, design@delta_NI, iters, seed, ...)$rejection_probability))
+                simulation(design, n1, sigma, recalculation, design@delta_NI, iters, seed, allocation, ...)$rejection_probability))
             } else if (length(nuisance) == 1) {
               return(sapply(n1, function(n1)
-                simulation(design, n1, nuisance, recalculation, design@delta_NI, iters, seed, ...)$rejection_probability))
+                simulation(design, n1, nuisance, recalculation, design@delta_NI, iters, seed, allocation, ...)$rejection_probability))
             }
           })
 
@@ -94,17 +115,18 @@ setMethod("toer", signature("Student"),
 #' @rdname pow
 #' @export
 setMethod("pow", signature("Student"),
-          function(design, n1, nuisance, recalculation = TRUE, iters = 1e4, seed = NULL, ...) {
+          function(design, n1, nuisance, recalculation = TRUE, iters = 1e4, seed = NULL,
+                   allocation = c("approximate", "exact"), ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
 
             if (length(n1) == 1) {
               return(sapply(nuisance, function(sigma)
-                simulation(design, n1, sigma, recalculation, design@delta, iters, seed, ...)$rejection_probability))
+                simulation(design, n1, sigma, recalculation, design@delta, iters, seed, allocation, ...)$rejection_probability))
             } else if (length(nuisance) == 1) {
               return(sapply(n1, function(n1)
-                simulation(design, n1, nuisance, recalculation, design@delta, iters, seed, ...)$rejection_probability))
+                simulation(design, n1, nuisance, recalculation, design@delta, iters, seed, allocation, ...)$rejection_probability))
             }
 
           })
@@ -116,20 +138,21 @@ setMethod("pow", signature("Student"),
 #' @rdname sample_size_dist
 #' @export
 setMethod("sample_size_dist", signature("Student"),
-          function(design, n1, nuisance, summary = TRUE, plot = FALSE, iters = 1e4, seed = NULL, range = 0, ...) {
+          function(design, n1, nuisance, summary = TRUE, plot = FALSE, iters = 1e4,
+                   seed = NULL, range = 0, allocation = c("approximate", "exact"), ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
 
             if (length(n1) == 1) {
               n <- sapply(nuisance, function(sigma)
-                simulation(design, n1, sigma, recalculation = TRUE, design@delta, iters, seed, ...)$sample_sizes)
+                simulation(design, n1, sigma, recalculation = TRUE, design@delta, iters, seed, allocation, ...)$sample_sizes)
               n <- data.frame(n)
               for (i in 1:ncol(n))
                 colnames(n)[i] <- paste(expression(sigma),"=",nuisance[i])
             } else if (length(nuisance) == 1) {
               n <- sapply(n1, function(n1)
-                simulation(design, n1, nuisance, recalculation = TRUE, design@delta, iters, seed, ...)$sample_sizes)
+                simulation(design, n1, nuisance, recalculation = TRUE, design@delta, iters, seed, allocation, ...)$sample_sizes)
               n <- data.frame(n)
               for (i in 1:ncol(n))
                 colnames(n)[i] <- paste(expression(n_1),"=",n1[i])

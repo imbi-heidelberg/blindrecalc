@@ -14,6 +14,7 @@ pow(design, n1, nuisance, recalculation, ...)
   recalculation = TRUE,
   iters = 10000,
   seed = NULL,
+  allocation = c("approximate", "exact"),
   ...
 )
 }
