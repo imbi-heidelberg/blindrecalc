@@ -58,6 +58,7 @@ setMethod("n_fix", signature("ChiSquare"),
 #' Calculation of the actual level of the chi-squared test for the fixed sample design and the
 #' internal pilot study design.
 #'
+#' @param design an object of class \code{ChiSquare} created by \code{setupChiSquare()}.
 #' @param n1 Either the total sample size (if \code{design} is \code{"fixed"}) or
 #' sample size of the first stage (if \code{design} is \code{"ips"})
 #' @param nuisance the overall response rate.
@@ -265,7 +266,7 @@ setMethod("n_dist", signature("ChiSquare"),
       out.list <- split(out$n, paste0("p = ", out$p))
 
       if (plot) {
-        boxplot(out.list, ...)
+        graphics::boxplot(out.list, ...)
       }
       if (summary) {
         sapply(out.list, summary)
@@ -280,7 +281,7 @@ setMethod("n_dist", signature("ChiSquare"),
       out.list <- split(out$n, paste0("n1 = ", out$n1))
 
       if (plot) {
-        boxplot(out.list, ...)
+        graphics::boxplot(out.list, ...)
       }
       if (summary) {
         sapply(out.list, summary)

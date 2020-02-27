@@ -114,6 +114,7 @@ setMethod("toer", signature("Student"),
 
 
 #' @template iters
+#' @template allocation
 #' @rdname pow
 #' @export
 setMethod("pow", signature("Student"),
@@ -137,6 +138,11 @@ setMethod("pow", signature("Student"),
 
 
 #' @template iters
+#' @template allocation
+#' @param range this determines how far the plot whiskers extend out from the box.
+#'    If range is positive, the whiskers extend to the most extreme data point
+#'    which is no more than range times the interquartile range from the box.
+#'    A value of zero causes the whiskers to extend to the data extremes.
 #' @rdname n_dist
 #' @export
 setMethod("n_dist", signature("Student"),

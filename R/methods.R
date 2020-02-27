@@ -49,7 +49,7 @@ setGeneric("n_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE
 #' such that the actual type I error rate is protected.
 #'
 #' @template methods
-#' @param tol desired absolute tolerance
+#' @template dotdotdot
 #'
 #' @export
 setGeneric("adjusted_alpha", function(design, n1, nuisance, ...) {

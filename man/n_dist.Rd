@@ -61,6 +61,13 @@ Otherwise, a vector with sample sizes is returned.}
 \item{iters}{number of simulation iterations}
 
 \item{seed}{random seed for simulation}
+
+\item{range}{this determines how far the plot whiskers extend out from the box.
+If range is positive, the whiskers extend to the most extreme data point
+which is no more than range times the interquartile range from the box.
+A value of zero causes the whiskers to extend to the data extremes.}
+
+\item{allocation}{should the allocation ratio be hold exactly (option 'exact') or approximately (option 'approximate')?}
 }
 \description{
 Distribution of the Sample Size

@@ -26,6 +26,9 @@ setupStudent(
 
 \item{delta_NI}{non-inferiority margin}
 
+\item{alternative}{character value indicating if the alternative contains greater
+(option "greater") or smaller (option "smaller") values than the null hypothesis}
+
 \item{n_max}{maximal overall sample size}
 
 \item{...}{further optional arguments}
