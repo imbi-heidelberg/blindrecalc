@@ -24,6 +24,12 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
                        iters = 1000, seed = NULL, allocation = c("approximate", "exact"), ...) {
 
   if (!is.null(seed)) set.seed(seed)
+
+  if (design@alternative == "smaller") {
+    design@delta <- -design@delta
+    delta_true   <- -delta_true
+  }
+
   allocation <- match.arg(allocation)
 
   if (allocation == "exact") {

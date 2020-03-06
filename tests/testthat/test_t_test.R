@@ -58,7 +58,31 @@ test_that("Vectorization works", {
     as.numeric(unlist(n_dist(design, c(10, 20), 5, FALSE, FALSE, 1e4, 2020))),
     as.numeric(unlist(sapply(c(10, 20), function(n1) n_dist(design, n1, 5, FALSE, FALSE, 1e4, 2020))))
   )
+})
 
 
+test_that("alternative equals smaller", {
+  #test errors
+  expect_error(setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5,
+                            delta_NI = 0, alternative = "smaller", n_max = Inf)
+  )
+
+  expect_error(setupStudent(alpha = .025, beta = .2, r = 1, delta = - 3.5,
+                            delta_NI = 0, alternative = "greater", n_max = Inf)
+  )
+
+  expect_error(setupStudent(alpha = .025, beta = .2, r = 1, delta = - 3.5,
+                            delta_NI = -1, alternative = "smaller", n_max = Inf)
+  )
+
+
+  # test toer
+  design_smaller <- setupStudent(alpha = 0.025, beta = .1, r = 2, delta = -2,
+                                 delta_NI = 0, alternative = "smaller", n_max = 100)
+  design_greater <- setupStudent(alpha = 0.025, beta = .1, r = 2, delta = 2,
+                                 delta_NI = 0, alternative = "greater", n_max = 100)
+  expect_equal(toer(design_smaller, 20, 3, TRUE, 1e4, 42),
+               toer(design_greater, 20, 3, TRUE, 1e4, 42))
 
 })
+

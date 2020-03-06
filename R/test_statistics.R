@@ -70,6 +70,12 @@ setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0,
   if (alternative == "smaller" & delta_NI != 0)
     stop("smaller alternatives are not possible for non-inferiority tests!")
 
+  if (alternative == "smaller" & delta > 0)
+    stop("use negative effect sizes for power calculations if alternative == 'smaller'!")
+
+  if (alternative == "greater" & delta < 0)
+    stop("use positive effect sizes for power calculations if alternative == 'greater'!")
+
   new("Student", alpha = alpha, beta = beta, r = r, delta = delta,
       delta_NI = -delta_NI, alternative = match.arg(alternative), n_max = n_max)
 }
