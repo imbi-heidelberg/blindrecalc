@@ -20,3 +20,9 @@ n_fix(design, nuisance, ...)
 Returns the sample size for the corresponding one-stage design without
 sample size recalculation.
 }
+\examples{
+d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+                  alternative = "greater", n_max = 156)
+n_fix(design = d, nuisance = 5.5)
+
+}

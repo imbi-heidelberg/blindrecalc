@@ -51,3 +51,9 @@ Pharmaceutical Statistics 15: 208-215.
 Since Lu (2019) assumes negative non-inferiority margins, the non-inferiority
 margin of \code{design} is multiplied with -1 internally.
 }
+\examples{
+d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+                  alternative = "greater", n_max = 156)
+simulation(d, n1 = 20, nuisance = 5.5, recalculation = TRUE, delta_true = 3.5)
+
+}
