@@ -28,6 +28,7 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
   if (design@alternative == "smaller") {
     design@delta <- -design@delta
     delta_true   <- -delta_true
+    design@r     <- 1 / design@r
   }
 
   allocation <- match.arg(allocation)
