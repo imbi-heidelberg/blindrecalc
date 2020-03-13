@@ -210,9 +210,9 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
         if (alpha_max <= alpha_nom) break
         design@alpha <- design@alpha - precision
         if (allocation == "exact") {
-          n1 <- n_fix(desing = design, nuisance = nuis_ass, ...)
+          n1 <- n_fix(design, nuis_ass, ...)
         } else {
-          n1 <- n_fix(design = design, nuisance = nuis_ass, rounded = FALSE, ...)
+          n1 <- n_fix(design, nuis_ass, rounded = FALSE, ...)
         }
       }
     }
