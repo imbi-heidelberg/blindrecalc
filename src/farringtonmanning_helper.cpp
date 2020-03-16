@@ -50,7 +50,7 @@ double fm_fix_reject(S4 design, double n, double nuisance, String type) {
   double p0_c = p0_e + delta_NI;
 
   if ((p0_e < 0) | (p0_c > 1)) {
-    Rcerr << "probabilities outside [0, 1]";
+    stop("probabilities outside [0, 1]");
   }
 
   if (type == "power") {
@@ -58,7 +58,7 @@ double fm_fix_reject(S4 design, double n, double nuisance, String type) {
     p1_c = p1_e + delta;
 
     if ((p1_e < 0) | (p1_c > 1)) {
-      Rcerr << "probabilities outside [0, 1]";
+      stop("probabilities outside [0, 1]");
     }
   }
 
