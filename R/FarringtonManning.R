@@ -179,8 +179,8 @@ function(design, n1, nuisance, recalculation,
 #'
 #' @export
 setMethod("adjusted_alpha", signature("FarringtonManning"),
-  function(design, n1, nuisance, precision = 0.001, gamma = 0,
-           recalculation, allocation = c("exact", "approximate"), ...) {
+  function(design, n1, nuisance, nuis_ass, precision = 0.001, recalculation,
+    allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
       if (n1 %% (design@r + 1) != 0) {
