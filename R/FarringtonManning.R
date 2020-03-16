@@ -194,7 +194,7 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
       stop("nuisance has to be within [0, 1]")
     }
 
-    alpha_nom <- design@alpha
+    alpha_nom <- design@alpha - gamma
     if (recalculation) {
       repeat {
         nmat <- get_nmat_fm(design, n1, allocation, ...)

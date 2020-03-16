@@ -197,8 +197,8 @@ setMethod("pow", signature("ChiSquare"),
 #'
 #' @export
 setMethod("adjusted_alpha", signature("ChiSquare"),
-  function(design, n1, nuisance, nuis_ass, precision = 0.001, recalculation,
-           allocation = c("exact", "approximate"), ...) {
+  function(design, n1, nuisance, nuis_ass, precision = 0.001, gamma = 0,
+           recalculation, allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
       if (n1 %% (design@r + 1) != 0) {
@@ -212,7 +212,7 @@ setMethod("adjusted_alpha", signature("ChiSquare"),
       stop("nuisance has to be within [0, 1]")
     }
 
-    alpha_nom <- design@alpha
+    alpha_nom <- design@alpha - gamma
     if (recalculation) {
       repeat {
         nmat <- get_nmat_chisq(design, n1, allocation, ...)
