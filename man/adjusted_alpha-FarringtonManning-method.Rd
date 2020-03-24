@@ -8,7 +8,9 @@
   design,
   n1,
   nuisance,
+  nuis_ass,
   precision = 0.001,
+  gamma = 0,
   recalculation,
   allocation = c("exact", "approximate"),
   ...

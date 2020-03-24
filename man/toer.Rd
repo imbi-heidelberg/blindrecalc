@@ -45,3 +45,9 @@ Computes the type I error rate of a design with blinded sample size recalculatio
 by simulation (in the continuous case) or exactly (in the binary case)
 for one or several values of the nuisance parameter.
 }
+\examples{
+d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+                  alternative = "greater", n_max = 156)
+toer(d, n1 = 20, nuisance = 5.5, recalculation = TRUE)
+
+}

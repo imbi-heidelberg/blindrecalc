@@ -19,6 +19,11 @@
 #' Since Lu (2019) assumes negative non-inferiority margins, the non-inferiority
 #' margin of \code{design} is multiplied with -1 internally.
 #'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' simulation(d, n1 = 20, nuisance = 5.5, recalculation = TRUE, delta_true = 3.5)
+#'
 #' @export
 simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
                        iters = 1000, seed = NULL, allocation = c("approximate", "exact"), ...) {
@@ -97,6 +102,12 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
 
 #' @template iters
 #' @template allocation
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' toer(d, n1 = 20, nuisance = 5.5, recalculation = TRUE)
+#'
 #' @rdname toer
 #' @export
 setMethod("toer", signature("Student"),
@@ -122,6 +133,12 @@ setMethod("toer", signature("Student"),
 
 #' @template iters
 #' @template allocation
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' pow(d, n1 = 20, nuisance = 5.5, recalculation = TRUE)
+#'
 #' @rdname pow
 #' @export
 setMethod("pow", signature("Student"),
@@ -150,6 +167,12 @@ setMethod("pow", signature("Student"),
 #'    If range is positive, the whiskers extend to the most extreme data point
 #'    which is no more than range times the interquartile range from the box.
 #'    A value of zero causes the whiskers to extend to the data extremes.
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' n_dist(d, n1 = 20, nuisance = 5.5, summary = TRUE, plot = FALSE, seed = 2020)
+#'
 #' @rdname n_dist
 #' @export
 setMethod("n_dist", signature("Student"),
@@ -183,6 +206,11 @@ setMethod("n_dist", signature("Student"),
 
 
 
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' n_fix(design = d, nuisance = 5.5)
+#'
 #' @rdname n_fix
 #' @export
 setMethod("n_fix", signature("Student"),
@@ -198,12 +226,18 @@ setMethod("n_fix", signature("Student"),
 
 #' @param tol desired absolute tolerance
 #' @template iters
-#' @rdname adjusted_alpha
 #'
 #' @details In the case of the Student's t-test, the adjusted alpha is calculated
 #' using the algorithm by Kieser and Friede (2000):
 #' "Re-calculating the sample size in internal pilot study designs
 #' with control of the type I error rate"
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5, n_max = 848)
+#' sigma <- c(2, 5.5, 9)
+#' adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4)
+#'
+#' @rdname adjusted_alpha
 #'
 #' @export
 setMethod("adjusted_alpha", signature("Student"),

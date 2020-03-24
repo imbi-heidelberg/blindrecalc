@@ -40,3 +40,9 @@ patients are recruited?}
 \description{
 Power
 }
+\examples{
+d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+                  alternative = "greater", n_max = 156)
+pow(d, n1 = 20, nuisance = 5.5, recalculation = TRUE)
+
+}

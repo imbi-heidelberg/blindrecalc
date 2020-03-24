@@ -72,3 +72,9 @@ A value of zero causes the whiskers to extend to the data extremes.}
 \description{
 Distribution of the Sample Size
 }
+\examples{
+d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+                  alternative = "greater", n_max = 156)
+n_dist(d, n1 = 20, nuisance = 5.5, summary = TRUE, plot = FALSE, seed = 2020)
+
+}
