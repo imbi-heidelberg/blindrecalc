@@ -46,20 +46,6 @@ test_that("Alpha can be adjusted in non-inferiority case", {
 })
 
 
-test_that("Vectorization works", {
-  design <- setupStudent(alpha = .025, beta = .2, r = 2, delta = 3.5,
-                         delta_NI = 1.5, n_max = Inf)
-
-  expect_error(
-    n_dist(design, c(10,20), c(4, 5), T, T, 1e4)
-  )
-
-  expect_equal(
-    as.numeric(unlist(n_dist(design, c(10, 20), 5, FALSE, FALSE, 1e4, 2020))),
-    as.numeric(unlist(sapply(c(10, 20), function(n1) n_dist(design, n1, 5, FALSE, FALSE, 1e4, 2020))))
-  )
-})
-
 
 test_that("alternative equals smaller", {
   #test errors
@@ -86,3 +72,52 @@ test_that("alternative equals smaller", {
 
 })
 
+
+
+test_that("fixed sample size", {
+  des <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 2,
+                      delta_NI = 0, n_max = Inf)
+  n <- n_fix(des, 4)
+
+  type_one <- simulation(design = des, n1 = n, nuisance = 4, recalculation = FALSE,
+                         delta_true = 0, iters = its, seed = 2020,
+                         allocation = "approximate")
+
+  expect_equal(type_one$rejection_probability,
+               des@alpha,
+               tolerance = 2 / sqrt(its), scale = 1)
+
+  expect_equal(type_one$sample_sizes,
+               rep(n, its))
+})
+
+
+
+test_that("exact allocation", {
+  des <- setupStudent(alpha = 0.05, beta = 0.1, r = 1, delta = 3, delta_NI = 1,
+                      alternative = "greater", n_max = 299)
+
+  expect_error(simulation(des, 21, 5, TRUE, 2, 1e4, 2020, "exact"))
+  expect_error(simulation(des, 20, 5, TRUE, 2, 1e4, 2020, "exact"))
+
+  des@n_max <- 300
+
+  expect_lte(
+    simulation(des, 20, 5, TRUE, 1, 1, 2020, "approximate")$sample_sizes,
+    simulation(des, 20, 5, TRUE, 1, 1, 2020, "exact")$sample_sizes
+  )
+
+})
+
+
+test_that("summary function", {
+  des <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 2,
+                      delta_NI = 0, n_max = Inf)
+
+  n <- data.frame(n_dist(design, 20, 3.5, FALSE, FALSE, its, 2020))
+
+  n_table <- n_dist(design, 20, 3.5, TRUE, FALSE, its, 2020)
+
+  expect_equal(as.vector(n_table), as.vector(summary(n)))
+
+})
