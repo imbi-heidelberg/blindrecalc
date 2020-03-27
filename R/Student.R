@@ -59,7 +59,7 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
 
   # Step 3
   if (recalculation == FALSE) {
-    n <- n1
+    n <- rep(n1, iters)
   } else {
     n_recalc <- ceiling(1 / alloc * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
       (design@delta - design@delta_NI)^2 * var_hat)
