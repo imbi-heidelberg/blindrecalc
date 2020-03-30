@@ -119,3 +119,7 @@ using the algorithm by Kieser and Friede (2000):
 "Re-calculating the sample size in internal pilot study designs
 with control of the type I error rate"
 }
+\examples{
+d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+                   alternative = "greater", n_max = 156)
+}

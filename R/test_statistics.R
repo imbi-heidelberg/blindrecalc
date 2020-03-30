@@ -75,6 +75,9 @@ setClass("FarringtonManning", contains = "TestStatistic")
 #' @template alternative
 #' @template dotdotdot
 #'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                    alternative = "greater", n_max = 156)
 #' @rdname Student
 #' @export
 setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0,
