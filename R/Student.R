@@ -103,12 +103,7 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
 #' @template iters
 #' @template allocation
 #'
-#' @examples
-#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
-#'                   alternative = "greater", n_max = 156)
-#' toer(d, n1 = 20, nuisance = 5.5, recalculation = TRUE)
-#'
-#' @rdname toer
+#' @rdname Student
 #' @export
 setMethod("toer", signature("Student"),
           function(design, n1, nuisance, recalculation = TRUE, iters = 1e4, seed = NULL,
@@ -134,12 +129,7 @@ setMethod("toer", signature("Student"),
 #' @template iters
 #' @template allocation
 #'
-#' @examples
-#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
-#'                   alternative = "greater", n_max = 156)
-#' pow(d, n1 = 20, nuisance = 5.5, recalculation = TRUE)
-#'
-#' @rdname pow
+#' @rdname Student
 #' @export
 setMethod("pow", signature("Student"),
           function(design, n1, nuisance, recalculation = TRUE, iters = 1e4, seed = NULL,
@@ -168,12 +158,7 @@ setMethod("pow", signature("Student"),
 #'    which is no more than range times the interquartile range from the box.
 #'    A value of zero causes the whiskers to extend to the data extremes.
 #'
-#' @examples
-#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
-#'                   alternative = "greater", n_max = 156)
-#' n_dist(d, n1 = 20, nuisance = 5.5, summary = TRUE, plot = FALSE, seed = 2020)
-#'
-#' @rdname n_dist
+#' @rdname Student
 #' @export
 setMethod("n_dist", signature("Student"),
           function(design, n1, nuisance, summary = TRUE, plot = FALSE, iters = 1e4,
@@ -206,12 +191,7 @@ setMethod("n_dist", signature("Student"),
 
 
 
-#' @examples
-#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
-#'                   alternative = "greater", n_max = 156)
-#' n_fix(design = d, nuisance = 5.5)
-#'
-#' @rdname n_fix
+#' @rdname Student
 #' @export
 setMethod("n_fix", signature("Student"),
           function(design, nuisance, ...) {
@@ -232,13 +212,7 @@ setMethod("n_fix", signature("Student"),
 #' "Re-calculating the sample size in internal pilot study designs
 #' with control of the type I error rate"
 #'
-#' @examples
-#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5, n_max = 848)
-#' sigma <- c(2, 5.5, 9)
-#' adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4)
-#'
-#' @rdname adjusted_alpha
-#'
+#' @rdname Student
 #' @export
 setMethod("adjusted_alpha", signature("Student"),
           function(design, n1, nuisance, tol, iters = 1e4, seed = NULL, ...) {
