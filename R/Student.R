@@ -99,9 +99,11 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
 
 
 
-
+#' @template methods
+#' @template recalculation
 #' @template iters
 #' @template allocation
+#' @template dotdotdot
 #'
 #' @rdname Student
 #' @export
@@ -125,9 +127,11 @@ setMethod("toer", signature("Student"),
 
 
 
-
+#' @template methods
+#' @template recalculation
 #' @template iters
 #' @template allocation
+#' @template dotdotdot
 #'
 #' @rdname Student
 #' @export
@@ -150,13 +154,17 @@ setMethod("pow", signature("Student"),
 
 
 
-
+#' @template methods
+#' @param summary logical - is a summary of the sample size distribution desired?
+#'    Otherwise, a vector with sample sizes is returned.
+#' @template plot
 #' @template iters
 #' @template allocation
 #' @param range this determines how far the plot whiskers extend out from the box.
 #'    If range is positive, the whiskers extend to the most extreme data point
 #'    which is no more than range times the interquartile range from the box.
 #'    A value of zero causes the whiskers to extend to the data extremes.
+#' @template dotdotdot
 #'
 #' @rdname Student
 #' @export
@@ -190,7 +198,10 @@ setMethod("n_dist", signature("Student"),
 
 
 
-
+#' @param design test statistic object
+#' @param nuisance nuisance parameter
+#' @template dotdotdot
+#'
 #' @rdname Student
 #' @export
 setMethod("n_fix", signature("Student"),
@@ -203,9 +214,10 @@ setMethod("n_fix", signature("Student"),
 
 
 
-
+#' @template methods
 #' @param tol desired absolute tolerance
 #' @template iters
+#' @template dotdotdot
 #'
 #' @details In the case of the Student's t-test, the adjusted alpha is calculated
 #' using the algorithm by Kieser and Friede (2000):
