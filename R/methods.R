@@ -10,6 +10,14 @@
 #'
 #' @return one type I error rate value for every nuisance parameter
 #'
+#' @details The method is implemented for the classes \code{\link{Student}},
+#' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' toer(d, n1 = 20, nuisance = 5.5, recalculation = TRUE)
+#'
 #' @export
 setGeneric("toer", function(design, n1, nuisance, recalculation, ...) {
   standardGeneric("toer")
@@ -21,6 +29,15 @@ setGeneric("toer", function(design, n1, nuisance, recalculation, ...) {
 #' @template methods
 #' @template recalculation
 #' @template dotdotdot
+#'
+#' @details The method is implemented for the classes \code{\link{Student}},
+#' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' pow(d, n1 = 20, nuisance = 5.5, recalculation = TRUE)
+#'
 #'
 #' @export
 setGeneric("pow", function(design, n1, nuisance, recalculation, ...) {
@@ -36,6 +53,15 @@ setGeneric("pow", function(design, n1, nuisance, recalculation, ...) {
 #' @template plot
 #' @template dotdotdot
 #'
+#' @details The method is implemented for the classes \code{\link{Student}},
+#' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' n_dist(d, n1 = 20, nuisance = 5.5, summary = TRUE, plot = FALSE, seed = 2020)
+#'
+#'
 #' @export
 setGeneric("n_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE, ...) {
   standardGeneric("n_dist")
@@ -50,6 +76,14 @@ setGeneric("n_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE
 #'
 #' @template methods
 #' @template dotdotdot
+#'
+#' @details The method is implemented for the classes \code{\link{Student}},
+#' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5, n_max = 848)
+#' sigma <- c(2, 5.5, 9)
+#' adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4)
 #'
 #' @export
 setGeneric("adjusted_alpha", function(design, n1, nuisance, ...) {
@@ -67,6 +101,14 @@ setGeneric("adjusted_alpha", function(design, n1, nuisance, ...) {
 #' @param design test statistic object
 #' @param nuisance nuisance parameter
 #' @template dotdotdot
+#'
+#' @details The method is implemented for the classes \code{\link{Student}},
+#' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' n_fix(design = d, nuisance = 5.5)
 #'
 #' @export
 setGeneric("n_fix", function(design, nuisance, ...) {
