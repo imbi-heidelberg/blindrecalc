@@ -59,7 +59,7 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
 
   # Step 3
   if (recalculation == FALSE) {
-    n <- n1
+    n <- rep(n1, iters)
   } else {
     n_recalc <- ceiling(1 / alloc * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
       (design@delta - design@delta_NI)^2 * var_hat)
@@ -99,16 +99,13 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
 
 
 
-
+#' @template methods
+#' @template recalculation
 #' @template iters
 #' @template allocation
+#' @template dotdotdot
 #'
-#' @examples
-#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
-#'                   alternative = "greater", n_max = 156)
-#' toer(d, n1 = 20, nuisance = 5.5, recalculation = TRUE)
-#'
-#' @rdname toer
+#' @rdname Student
 #' @export
 setMethod("toer", signature("Student"),
           function(design, n1, nuisance, recalculation = TRUE, iters = 1e4, seed = NULL,
@@ -130,16 +127,13 @@ setMethod("toer", signature("Student"),
 
 
 
-
+#' @template methods
+#' @template recalculation
 #' @template iters
 #' @template allocation
+#' @template dotdotdot
 #'
-#' @examples
-#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
-#'                   alternative = "greater", n_max = 156)
-#' pow(d, n1 = 20, nuisance = 5.5, recalculation = TRUE)
-#'
-#' @rdname pow
+#' @rdname Student
 #' @export
 setMethod("pow", signature("Student"),
           function(design, n1, nuisance, recalculation = TRUE, iters = 1e4, seed = NULL,
@@ -160,20 +154,19 @@ setMethod("pow", signature("Student"),
 
 
 
-
+#' @template methods
+#' @param summary logical - is a summary of the sample size distribution desired?
+#'    Otherwise, a vector with sample sizes is returned.
+#' @template plot
 #' @template iters
 #' @template allocation
 #' @param range this determines how far the plot whiskers extend out from the box.
 #'    If range is positive, the whiskers extend to the most extreme data point
 #'    which is no more than range times the interquartile range from the box.
 #'    A value of zero causes the whiskers to extend to the data extremes.
+#' @template dotdotdot
 #'
-#' @examples
-#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
-#'                   alternative = "greater", n_max = 156)
-#' n_dist(d, n1 = 20, nuisance = 5.5, summary = TRUE, plot = FALSE, seed = 2020)
-#'
-#' @rdname n_dist
+#' @rdname Student
 #' @export
 setMethod("n_dist", signature("Student"),
           function(design, n1, nuisance, summary = TRUE, plot = FALSE, iters = 1e4,
@@ -205,13 +198,11 @@ setMethod("n_dist", signature("Student"),
 
 
 
-
-#' @examples
-#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
-#'                   alternative = "greater", n_max = 156)
-#' n_fix(design = d, nuisance = 5.5)
+#' @param design test statistic object
+#' @param nuisance nuisance parameter
+#' @template dotdotdot
 #'
-#' @rdname n_fix
+#' @rdname Student
 #' @export
 setMethod("n_fix", signature("Student"),
           function(design, nuisance, ...) {
@@ -223,22 +214,17 @@ setMethod("n_fix", signature("Student"),
 
 
 
-
+#' @template methods
 #' @param tol desired absolute tolerance
 #' @template iters
+#' @template dotdotdot
 #'
 #' @details In the case of the Student's t-test, the adjusted alpha is calculated
 #' using the algorithm by Kieser and Friede (2000):
 #' "Re-calculating the sample size in internal pilot study designs
 #' with control of the type I error rate"
 #'
-#' @examples
-#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5, n_max = 848)
-#' sigma <- c(2, 5.5, 9)
-#' adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4)
-#'
-#' @rdname adjusted_alpha
-#'
+#' @rdname Student
 #' @export
 setMethod("adjusted_alpha", signature("Student"),
           function(design, n1, nuisance, tol, iters = 1e4, seed = NULL, ...) {
