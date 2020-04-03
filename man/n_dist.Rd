@@ -23,7 +23,9 @@ be provided?}
 \item{...}{further optional arguments}
 }
 \description{
-Distribution of the Sample Size
+Calculates the distribution of the total sample sizes of designs
+with blinded sample size recalculation for different values of the
+nuisance parameter or of n1.
 }
 \details{
 The method is implemented for the classes \code{\link{Student}},
