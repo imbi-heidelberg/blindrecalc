@@ -1,13 +1,12 @@
-#' Sample Size Calculation for the Farrington-Manning Test
+#' @param design Object of class \code{FarringtonManning} created
+#'   by \code{setupFarringtonManning}.
+#' @param nuisance Value of the nuisance parameter. For the
+#'   Farrington-Manning test this is the overall response rate.
+#' @param rounded Whether the calculated sample size should be rounded up such that
+#'   the allocation ratio is preserved.
+#' @template dotdotdot
 #'
-#' Calculates the sample size for the Farrington-Manning test for the corresponding
-#' one-stage design without sample size recalculation.
-#'
-#' @param design an object of class \code{FarringtonManning} created
-#' by \code{setupFarringtonManning()}.
-#' @param nuisance the overall response rate.
-#' @param rounded
-#'
+#' @rdname FarringtonManning
 #' @export
 setMethod("n_fix", signature("FarringtonManning"),
   function(design, nuisance, rounded = TRUE, ...) {
@@ -40,20 +39,12 @@ setMethod("n_fix", signature("FarringtonManning"),
     }
   })
 
-#' Calculation of the Actual Level of the Chi-Squared Test
-#'
-#' Calculation of the actual level of the chi-squared test for the fixed sample design and the
-#' internal pilot study design.
-#'
-#' @param design an object of class \code{FarringtonManning} created
-#'    by \code{setupFarringtonManning()}.
-#' @param n1 Either the total sample size (if \code{design} is \code{"fixed"}) or
-#'    sample size of the first stage (if \code{design} is \code{"ips"})
-#' @param nuisance the overall response rate.
+#' @template methods_fm
 #' @template recalculation
 #' @template allocation
 #' @template dotdotdot
 #'
+#' @rdname FarringtonManning
 #' @export
 setMethod("toer", signature("FarringtonManning"),
   function(design, n1, nuisance, recalculation,
@@ -101,22 +92,13 @@ setMethod("toer", signature("FarringtonManning"),
     }
   })
 
-#' Calculation of the Power of the Farrington-Manning test
-#'
-#' Calculation of the power of the Farrington-Manning test for the fixed sample design
-#' and the internal pilot study design.
-#'
-#' @param design
-#' @param n1 Either the total sample size (if \code{design} is \code{"fixed"}) or
-#' sample size of the first stage (if \code{design} is \code{"ips"})
-#' @param nuisance the overall response rate.
+#' @template methods_fm
 #' @template recalculation
 #' @template allocation
 #' @template dotdotdot
 #'
+#' @rdname FarringtonManning
 #' @export
-#'
-#' @examples
 setMethod("pow", signature("FarringtonManning"),
 function(design, n1, nuisance, recalculation,
          allocation = c("exact", "approximate"), ...) {
@@ -163,20 +145,13 @@ function(design, n1, nuisance, recalculation,
   }
 })
 
-#' Calculation of the Adjusted Alpha for the Farrington-Manning
-#'
-#' Calculates the adjusted alpha that is necessary to maintain the nominimal type 1
-#' error rate for the fixed sample design and the internal pilot study design in the
-#' Farrington-Manning test.
-#'
-#' @param design
-#' @param n1 Either the total sample size or sample size of the first stage
-#' @param nuisance A vector of nuisance parameters
-#' @param precision
+#' @template methods_fm
+#' @template adjalpha_binary
 #' @template recalculation
 #' @template allocation
 #' @template dotdotdot
 #'
+#' @rdname FarringtonManning
 #' @export
 setMethod("adjusted_alpha", signature("FarringtonManning"),
   function(design, n1, nuisance, nuis_ass, precision = 0.001, gamma = 0,
@@ -219,7 +194,15 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
     return(design@alpha)
   })
 
-#' @rdname n_dist
+#' @template methods_fm
+#' @param summary Logical. If \code{TRUE} (default) a summary of the sample
+#'   size distribution is printed. If \code{FALSE} all sample sizes are
+#'   printed.
+#' @template plot
+#' @template allocation
+#' @template dotdotdot
+#'
+#' @rdname FarringtonManning
 #' @export
 setMethod("n_dist", signature("FarringtonManning"),
   function(design, n1, nuisance, summary, plot,

@@ -14,8 +14,7 @@ n_fix(design, nuisance, ...)
 \item{...}{further optional arguments}
 }
 \description{
-Returns the sample size for the corresponding one-stage design without
-sample size recalculation.
+Returns the sample size of a fixed design without sample size recalculation.
 }
 \details{
 The method is implemented for the classes \code{\link{Student}},

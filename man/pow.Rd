@@ -14,13 +14,14 @@ is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
 
-\item{recalculation}{logical: should the sample size be recalcuated after n1
+\item{recalculation}{Logical: Should the sample size be recalcuated after n1
 patients are recruited?}
 
 \item{...}{further optional arguments}
 }
 \description{
-Power
+Calculates the power of designs with blinded sample size recalculation
+or of fixed designs for one or several values of the nuisance parameter.
 }
 \details{
 The method is implemented for the classes \code{\link{Student}},

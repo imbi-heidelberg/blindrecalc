@@ -1,8 +1,7 @@
 #' Type I Error Rate
 #'
-#' Computes the type I error rate of a design with blinded sample size recalculation
-#' by simulation (in the continuous case) or exactly (in the binary case)
-#' for one or several values of the nuisance parameter.
+#' Computes the type I error rate of desigsn with blinded sample size recalculation
+#' or of fixed designs for one or several values of the nuisance parameter.
 #'
 #' @template methods
 #' @template recalculation
@@ -26,6 +25,9 @@ setGeneric("toer", function(design, n1, nuisance, recalculation, ...) {
 
 #' Power
 #'
+#' Calculates the power of designs with blinded sample size recalculation
+#' or of fixed designs for one or several values of the nuisance parameter.
+#'
 #' @template methods
 #' @template recalculation
 #' @template dotdotdot
@@ -46,6 +48,10 @@ setGeneric("pow", function(design, n1, nuisance, recalculation, ...) {
 
 
 #' Distribution of the Sample Size
+#'
+#' Calculates the distribution of the total sample sizes of designs
+#' with blinded sample size recalculation for different values of the
+#' nuisance parameter or of n1.
 #'
 #' @template methods
 #' @param summary logical - is a summary of the sample size distribution desired?
@@ -68,11 +74,10 @@ setGeneric("n_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE
 })
 
 
-
 #' Adjusted level of significance
 #'
 #' This method returns an adjusted significance level that can be used
-#' such that the actual type I error rate is protected.
+#' such that the actual type I error rate is preserved.
 #'
 #' @template methods
 #' @template dotdotdot
@@ -91,12 +96,9 @@ setGeneric("adjusted_alpha", function(design, n1, nuisance, ...) {
 })
 
 
-
-
 #' Fixed Sample Size
 #'
-#' Returns the sample size for the corresponding one-stage design without
-#' sample size recalculation.
+#' Returns the sample size of a fixed design without sample size recalculation.
 #'
 #' @param design test statistic object
 #' @param nuisance nuisance parameter

@@ -18,7 +18,7 @@ is recalculated}
 }
 \description{
 This method returns an adjusted significance level that can be used
-such that the actual type I error rate is protected.
+such that the actual type I error rate is preserved.
 }
 \details{
 The method is implemented for the classes \code{\link{Student}},

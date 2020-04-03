@@ -87,19 +87,21 @@ is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
 
-\item{recalculation}{logical: should the sample size be recalcuated after n1
+\item{recalculation}{Logical: Should the sample size be recalcuated after n1
 patients are recruited?}
 
 \item{iters}{number of simulation iterations}
 
 \item{seed}{random seed for simulation}
 
-\item{allocation}{should the allocation ratio be hold exactly (option 'exact') or approximately (option 'approximate')?}
+\item{allocation}{Whether the allocation ratio should be preserved
+exactly (\code{exact}) or approximately (\code{approximate}).}
 
 \item{summary}{logical - is a summary of the sample size distribution desired?
 Otherwise, a vector with sample sizes is returned.}
 
-\item{plot}{logical - should a plot be created?}
+\item{plot}{Logical. Should a plot of the sample size distribution
+be provided?}
 
 \item{range}{this determines how far the plot whiskers extend out from the box.
 If range is positive, the whiskers extend to the most extreme data point
