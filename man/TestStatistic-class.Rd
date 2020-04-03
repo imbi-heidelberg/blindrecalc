@@ -8,7 +8,27 @@
 \description{
 In \code{blindrecalc}, different test statistics are implemented.
 Currently, those are Student's t-test for superiority and non-inferiorty
-for continuous outcomes, the Chi^2-test for superiority tests for binary
+for continuous outcomes, the chi-squared test for superiority tests for binary
 outcomes and the Farrington Manning test for non-inferiority tests for
 binary outcomes.
 }
+\section{Slots}{
+
+\describe{
+\item{\code{alpha}}{One-sided type I error rate.}
+
+\item{\code{beta}}{Type II error rate.}
+
+\item{\code{r}}{Allocation ratio between experimental and control group.}
+
+\item{\code{delta}}{Difference of effect size between alternative and null
+hypothesis.}
+
+\item{\code{delta_NI}}{Non-inferiority margin.}
+
+\item{\code{alternative}}{Character string indicating if the alternative contain
+\code{greater} or \code{smaller} values than the null hypothesis.}
+
+\item{\code{n_max}}{Maximal overall sample size.}
+}}
+

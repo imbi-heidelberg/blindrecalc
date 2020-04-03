@@ -1,18 +1,14 @@
-#' Sample Size Calculation for the Chi-Squared Test
-#'
-#' Calculates the sample size for the chi-squared test for the corresponding
-#' one-stage design without sample size recalculation.
-#'
-#' @param design an object of class \code{ChiSquare} created by \code{setupChiSquare()}.
-#' @param nuisance the overall response rate.
-#' @param variance a character string indicating whether the "\code{heterogenous}" (default)
-#' or the "\code{homogeneous}" variance formula should be used.
+#' @param design Object of class \code{ChiSquare} created by \code{setupChiSquare}.
+#' @param nuisance Value of the nuisance parameter. For the
+#'   Chi-Squared test this is the overall response rate.
+#' @param variance A character string indicating whether the "\code{heterogenous}" (default)
+#'   or the "\code{homogeneous}" variance formula should be used.
+#' @param rounded Whether the calculated sample size should be rounded up such that
+#'   the allocation ratio is preserved.
 #' @template dotdotdot
 #'
-#' @return
+#' @rdname ChiSquare
 #' @export
-#'
-#' @examples
 setMethod("n_fix", signature("ChiSquare"),
   function(design, nuisance, variance = c("heterogeneous", "homogeneous"),
            rounded = TRUE, ...) {
@@ -53,23 +49,13 @@ setMethod("n_fix", signature("ChiSquare"),
     }
   })
 
-#' Calculation of the Actual Level of the Chi-Squared Test
-#'
-#' Calculation of the actual level of the chi-squared test for the fixed sample design and the
-#' internal pilot study design.
-#'
-#' @param design an object of class \code{ChiSquare} created by \code{setupChiSquare()}.
-#' @param n1 Either the total sample size (if \code{design} is \code{"fixed"}) or
-#' sample size of the first stage (if \code{design} is \code{"ips"})
-#' @param nuisance the overall response rate.
+#' @template methods_chisquare
 #' @template recalculation
 #' @template allocation
 #' @template dotdotdot
 #'
-#' @return
+#' @rdname ChiSquare
 #' @export
-#'
-#' @examples
 setMethod("toer", signature("ChiSquare"),
   function(design, n1, nuisance, recalculation,
            allocation = c("exact", "approximate"), ...) {
@@ -116,23 +102,13 @@ setMethod("toer", signature("ChiSquare"),
     }
   })
 
-#' Calculation of the Power of the Chi-Squared Test
-#'
-#' Calculation of the power of the chi-squared test for the fixed sample design and the
-#' internal pilot study design.
-#'
-#' @param design
-#' @param n1 Either the total sample size (if \code{design} is \code{"fixed"}) or
-#' sample size of the first stage (if \code{design} is \code{"ips"})
-#' @param nuisance the overall response rate.
+#' @template methods_chisquare
 #' @template recalculation
 #' @template allocation
 #' @template dotdotdot
 #'
-#' @return
+#' @rdname ChiSquare
 #' @export
-#'
-#' @examples
 setMethod("pow", signature("ChiSquare"),
   function(design, n1, nuisance, recalculation,
            allocation = c("exact", "approximate"), ...) {
@@ -181,20 +157,13 @@ setMethod("pow", signature("ChiSquare"),
 
   })
 
-#' Calculation of the Adjusted Alpha for the Chi-Squared Test
-#'
-#' Calculates the adjusted alpha that is necessary to maintain the nominimal type 1
-#' error rate for the fixed sample design and the internal pilot study design in the
-#' Chi-Squared test.
-#'
-#' @param design
-#' @param n1 Either the total sample size or sample size of the first stage
-#' @param nuisance A vector of nuisance parameters
-#' @param precision
+#' @template methods_chisquare
+#' @template adjalpha_binary
 #' @template recalculation
 #' @template allocation
 #' @template dotdotdot
 #'
+#' @rdname ChiSquare
 #' @export
 setMethod("adjusted_alpha", signature("ChiSquare"),
   function(design, n1, nuisance, nuis_ass, precision = 0.001, gamma = 0,
@@ -237,10 +206,19 @@ setMethod("adjusted_alpha", signature("ChiSquare"),
     return(design@alpha)
   })
 
-#' @rdname n_dist
+
+#' @template methods_chisquare
+#' @param summary Logical. If \code{TRUE} (default) a summary of the sample
+#'   size distribution is printed. If \code{FALSE} all sample sizes are
+#'   printed.
+#' @template plot
+#' @template allocation
+#' @template dotdotdot
+#'
+#' @rdname ChiSquare
 #' @export
 setMethod("n_dist", signature("ChiSquare"),
-  function(design, n1, nuisance, summary, plot,
+  function(design, n1, nuisance, summary = TRUE, plot = FALSE,
            allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)
     if (allocation == "exact") {

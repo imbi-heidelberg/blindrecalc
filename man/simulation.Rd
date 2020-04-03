@@ -24,7 +24,7 @@ is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
 
-\item{recalculation}{logical: should the sample size be recalcuated after n1
+\item{recalculation}{Logical: Should the sample size be recalcuated after n1
 patients are recruited?}
 
 \item{delta_true}{effect measure under which the rejection probabilities are computed}
@@ -33,7 +33,8 @@ patients are recruited?}
 
 \item{seed}{random seed for simulation}
 
-\item{allocation}{should the allocation ratio be hold exactly (option 'exact') or approximately (option 'approximate')?}
+\item{allocation}{Whether the allocation ratio should be preserved
+exactly (\code{exact}) or approximately (\code{approximate}).}
 
 \item{...}{further optional arguments}
 }

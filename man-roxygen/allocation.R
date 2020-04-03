@@ -1,1 +1,2 @@
-#' @param allocation should the allocation ratio be hold exactly (option 'exact') or approximately (option 'approximate')?
+#' @param allocation Whether the allocation ratio should be preserved
+#'   exactly (\code{exact}) or approximately (\code{approximate}).

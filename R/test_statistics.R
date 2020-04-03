@@ -2,9 +2,19 @@
 #'
 #' In \code{blindrecalc}, different test statistics are implemented.
 #' Currently, those are Student's t-test for superiority and non-inferiorty
-#' for continuous outcomes, the Chi^2-test for superiority tests for binary
+#' for continuous outcomes, the chi-squared test for superiority tests for binary
 #' outcomes and the Farrington Manning test for non-inferiority tests for
 #' binary outcomes.
+#'
+#' @slot alpha One-sided type I error rate.
+#' @slot beta Type II error rate.
+#' @slot r Allocation ratio between experimental and control group.
+#' @slot delta Difference of effect size between alternative and null
+#'   hypothesis.
+#' @slot delta_NI Non-inferiority margin.
+#' @slot alternative Character string indicating if the alternative contain
+#'   \code{greater} or \code{smaller} values than the null hypothesis.
+#' @slot n_max Maximal overall sample size.
 #'
 #' @aliases TestStatistic
 #' @exportClass TestStatistic
@@ -17,7 +27,6 @@ setClass("TestStatistic", slots = c(
   alternative = "character",
   n_max       = "numeric"
 ))
-
 
 #' Student's t test
 #'
@@ -37,33 +46,32 @@ setClass("TestStatistic", slots = c(
 #' Distribution of the two-sample t-test statistic following blinded
 #' sample size re-estimation. Pharmaceutical Statistics 15: 208-215.
 #'
-#'
 #' @aliases Student
 #' @rdname Student
 #' @exportClass Student
 setClass("Student", contains = "TestStatistic")
 
-
-
-#' Chi^2 test
+#' Chi-squared test
 #'
-#' TODO
+#' This class implements a chi-squared test for superiority trials. A trial
+#' with binary outcomes in two groups \code{T} and \code{C} is assumed.
 #'
 #'
 #' @aliases ChiSquare
+#' @rdname ChiSquare
 #' @exportClass ChiSquare
 setClass("ChiSquare", contains = "TestStatistic")
 
-
-
 #' Farrington Manning test
 #'
-#' TODO
+#' This class implements a Farrington-Manning test for non-inferiority
+#' trials. A trial with binary outcomes in two groups \code{T} and
+#' \code{C} is assumed.
 #'
 #' @aliases FarringtonManning
+#' @rdname FarringtonManning
 #' @exportClass FarringtonManning
 setClass("FarringtonManning", contains = "TestStatistic")
-
 
 #' Student's t-test
 #'
@@ -99,12 +107,10 @@ setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0,
       delta_NI = -delta_NI, alternative = match.arg(alternative), n_max = n_max)
 }
 
-
-
-#' Setup a Chi^2 test
+#' Setup a chi-squared test
 #'
-#' This function creates an object of class \code{\link{ChiSquare-class}} that
-#' can be used for sample size recalculation.
+#' The function \code{setupChiSquare} creates an object of class
+#' \code{\link{ChiSquare}}.
 #'
 #' @template setup
 #' @template alternative
@@ -114,20 +120,19 @@ setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0,
 #'
 #' @rdname ChiSquare
 #' @export
+#' @examples
+#' design <- setupChiSquare(alpha = .025, beta = .2, r = 1, delta = 0.2,
+#' alternative = "greater")
 setupChiSquare <- function(alpha, beta, r = 1, delta,
                            alternative = c("greater", "smaller"), n_max = Inf, ...) {
   new("ChiSquare", alpha = alpha, beta = beta, r = r, delta = delta,
       delta_NI = 0, alternative = match.arg(alternative), n_max = n_max)
 }
 
-
-
-
-#' Setup a Farrington Manning test
+#' Setup a Farrington-Manning test
 #'
-#' This function creates an object of class \code{\link{FarringtonManning-class}}
-#' that can be used for sample size recalculation in non-inferiority trials with
-#' binary endpoints.
+#' The function \code{\link{setupFarringtonManning}} creates an object of
+#' \code{\link{FarringtonManning}}.
 #'
 #' @template setup
 #' @template NI
@@ -135,6 +140,9 @@ setupChiSquare <- function(alpha, beta, r = 1, delta,
 #'
 #' @rdname FarringtonManning
 #' @export
+#' @examples
+#' design <- setupFarringtonManning(alpha = .025, beta = .2, r = 1, delta = 0,
+#' delta_NI = .15)
 setupFarringtonManning <- function(alpha, beta, r = 1, delta, delta_NI, n_max = Inf, ...) {
   if (delta_NI == 0) warning("The non-inferiority margin equals 0! Do you want to conduct a chi square test?")
   new("FarringtonManning", alpha = alpha, beta = beta, r = r, delta = delta,

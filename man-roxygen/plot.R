@@ -1,1 +1,2 @@
-#' @param plot logical - should a plot be created?
+#' @param plot Logical. Should a plot of the sample size distribution
+#'   be provided?
