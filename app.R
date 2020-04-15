@@ -1,12 +1,3 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
-
 if (!require("shiny"))
   install.packages("shiny")
 if (!require("devtools"))
@@ -18,14 +9,13 @@ library(shiny)
 library(blindrecalc)
 
 ui <- fluidPage(
+   titlePanel("Blinded Sample Size Recalculation With the Package blindrecalc"),
 
-   fluidPage(
-     titlePanel("Blinded Sample Size Recalculation"),
+   fluidRow(
 
-     sidebarLayout(
-       sidebarPanel(
-                   sliderInput("alpha",
-                               "Maximal Type One Error Rate",
+     column(3,
+            sliderInput("alpha",
+                        "Maximal Type One Error Rate",
                                min = .01,
                                max = .1,
                                step = .005,
@@ -57,9 +47,11 @@ ui <- fluidPage(
                    sliderInput("n_max",
                                "Maximal Sample Size",
                                min = 10,
-                               max = 1000,
-                               value = 100,
-                               step = 1),
+                               max = 10000,
+                               value = 10000,
+                               step = 2)
+     ),
+     column(3,
                    sliderInput("n1",
                                "Sample Size of Internal Pilot Study",
                                min = 1,
@@ -69,29 +61,30 @@ ui <- fluidPage(
                    sliderInput("nuisance",
                                "Assumed Variance",
                                min = 0.5,
-                               max = 100,
+                               max = 20,
                                value = 1,
-                               step = .1),
+                               step = .5),
                    sliderInput("iters",
-                               "Number of Iterations",
-                               min = 100,
+                               "Number of Simulation Iterations",
+                               min = 1000,
                                max = 100000,
-                               value = 1000,
-                               step = 10),
+                               value = 10000,
+                               step = 1000),
                    submitButton("Compute!")
+     ),
+     column(6,
+            "sample size distribution",
+            plotOutput(outputId = "dist_plot"),
+            verbatimTextOutput("toer"),
+            verbatimTextOutput("pow"),
+            verbatimTextOutput("n_fix"))
 
-                  ),
 
-          mainPanel(
-            plotOutput(outputId = "dist_plot")#,
-            )
-
-          )
       ),
 
    p("This shiny app was developed by:"),
    a(href="https://www.klinikum.uni-heidelberg.de/medizinische-biometrie/wir-
-ueber-uns/wir-ueber-uns", img(src="Logo-IMBI_ENGL.jpg", height=120))
+ueber-uns/wir-ueber-uns", img(src="Logo-IMBI_ENGL.jpg", height=100))
 )
 
 
@@ -99,19 +92,69 @@ ueber-uns/wir-ueber-uns", img(src="Logo-IMBI_ENGL.jpg", height=120))
 
 server <- function(input, output) {
 
+
+
   output$dist_plot <- renderPlot({
 
-    withProgress(message = "Computing characteristics",{
+    d <- blindrecalc::setupStudent(alpha = input$alpha,
+                                   beta = input$beta,
+                                   r = input$r,
+                                   delta = input$delta,
+                                   delta_NI = input$delta_NI,
+                                   alternative = "greater",
+                                   n_max = input$n_max)
 
-    d <- blindrecalc::setupStudent(alpha = input$alpha, beta = input$beta,
-                                   r = input$r, delta = input$delta,
-                                   delta_NI = input$delta_NI, n_max = input$n_max)
 
-    return(blindrecalc::n_dist(d, input$n1, input$nuisance, summary = TRUE,
-                               plot = TRUE, iters = input$iters))
+    withProgress(message = "Computing characteristics", {
+
+    return(blindrecalc::n_dist(d, input$n1, input$nuisance, summary = FALSE,
+                               plot = TRUE, iters = input$iters, seed = 2020))
     })
 
   })
+
+  output$toer <- renderText({
+    d <- blindrecalc::setupStudent(alpha = input$alpha,
+                                   beta = input$beta,
+                                   r = input$r,
+                                   delta = input$delta,
+                                   delta_NI = input$delta_NI,
+                                   alternative = "greater",
+                                   n_max = input$n_max)
+
+    return(paste("type I error rate:", blindrecalc::toer(d, input$n1, input$nuisance,
+                                                         recalculation = TRUE,
+                                                         iters = input$iters, seed = 2020)))
+  })
+
+  output$pow <- renderText({
+    d <- blindrecalc::setupStudent(alpha = input$alpha,
+                                   beta = input$beta,
+                                   r = input$r,
+                                   delta = input$delta,
+                                   delta_NI = input$delta_NI,
+                                   alternative = "greater",
+                                   n_max = input$n_max)
+
+    return(paste("power:", blindrecalc::pow(d, input$n1, input$nuisance,
+                                                         recalculation = TRUE,
+                                                         iters = input$iters, seed = 2020)))
+  })
+
+
+  output$n_fix <- renderText({
+    d <- blindrecalc::setupStudent(alpha = input$alpha,
+                                   beta = input$beta,
+                                   r = input$r,
+                                   delta = input$delta,
+                                   delta_NI = input$delta_NI,
+                                   alternative = "greater",
+                                   n_max = input$n_max)
+
+    return(paste("fixed sample size:", ceiling(blindrecalc::n_fix(d, input$nuisance))))
+  })
+
+
 
 }
 
