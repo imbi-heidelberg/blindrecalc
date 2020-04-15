@@ -148,7 +148,77 @@ ui <- navbarPage("blindrecalc",
                             a(href="https://www.klinikum.uni-heidelberg.de/medizinische-biometrie/wir-
                               ueber-uns/wir-ueber-uns", img(src="Logo-IMBI_ENGL.jpg", height=100))
                           )
+                 ),
+                 tabPanel("Farrington Manning test",
+                          fluidPage(
+                            titlePanel("Blinded Sample Size Recalculation for the Farrington Manning Test"),
+                            fluidRow(
+                              column(3,
+                                     sliderInput("fm_alpha",
+                                                 "Maximal Type One Error Rate",
+                                                 min = .01,
+                                                 max = .1,
+                                                 step = .005,
+                                                 value = .025),
+                                     sliderInput("fm_beta",
+                                                 "Maximal Type Two Error Rate",
+                                                 min = .05,
+                                                 max = .4,
+                                                 step = .01,
+                                                 value = .2),
+                                     sliderInput("fm_r",
+                                                 "Allocation Ratio",
+                                                 min = 1/5,
+                                                 max = 5,
+                                                 step = .1,
+                                                 value = 1),
+                                     sliderInput("fm_delta",
+                                                 "Alternative Effect Size",
+                                                 min = .05,
+                                                 max = 1,
+                                                 value = .5,
+                                                 step = .01),
+                                     sliderInput("fm_delta_NI",
+                                                 "Non-Inferiority Margin",
+                                                 min = 0.05,
+                                                 max = 1,
+                                                 value = 0.1,
+                                                 step = .01),
+                                     sliderInput("fm_n_max",
+                                                 "Maximal Sample Size",
+                                                 min = 10,
+                                                 max = 10000,
+                                                 value = 10000,
+                                                 step = 2)
+                              ),
+                              column(3,
+                                     sliderInput("fm_n1",
+                                                 "Sample Size of Internal Pilot Study",
+                                                 min = 1,
+                                                 max = 1000,
+                                                 value = 10,
+                                                 step = 1),
+                                     sliderInput("fm_nuisance",
+                                                 "Assumed Overall Response Rate",
+                                                 min = 0.05,
+                                                 max = 0.95,
+                                                 value = 0.5,
+                                                 step = .05),
+                                     submitButton("Compute!")
+                              ),
+                              column(6,
+                                     "sample size distribution",
+                                     plotOutput(outputId = "fm_dist_plot"),
+                                     verbatimTextOutput("fm_toer"),
+                                     verbatimTextOutput("fm_pow"),
+                                     verbatimTextOutput("fm_n_fix"))
+                            ),
+                            p("This shiny app was developed by:"),
+                            a(href="https://www.klinikum.uni-heidelberg.de/medizinische-biometrie/wir-
+                              ueber-uns/wir-ueber-uns", img(src="Logo-IMBI_ENGL.jpg", height=100))
+                          )
                  )
+
                  )
 
 
@@ -272,6 +342,69 @@ server <- function(input, output) {
 
     return(paste("fixed sample size:", ceiling(blindrecalc::n_fix(d, input$cs_nuisance))))
   })
+
+
+
+
+
+  # output for Farrington Manning test
+
+  output$fm_dist_plot <- renderPlot({
+
+    d <- blindrecalc::setupChiSquare(alpha = input$fm_alpha,
+                                     beta = input$fm_beta,
+                                     r = input$fm_r,
+                                     delta = input$fm_delta,
+                                     delta_NI = input$fm_delta_NI,
+                                     n_max = input$fm_n_max)
+
+
+    withProgress(message = "Computing characteristics", {
+
+      return(blindrecalc::n_dist(d, input$fm_n1, input$fm_nuisance, summary = FALSE,
+                                 plot = TRUE))
+    })
+
+  })
+
+  output$fm_toer <- renderText({
+    d <- blindrecalc::setupChiSquare(alpha = input$fm_alpha,
+                                     beta = input$fm_beta,
+                                     r = input$fm_r,
+                                     delta = input$fm_delta,
+                                     delta_NI = input$fm_delta_NI,
+                                     n_max = input$fm_n_max)
+
+    return(paste("type I error rate:", blindrecalc::toer(d, input$fm_n1, input$fm_nuisance,
+                                                         recalculation = TRUE,
+                                                         iters = input$fm_iters, seed = 2020)))
+  })
+
+  output$fm_pow <- renderText({
+    d <- blindrecalc::setupChiSquare(alpha = input$fm_alpha,
+                                     beta = input$fm_beta,
+                                     r = input$fm_r,
+                                     delta = input$fm_delta,
+                                     delta_NI = input$fm_delta_NI,
+                                     n_max = input$fm_n_max)
+
+    return(paste("power:", blindrecalc::pow(d, input$fm_n1, input$fm_nuisance,
+                                            recalculation = TRUE,
+                                            iters = input$fm_iters, seed = 2020)))
+  })
+
+
+  output$fm_n_fix <- renderText({
+    d <- blindrecalc::setupChiSquare(alpha = input$fm_alpha,
+                                     beta = input$fm_beta,
+                                     r = input$fm_r,
+                                     delta = input$fm_delta,
+                                     delta_NI = input$fm_delta_NI,
+                                     n_max = input$fm_n_max)
+
+    return(paste("fixed sample size:", ceiling(blindrecalc::n_fix(d, input$fm_nuisance))))
+  })
+
 
 
 }
