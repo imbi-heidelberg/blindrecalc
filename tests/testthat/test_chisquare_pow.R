@@ -23,16 +23,16 @@ test_that("pow works for recalculation design (Friede & Kieser 2004)", {
   design1 <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1,
     delta = 0.2)
   pow1 <- pow(design1, n1 = 80, nuisance = 0.3, recalculation = TRUE,
-    allocation = "approximate", variance = "homogeneous")
+    allocation = "kf_approx", variance = "homogeneous")
   pow2 <- pow(design1, n1 = 120, nuisance = 0.3, recalculation = TRUE,
-    allocation = "approximate", variance = "homogeneous")
+    allocation = "kf_approx", variance = "homogeneous")
 
   design2 <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 3,
     delta = 0.2)
   pow3 <- pow(design2, n1 = 80, nuisance = 0.75, recalculation = TRUE,
-    allocation = "approximate", variance = "homogeneous")
+    allocation = "kf_approx", variance = "homogeneous")
   pow4 <- pow(design2, n1 = 120, nuisance = 0.75, recalculation = TRUE,
-    allocation = "approximate", variance = "homogeneous")
+    allocation = "kf_approx", variance = "homogeneous")
 
   skip_on_cran()
   expect_equal(pow1, 0.8020152, tolerance = 1e-7)

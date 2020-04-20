@@ -11,8 +11,10 @@ get_nmat_chisq <- function(design, n1, allocation, ...) {
 
   if (allocation == "exact") {
     out.mat$n <- n_fix(design, nuisance = out.mat$p_hat, ...)
-  } else {
+  } else if (allocation == "kf_approx") {
     out.mat$n <- ceiling(n_fix(design, nuisance = out.mat$p_hat, rounded = FALSE, ...))
+  } else {
+    out.mat$n <- n_fix(design, nuisance = out.mat$p_hat, rounded = FALSE, ...)
   }
   out.mat$n <- pmin(out.mat$n, design@n_max)
   out.mat$n <- ifelse(is.na(out.mat$n), -99, out.mat$n)

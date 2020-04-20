@@ -1,2 +1,3 @@
-#' @param alternative character value indicating if the alternative contains greater
-#' (option "greater") or smaller (option "smaller") values than the null hypothesis
+#' @param alternative Does the alternative hypothesis contain greater
+#'   (\code{greater}) or smaller (\code{smaller}) values than the
+#'   null hypothesis.
