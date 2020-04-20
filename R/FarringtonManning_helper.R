@@ -10,10 +10,9 @@ get_nmat_fm <- function(design, n1, allocation, ...) {
     MoreArgs = list(n_c1 = n_c1, n_e1 = n_e1))
 
   if (allocation == "exact") {
-    out.mat$n <- sapply(out.mat$p_hat, function(x) n_fix(design, nuisance = x, ...))
+    out.mat$n <- n_fix(design, nuisance = out.mat$p_hat, ...)
   } else {
-    out.mat$n <- sapply(out.mat$p_hat, function(x) n_fix(design, nuisance = x,
-      rounded = FALSE, ...))
+    out.mat$n <- n_fix(design, nuisance = out.mat$p_hat, rounded = FALSE, ...)
   }
   out.mat$n <- pmin(out.mat$n, design@n_max)
   out.mat$n <- ifelse(is.na(out.mat$n), -99, out.mat$n)

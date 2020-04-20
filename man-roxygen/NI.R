@@ -1,1 +1,1 @@
-#' @param delta_NI non-inferiority margin
+#' @param delta_NI Non-inferiority margin.
