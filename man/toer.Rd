@@ -23,9 +23,8 @@ patients are recruited?}
 one type I error rate value for every nuisance parameter
 }
 \description{
-Computes the type I error rate of a design with blinded sample size recalculation
-by simulation (in the continuous case) or exactly (in the binary case)
-for one or several values of the nuisance parameter.
+Computes the type I error rate of desigsn with blinded sample size recalculation
+or of fixed designs for one or several values of the nuisance parameter.
 }
 \details{
 The method is implemented for the classes \code{\link{Student}},

@@ -20,7 +20,8 @@ patients are recruited?}
 \item{...}{further optional arguments}
 }
 \description{
-Power
+Calculates the power of designs with blinded sample size recalculation
+or of fixed designs for one or several values of the nuisance parameter.
 }
 \details{
 The method is implemented for the classes \code{\link{Student}},
