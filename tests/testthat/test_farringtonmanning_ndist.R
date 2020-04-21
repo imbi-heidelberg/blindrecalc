@@ -17,7 +17,9 @@ test_that("errors are defined correctly", {
 
 
 test_that("summary option", {
-c
+  d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 2,
+                              delta = 0, delta_NI = 0.1, n_max = 210)
+
   n <- n_dist(d, n1 = 21, nuisance = 0.23, summary = FALSE)
 
   n_table <- n_dist(d, n1 = 21, nuisance = 0.23, summary = TRUE)
