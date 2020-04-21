@@ -222,7 +222,7 @@ setMethod("n_fix", signature("Student"),
 #' @details In the case of the Student's t-test, the adjusted alpha is calculated
 #' using the algorithm by Kieser and Friede (2000):
 #' "Re-calculating the sample size in internal pilot study designs
-#' with control of the type I error rate"
+#' with control of the type I error rate". Statistics in Medicine 19: 901-911.
 #'
 #' @rdname Student
 #' @export

@@ -14,10 +14,10 @@ is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
 
-\item{recalculation}{Logical: Should the sample size be recalcuated after n1
+\item{recalculation}{Should the sample size be recalcuated after n1
 patients are recruited?}
 
-\item{...}{further optional arguments}
+\item{...}{Further optional arguments.}
 }
 \description{
 Calculates the power of designs with blinded sample size recalculation

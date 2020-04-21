@@ -17,26 +17,28 @@ simulation(
 )
 }
 \arguments{
-\item{design}{object of class \code{TestStatistc} created by \code{setup}}
+\item{design}{Object of class \code{Student} created by \code{setupStudent}.}
 
-\item{n1}{number of patients that are recruited before the sample size
-is recalculated}
+\item{n1}{Either the sample size of the first stage (if
+\code{recalculation = TRUE} or the toal sample size (if
+\code{recalculation = FALSE}).}
 
-\item{nuisance}{nuisance parameter that is estimated at the interim analysis}
+\item{nuisance}{Value of the nuisance parameter. For the
+Student's t-test this is the variance.}
 
-\item{recalculation}{Logical: Should the sample size be recalcuated after n1
+\item{recalculation}{Should the sample size be recalcuated after n1
 patients are recruited?}
 
 \item{delta_true}{effect measure under which the rejection probabilities are computed}
 
-\item{iters}{number of simulation iterations}
+\item{iters}{Number of simulation iterations.}
 
-\item{seed}{random seed for simulation}
+\item{seed}{Random seed for simulation.}
 
 \item{allocation}{Whether the allocation ratio should be preserved
 exactly (\code{exact}) or approximately (\code{approximate}).}
 
-\item{...}{further optional arguments}
+\item{...}{Further optional arguments.}
 }
 \description{
 This function simulates the probability that a test defined by

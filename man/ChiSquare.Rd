@@ -35,7 +35,7 @@ setupChiSquare(
   n1,
   nuisance,
   recalculation,
-  allocation = c("exact", "approximate"),
+  allocation = c("exact", "approximate", "kf_approx"),
   ...
 )
 
@@ -44,7 +44,7 @@ setupChiSquare(
   n1,
   nuisance,
   recalculation,
-  allocation = c("exact", "approximate"),
+  allocation = c("exact", "approximate", "kf_approx"),
   ...
 )
 
@@ -71,20 +71,22 @@ setupChiSquare(
 )
 }
 \arguments{
-\item{alpha}{one-sided type I error rate}
+\item{alpha}{One-sided type I error rate.}
 
-\item{beta}{type II error rate}
+\item{beta}{Type II error rate.}
 
-\item{r}{allocation ratio between experimental and control group}
+\item{r}{Allocation ratio between experimental and control group.}
 
-\item{delta}{difference of effect size between alternative and null hypothesis}
+\item{delta}{Difference of effect size between alternative and null hypothesis.}
 
-\item{alternative}{character value indicating if the alternative contains greater
-(option "greater") or smaller (option "smaller") values than the null hypothesis}
+\item{alternative}{Does the alternative hypothesis contain greater
+(\code{greater}) or smaller (\code{smaller}) values than the
+null hypothesis.}
 
-\item{n_max}{maximal overall sample size}
+\item{n_max}{Maximal overall sample size. If the recalculated sample size
+is greater than \code{n_max} it is set to \code{n_max}.}
 
-\item{...}{further optional arguments}
+\item{...}{Further optional arguments.}
 
 \item{design}{Object of class \code{ChiSquare} created by \code{setupChiSquare}.}
 
@@ -101,11 +103,14 @@ the allocation ratio is preserved.}
 \code{recalculation = TRUE} or the toal sample size (if
 \code{recalculation = FALSE}).}
 
-\item{recalculation}{Logical: Should the sample size be recalcuated after n1
+\item{recalculation}{Should the sample size be recalcuated after n1
 patients are recruited?}
 
 \item{allocation}{Whether the allocation ratio should be preserved
-exactly (\code{exact}) or approximately (\code{approximate}).}
+exactly (\code{exact}) or approximately (\code{approximate}
+or \code{kf_approx}). \code{appproximate} uses the unrounded calculated
+sample size in the sample size recalculation, \code{kf_approx}
+rounds the sample size to the next integer.}
 
 \item{nuis_ass}{If \code{recalculation = FALSE} this is the value for
 the overall response rate that is used to calculate the sample size
@@ -124,8 +129,8 @@ interval approach proposed by Friede & Kieser (2011) is used.}
 size distribution is printed. If \code{FALSE} all sample sizes are
 printed.}
 
-\item{plot}{Logical. Should a plot of the sample size distribution
-be provided?}
+\item{plot}{Should a plot of the sample size distribution
+be drawn?}
 }
 \description{
 This class implements a chi-squared test for superiority trials. A trial
@@ -136,6 +141,9 @@ The function \code{setupChiSquare} creates an object of class
 }
 \details{
 For non-inferiority trials use the function \code{\link{setupFarringtonManning}}.
+
+Only sample sizes that occur with a probability of at least 0.01% are
+considered.
 }
 \examples{
 design <- setupChiSquare(alpha = .025, beta = .2, r = 1, delta = 0.2,

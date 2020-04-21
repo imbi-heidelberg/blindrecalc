@@ -1,6 +1,6 @@
 #' Type I Error Rate
 #'
-#' Computes the type I error rate of desigsn with blinded sample size recalculation
+#' Computes the type I error rate of designs with blinded sample size recalculation
 #' or of fixed designs for one or several values of the nuisance parameter.
 #'
 #' @template methods

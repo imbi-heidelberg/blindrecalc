@@ -212,7 +212,7 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
 #' @template allocation
 #' @template dotdotdot
 #'
-#' Only sample sizes that occur with a probability of at least 0.01% are
+#' @details Only sample sizes that occur with a probability of at least 0.01% are
 #' considered.
 #'
 #' @rdname FarringtonManning

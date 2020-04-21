@@ -14,7 +14,7 @@ is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
 
-\item{...}{further optional arguments}
+\item{...}{Further optional arguments.}
 }
 \description{
 This method returns an adjusted significance level that can be used
