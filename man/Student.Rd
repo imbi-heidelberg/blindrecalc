@@ -63,36 +63,40 @@ setupStudent(
 \S4method{adjusted_alpha}{Student}(design, n1, nuisance, tol, iters = 10000, seed = NULL, ...)
 }
 \arguments{
-\item{alpha}{one-sided type I error rate}
+\item{alpha}{One-sided type I error rate.}
 
-\item{beta}{type II error rate}
+\item{beta}{Type II error rate.}
 
-\item{r}{allocation ratio between experimental and control group}
+\item{r}{Allocation ratio between experimental and control group.}
 
-\item{delta}{difference of effect size between alternative and null hypothesis}
+\item{delta}{Difference of effect size between alternative and null hypothesis.}
 
-\item{delta_NI}{non-inferiority margin}
+\item{delta_NI}{Non-inferiority margin.}
 
-\item{alternative}{character value indicating if the alternative contains greater
-(option "greater") or smaller (option "smaller") values than the null hypothesis}
+\item{alternative}{Does the alternative hypothesis contain greater
+(\code{greater}) or smaller (\code{smaller}) values than the
+null hypothesis.}
 
-\item{n_max}{maximal overall sample size}
+\item{n_max}{Maximal overall sample size. If the recalculated sample size
+is greater than \code{n_max} it is set to \code{n_max}.}
 
-\item{...}{further optional arguments}
+\item{...}{Further optional arguments.}
 
-\item{design}{object of class \code{TestStatistc} created by \code{setup}}
+\item{design}{Object of class \code{Student} created by \code{setupStudent}.}
 
-\item{n1}{number of patients that are recruited before the sample size
-is recalculated}
+\item{n1}{Either the sample size of the first stage (if
+\code{recalculation = TRUE} or the toal sample size (if
+\code{recalculation = FALSE}).}
 
-\item{nuisance}{nuisance parameter that is estimated at the interim analysis}
+\item{nuisance}{Value of the nuisance parameter. For the
+Student's t-test this is the variance.}
 
-\item{recalculation}{Logical: Should the sample size be recalcuated after n1
+\item{recalculation}{Should the sample size be recalcuated after n1
 patients are recruited?}
 
-\item{iters}{number of simulation iterations}
+\item{iters}{Number of simulation iterations.}
 
-\item{seed}{random seed for simulation}
+\item{seed}{Random seed for simulation.}
 
 \item{allocation}{Whether the allocation ratio should be preserved
 exactly (\code{exact}) or approximately (\code{approximate}).}
@@ -100,8 +104,8 @@ exactly (\code{exact}) or approximately (\code{approximate}).}
 \item{summary}{logical - is a summary of the sample size distribution desired?
 Otherwise, a vector with sample sizes is returned.}
 
-\item{plot}{Logical. Should a plot of the sample size distribution
-be provided?}
+\item{plot}{Should a plot of the sample size distribution
+be drawn?}
 
 \item{range}{this determines how far the plot whiskers extend out from the box.
 If range is positive, the whiskers extend to the most extreme data point
@@ -134,7 +138,7 @@ sample size re-estimation. Pharmaceutical Statistics 15: 208-215.
 In the case of the Student's t-test, the adjusted alpha is calculated
 using the algorithm by Kieser and Friede (2000):
 "Re-calculating the sample size in internal pilot study designs
-with control of the type I error rate"
+with control of the type I error rate". Statistics in Medicine 19: 901-911.
 }
 \examples{
 d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,

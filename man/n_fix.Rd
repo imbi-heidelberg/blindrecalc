@@ -11,7 +11,7 @@ n_fix(design, nuisance, ...)
 
 \item{nuisance}{nuisance parameter}
 
-\item{...}{further optional arguments}
+\item{...}{Further optional arguments.}
 }
 \description{
 Returns the sample size of a fixed design without sample size recalculation.
