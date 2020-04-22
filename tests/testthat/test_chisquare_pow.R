@@ -58,8 +58,7 @@ test_that("errors are thrown correctly", {
 
 
 test_that("vectorization in n1 works", {
-  skip_on_cran()
-  d <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.1)
+  d <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.25)
   expect_equal(
     pow(d, n1 = c(10, 20), nuisance = 0.25, recalculation = TRUE, allocation = "approximate"),
     sapply(c(10, 20), function(n) {
@@ -78,19 +77,18 @@ test_that("vectorization in n1 works", {
 
 
 test_that("vectorization in nuisance works", {
-  skip_on_cran()
-  d <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.1)
+  d <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.25)
   expect_equal(
-    pow(d, n1 = 15, nuisance = c(0.4, 0.6), recalculation = TRUE, allocation = "approximate"),
+    pow(d, n1 = 20, nuisance = c(0.4, 0.6), recalculation = TRUE, allocation = "approximate"),
     sapply(c(0.4, 0.6), function(p) {
-      pow(d, n1 = 15, nuisance = p, recalculation = TRUE, allocation = "approximate")
+      pow(d, n1 = 20, nuisance = p, recalculation = TRUE, allocation = "approximate")
     })
   )
 
   expect_equal(
-    pow(d, n1 = 15, nuisance = c(0.4, 0.6), recalculation = FALSE, allocation = "exact"),
+    pow(d, n1 = 20, nuisance = c(0.4, 0.6), recalculation = FALSE, allocation = "exact"),
     sapply(c(0.4, 0.6), function(p) {
-      pow(d, n1 = 15, nuisance = p, recalculation = FALSE, allocation = "exact")
+      pow(d, n1 = 20, nuisance = p, recalculation = FALSE, allocation = "exact")
     })
   )
 

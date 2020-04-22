@@ -33,8 +33,7 @@ test_that("errors are thrown correctly", {
 
 
 test_that("vectorization in n1 works", {
-  skip_on_cran()
-  d <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.1)
+  d <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.2)
   expect_equal(
     toer(d, n1 = c(10, 20), nuisance = 0.25, recalculation = TRUE, allocation = "approximate"),
     sapply(c(10, 20), function(n) {
