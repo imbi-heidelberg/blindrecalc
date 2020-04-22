@@ -18,7 +18,7 @@ test_that("toer gives same values as pow for delta = 0", {
 
 test_that("errors are thrown correctly", {
   d1 <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.1)
-  expect_error(toer(d1, 1.1, TRUE))
+  expect_error(toer(d1, n1 = 20, nuisance = 1.1, TRUE))
 
   d2 <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 2, delta = 0.1, n_max = 301)
   expect_error(toer(d2, 21, 0.5, TRUE, "exact"))

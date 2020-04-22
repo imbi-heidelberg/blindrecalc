@@ -2,7 +2,7 @@ context("test n_dist for ChiSquare test")
 
 test_that("error messages are thrown correctly", {
   d1 <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.1)
-  expect_error(n_dist(d1, 1.1, TRUE))
+  expect_error(n_dist(d1, n1 = 20, nuisance = 1.1, TRUE))
 
   d2 <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 2, delta = 0.1, n_max = 301)
   expect_error(n_dist(d2, 21, 0.5, TRUE, "exact"))
