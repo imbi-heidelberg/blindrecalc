@@ -1,7 +1,7 @@
 Package: blindrecalc
 Type: Package
 Title: Blinded Sample Size Recalculation
-Version: 0.1.0
+Version: 0.1.1
 Author: Lukas Baumann and Maximilian Pilz
 Maintainer: Maximilian Pilz <pilz@imbi.uni-heidelberg.de>
 Description: This package computes key characteristics
@@ -23,11 +23,11 @@ Collate:
     methods.R
     Student.R
     blindrecalc.R
-	ChiSquare.R
-	ChiSquare_helper.R
-	FarringtonManning.R 
-	FarringtonManning_helper.R
-	RcppExports.R
+    ChiSquare.R
+    ChiSquare_helper.R
+    FarringtonManning.R 
+    FarringtonManning_helper.R
+    RcppExports.R
 RoxygenNote: 7.1.0
 LinkingTo: 
     Rcpp
