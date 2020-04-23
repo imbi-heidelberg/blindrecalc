@@ -1,1 +1,1 @@
-#' @param ... further optional arguments
+#' @param ... Further optional arguments.

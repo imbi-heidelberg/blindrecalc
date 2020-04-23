@@ -13,11 +13,13 @@ setMethod("n_fix", signature("ChiSquare"),
   function(design, nuisance, variance = c("heterogeneous", "homogeneous"),
            rounded = TRUE, ...) {
     variance <- match.arg(variance)
+    if (sum(nuisance < 0) + sum(nuisance > 1) > 0) {
+      stop("Nuisance has to be within [0, 1].")
+    }
     if (length(nuisance) > 1) {
       sapply(nuisance, function(x) n_fix(design = design, nuisance = x,
         variance = variance, rounded = rounded, ...))
     } else {
-
       p_e <- nuisance + design@delta / (1 + design@r)
       p_c <- p_e - design@delta
       z_a <- stats::qnorm(1 - design@alpha)
@@ -51,28 +53,28 @@ setMethod("n_fix", signature("ChiSquare"),
 
 #' @template methods_chisquare
 #' @template recalculation
-#' @template allocation
+#' @template allocation_chisquare
 #' @template dotdotdot
 #'
 #' @rdname ChiSquare
 #' @export
 setMethod("toer", signature("ChiSquare"),
   function(design, n1, nuisance, recalculation,
-           allocation = c("exact", "approximate"), ...) {
+           allocation = c("exact", "approximate", "kf_approx"), ...) {
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
       if (sum(n1 %% (design@r + 1) != 0) > 0) {
-        stop("no integer sample sizes")
+        stop("No integer sample sizes.")
       }
       if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
-        stop("no integer sample sizes for n_max")
+        stop("No integer sample sizes for n_max.")
       }
     }
     if (sum(nuisance < 0) + sum(nuisance > 1) != 0) {
-      stop("nuisance has to be within [0, 1]")
+      stop("Nuisance has to be within [0, 1].")
     }
     if (sum(design@n_max < n1) > 0) {
-      stop("n_max is smaller than n1")
+      stop("n_max is smaller than n1.")
     }
 
     if ((length(n1) > 1) & (length(nuisance) > 1)) {
@@ -104,32 +106,32 @@ setMethod("toer", signature("ChiSquare"),
 
 #' @template methods_chisquare
 #' @template recalculation
-#' @template allocation
+#' @template allocation_chisquare
 #' @template dotdotdot
 #'
 #' @rdname ChiSquare
 #' @export
 setMethod("pow", signature("ChiSquare"),
   function(design, n1, nuisance, recalculation,
-           allocation = c("exact", "approximate"), ...) {
+           allocation = c("exact", "approximate", "kf_approx"), ...) {
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
       if (n1 %% (design@r + 1) != 0) {
-        stop("no integer sample sizes for first stage")
+        stop("No integer sample sizes for first stage.")
       }
       if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
-        stop("no integer sample sizes for n_max")
+        stop("No integer sample sizes for n_max.")
       }
     }
     if (sum(nuisance < 0) + sum(nuisance > 1) > 0) {
-      stop("nuisance has to be within [0, 1]")
+      stop("Nuisance has to be within [0, 1].")
     }
     if (sum(design@n_max < n1) > 0) {
-      stop("n_max is smaller than n1")
+      stop("n_max is smaller than n1.")
     }
 
     if ((length(n1) > 1) & (length(nuisance) > 1)) {
-      stop("only one of n1 and nuisance can have length > 1")
+      stop("Only one of n1 and nuisance can have length > 1")
     } else if (length(n1) > 1) {
       if (recalculation) {
         nmat <- lapply(n1, function(x) get_nmat_chisq(design, x, allocation, ...))
@@ -160,7 +162,7 @@ setMethod("pow", signature("ChiSquare"),
 #' @template methods_chisquare
 #' @template adjalpha_binary
 #' @template recalculation
-#' @template allocation
+#' @template allocation_chisquare
 #' @template dotdotdot
 #'
 #' @rdname ChiSquare
@@ -171,14 +173,14 @@ setMethod("adjusted_alpha", signature("ChiSquare"),
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
       if (n1 %% (design@r + 1) != 0) {
-        stop("no integer sample sizes for first stage")
+        stop("No integer sample sizes for first stage.")
       }
       if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
-        stop("no integer sample sizes for n_max")
+        stop("No integer sample sizes for n_max.")
       }
     }
     if (sum(nuisance < 0) + sum(nuisance >1) > 0) {
-      stop("nuisance has to be within [0, 1]")
+      stop("Nuisance has to be within [0, 1].")
     }
 
     alpha_nom <- design@alpha - gamma
@@ -212,8 +214,11 @@ setMethod("adjusted_alpha", signature("ChiSquare"),
 #'   size distribution is printed. If \code{FALSE} all sample sizes are
 #'   printed.
 #' @template plot
-#' @template allocation
+#' @template allocation_chisquare
 #' @template dotdotdot
+#'
+#' @details Only sample sizes that occur with a probability of at least 0.01% are
+#' considered.
 #'
 #' @rdname ChiSquare
 #' @export
@@ -223,20 +228,19 @@ setMethod("n_dist", signature("ChiSquare"),
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
       if (sum(n1 %% (design@r + 1) != 0) > 0) {
-        stop("no integer sample sizes for first stage")
+        stop("No integer sample sizes for first stage.")
       }
       if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
-        stop("no integer sample sizes for n_max")
+        stop("No integer sample sizes for n_max.")
       }
     }
     if (sum(nuisance < 0) + sum(nuisance > 1) > 0) {
-      stop("nuisance has to be within [0, 1]")
+      stop("Nuisance has to be within [0, 1].")
     }
 
-    if (((length(n1) > 1) & (length(nuisance) > 1)) |
-        ((length(n1) == 1) & (length(nuisance) == 1))) {
-      stop("one of n1 and nuisance must have length > 1")
-    } else if (length(nuisance) > 1) {
+    if ((length(n1) > 1) & (length(nuisance) > 1)) {
+      stop("Only one of n1 and nuisance can have length > 1.")
+    } else if (length(n1) == 1) {
       out <- lapply(nuisance, function(x) n_distrib_chisq(design, n1, x, allocation, ...))
       out <- Map(cbind, out, nuisance = nuisance)
       out <- do.call("rbind", out)

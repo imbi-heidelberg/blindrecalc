@@ -5,7 +5,7 @@
 #' Note that here the nuisance parameter \code{nuisance} is the variance
 #' of the outcome variable sigma^2.
 #'
-#' @template methods
+#' @template methods_student
 #' @template recalculation
 #' @param delta_true effect measure under which the rejection probabilities are computed
 #' @template iters
@@ -99,7 +99,7 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
 
 
 
-#' @template methods
+#' @template methods_student
 #' @template recalculation
 #' @template iters
 #' @template allocation
@@ -127,7 +127,7 @@ setMethod("toer", signature("Student"),
 
 
 
-#' @template methods
+#' @template methods_student
 #' @template recalculation
 #' @template iters
 #' @template allocation
@@ -154,7 +154,7 @@ setMethod("pow", signature("Student"),
 
 
 
-#' @template methods
+#' @template methods_student
 #' @param summary logical - is a summary of the sample size distribution desired?
 #'    Otherwise, a vector with sample sizes is returned.
 #' @template plot
@@ -172,7 +172,7 @@ setMethod("n_dist", signature("Student"),
           function(design, n1, nuisance, summary = TRUE, plot = FALSE, iters = 1e4,
                    seed = NULL, range = 0, allocation = c("approximate", "exact"), ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
-              stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
+              stop("Only one of n1 and nuisance can have length > 1.")
             }
 
             if (length(n1) == 1) {
@@ -214,7 +214,7 @@ setMethod("n_fix", signature("Student"),
 
 
 
-#' @template methods
+#' @template methods_student
 #' @param tol desired absolute tolerance
 #' @template iters
 #' @template dotdotdot
@@ -222,7 +222,7 @@ setMethod("n_fix", signature("Student"),
 #' @details In the case of the Student's t-test, the adjusted alpha is calculated
 #' using the algorithm by Kieser and Friede (2000):
 #' "Re-calculating the sample size in internal pilot study designs
-#' with control of the type I error rate"
+#' with control of the type I error rate". Statistics in Medicine 19: 901-911.
 #'
 #' @rdname Student
 #' @export

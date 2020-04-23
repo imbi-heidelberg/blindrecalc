@@ -14,16 +14,16 @@ is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
 
-\item{recalculation}{Logical: Should the sample size be recalcuated after n1
+\item{recalculation}{Should the sample size be recalcuated after n1
 patients are recruited?}
 
-\item{...}{further optional arguments}
+\item{...}{Further optional arguments.}
 }
 \value{
 one type I error rate value for every nuisance parameter
 }
 \description{
-Computes the type I error rate of desigsn with blinded sample size recalculation
+Computes the type I error rate of designs with blinded sample size recalculation
 or of fixed designs for one or several values of the nuisance parameter.
 }
 \details{

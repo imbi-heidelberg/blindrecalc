@@ -1,2 +1,2 @@
-#' @param iters number of simulation iterations
-#' @param seed random seed for simulation
+#' @param iters Number of simulation iterations.
+#' @param seed Random seed for simulation.

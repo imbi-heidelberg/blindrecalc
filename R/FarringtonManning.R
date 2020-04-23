@@ -10,32 +10,42 @@
 #' @export
 setMethod("n_fix", signature("FarringtonManning"),
   function(design, nuisance, rounded = TRUE, ...) {
-    if (design@delta_NI <= 0) stop("delta_NI has to be positive")
-    p_e <- nuisance + design@delta / (1 + design@r)
-    p_c <- p_e - design@delta
+    if (design@delta_NI <= 0) {
+      stop("delta_NI has to be positive.")
+    }
+    if (sum(nuisance < 0) + sum(nuisance > 1) > 0) {
+      stop("Nuisance has to be within [0, 1].")
+    }
+    if (length(nuisance) > 1) {
+      sapply(nuisance, function(x) n_fix(design = design, nuisance = x,
+        rounded = rounded, ...))
+    } else {
+      p_e <- nuisance + design@delta / (1 + design@r)
+      p_c <- p_e - design@delta
 
-    pt <- p_rml(p_c, p_e, design@r, design@delta_NI)
-    pt_c <- pt[1]
-    pt_e <- pt[2]
+      pt <- p_rml(p_c, p_e, design@r, design@delta_NI)
+      pt_c <- pt[1]
+      pt_e <- pt[2]
 
-    v0 <- design@r * pt_c * (1 - pt_c) + pt_e * (1 - pt_e)
-    v1 <- design@r * p_c * (1 - p_c) + p_e * (1 - p_e)
-    z_a <- stats::qnorm(1 - design@alpha)
-    z_b <- stats::qnorm(1 - design@beta)
+      v0 <- design@r * pt_c * (1 - pt_c) + pt_e * (1 - pt_e)
+      v1 <- design@r * p_c * (1 - p_c) + p_e * (1 - p_e)
+      z_a <- stats::qnorm(1 - design@alpha)
+      z_b <- stats::qnorm(1 - design@beta)
 
-    n <- ((1 + design@r) / design@r) * (z_a * sqrt(v0) + z_b *
-        sqrt(v1))^2 / (design@delta + design@delta_NI)^2
+      n <- ((1 + design@r) / design@r) * (z_a * sqrt(v0) + z_b *
+          sqrt(v1))^2 / (design@delta + design@delta_NI)^2
 
-    if (rounded) {
-      n <- ceiling(n)
-      if (n %% (design@r + 1) == 0) {
-        return(n)
+      if (rounded) {
+        n <- ceiling(n)
+        if (n %% (design@r + 1) == 0) {
+          return(n)
+        } else {
+          n <- n + design@r + 1 - n %% (design@r + 1)
+          return(n)
+        }
       } else {
-        n <- n + design@r + 1 - n %% (design@r + 1)
         return(n)
       }
-    } else {
-      return(n)
     }
   })
 
@@ -52,21 +62,21 @@ setMethod("toer", signature("FarringtonManning"),
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
       if (sum(n1 %% (design@r + 1) != 0) > 0) {
-        stop("no integer sample sizes")
+        stop("No integer sample sizes.")
       }
       if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
-        stop("no integer sample sizes for n_max")
+        stop("No integer sample sizes for n_max.")
       }
     }
     if (sum(nuisance < 0) + sum(nuisance > 1) > 0) {
-      stop("nuisance has to be within [0, 1]")
+      stop("Nuisance has to be within [0, 1].")
     }
     if (sum(design@n_max < n1) > 0) {
-      stop("n_max is smaller than n1")
+      stop("n_max is smaller than n1.")
     }
 
     if ((length(n1) > 1) & (length(nuisance) > 1)) {
-      stop("only one of n1 and nuisance can have length > 1")
+      stop("Only one of n1 and nuisance can have length > 1.")
     } else if (length(n1) > 1) {
       if (recalculation) {
         nmat <- lapply(n1, function(x) get_nmat_fm(design, x, allocation, ...))
@@ -105,17 +115,17 @@ function(design, n1, nuisance, recalculation,
   allocation <- match.arg(allocation)
   if (allocation == "exact") {
     if (sum(n1 %% (design@r + 1) != 0) > 0) {
-      stop("no integer sample sizes for first stage")
+      stop("No integer sample sizes for first stage.")
     }
     if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
-      stop("no integer sample sizes for n_max")
+      stop("No integer sample sizes for n_max.")
     }
   }
   if (sum(nuisance < 0) + sum(nuisance > 1) > 0) {
-    stop("nuisance has to be within [0, 1]")
+    stop("Nuisance has to be within [0, 1].")
   }
   if (sum(design@n_max < n1) > 0) {
-    stop("n_max is smaller than n1")
+    stop("n_max is smaller than n1.")
   }
 
   if ((length(n1) > 1) & (length(nuisance) > 1)) {
@@ -159,14 +169,14 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
       if (n1 %% (design@r + 1) != 0) {
-        stop("no integer sample sizes for first stage")
+        stop("No integer sample sizes for first stage.")
       }
       if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
-        stop("no integer sample sizes for n_max")
+        stop("No integer sample sizes for n_max.")
       }
     }
     if (sum(nuisance < 0) + sum(nuisance >1) > 0) {
-      stop("nuisance has to be within [0, 1]")
+      stop("Nuisance has to be within [0, 1].")
     }
 
     alpha_nom <- design@alpha - gamma
@@ -202,6 +212,9 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
 #' @template allocation
 #' @template dotdotdot
 #'
+#' @details Only sample sizes that occur with a probability of at least 0.01% are
+#' considered.
+#'
 #' @rdname FarringtonManning
 #' @export
 setMethod("n_dist", signature("FarringtonManning"),
@@ -210,20 +223,19 @@ setMethod("n_dist", signature("FarringtonManning"),
     allocation <- match.arg(allocation)
     if (allocation == "exact") {
       if (sum(n1 %% (design@r + 1) != 0) > 0) {
-        stop("no integer sample sizes for first stage")
+        stop("No integer sample sizes for first stage.")
       }
       if (is.finite(design@n_max) & design@n_max %% (design@r + 1) != 0) {
-        stop("no integer sample sizes for n_max")
+        stop("No integer sample sizes for n_max.")
       }
     }
     if (sum(nuisance < 0) + sum(nuisance > 1) > 0) {
-      stop("nuisance has to be within [0, 1]")
+      stop("Nuisance has to be within [0, 1].")
     }
 
-    if (((length(n1) > 1) & (length(nuisance) > 1)) |
-        ((length(n1) == 1) & (length(nuisance) == 1))) {
-      stop("one of n1 and nuisance must have length > 1")
-    } else if (length(nuisance) > 1) {
+    if ((length(n1) > 1) & (length(nuisance) > 1)) {
+      stop("Only one of n1 and nuisance can have length > 1.")
+    } else if (length(n1) == 1) {
       out <- lapply(nuisance, function(x) n_distrib_fm(design, n1, x, allocation, ...))
       out <- Map(cbind, out, nuisance = nuisance)
       out <- do.call("rbind", out)

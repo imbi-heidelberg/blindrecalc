@@ -57,19 +57,20 @@ setupFarringtonManning(alpha, beta, r = 1, delta, delta_NI, n_max = Inf, ...)
 )
 }
 \arguments{
-\item{alpha}{one-sided type I error rate}
+\item{alpha}{One-sided type I error rate.}
 
-\item{beta}{type II error rate}
+\item{beta}{Type II error rate.}
 
-\item{r}{allocation ratio between experimental and control group}
+\item{r}{Allocation ratio between experimental and control group.}
 
-\item{delta}{difference of effect size between alternative and null hypothesis}
+\item{delta}{Difference of effect size between alternative and null hypothesis.}
 
-\item{delta_NI}{non-inferiority margin}
+\item{delta_NI}{Non-inferiority margin.}
 
-\item{n_max}{maximal overall sample size}
+\item{n_max}{Maximal overall sample size. If the recalculated sample size
+is greater than \code{n_max} it is set to \code{n_max}.}
 
-\item{...}{further optional arguments}
+\item{...}{Further optional arguments.}
 
 \item{design}{Object of class \code{FarringtonManning} created
 by \code{setupFarringtonManning}.}
@@ -84,7 +85,7 @@ the allocation ratio is preserved.}
 \code{recalculation = TRUE} or the toal sample size (if
 \code{recalculation = FALSE}).}
 
-\item{recalculation}{Logical: Should the sample size be recalcuated after n1
+\item{recalculation}{Should the sample size be recalcuated after n1
 patients are recruited?}
 
 \item{allocation}{Whether the allocation ratio should be preserved
@@ -107,8 +108,8 @@ interval approach proposed by Friede & Kieser (2011) is used.}
 size distribution is printed. If \code{FALSE} all sample sizes are
 printed.}
 
-\item{plot}{Logical. Should a plot of the sample size distribution
-be provided?}
+\item{plot}{Should a plot of the sample size distribution
+be drawn?}
 }
 \description{
 This class implements a Farrington-Manning test for non-inferiority
@@ -117,6 +118,10 @@ trials. A trial with binary outcomes in two groups \code{T} and
 
 The function \code{\link{setupFarringtonManning}} creates an object of
 \code{\link{FarringtonManning}}.
+}
+\details{
+Only sample sizes that occur with a probability of at least 0.01% are
+considered.
 }
 \examples{
 design <- setupFarringtonManning(alpha = .025, beta = .2, r = 1, delta = 0,

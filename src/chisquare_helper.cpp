@@ -19,10 +19,6 @@ double chisq_fix_reject(S4 design, double n1, double nuisance, String type) {
   if (type == "power") {
     p1_e = nuisance + delta / (1 + r_act);
     p1_c = p1_e - delta;
-
-    if ((p1_e > 1) | (p1_e < 0) | (p1_c < 0) | (p1_c > 1)) {
-      Rcerr << "response rates outside [0, 1]";
-    }
   }
 
   for(int i = 0; i <= n_c; ++i) {
@@ -76,10 +72,6 @@ double chisq_recalc_reject(S4 design, double n1, double nuisance,
   if (type == "power") {
     p1_e = nuisance + delta / (1 + r_act);
     p1_c = p1_e - delta;
-
-    if ((p1_e > 1) | (p1_e < 0) | (p1_c < 0) | (p1_c > 1)) {
-      Rcerr << "response rates outside [0, 1]";
-    }
   }
 
   for (int i = 0; i <= n_c1; ++i) {

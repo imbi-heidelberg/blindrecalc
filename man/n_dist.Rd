@@ -17,10 +17,10 @@ is recalculated}
 \item{summary}{logical - is a summary of the sample size distribution desired?
 Otherwise, a vector with sample sizes is returned.}
 
-\item{plot}{Logical. Should a plot of the sample size distribution
-be provided?}
+\item{plot}{Should a plot of the sample size distribution
+be drawn?}
 
-\item{...}{further optional arguments}
+\item{...}{Further optional arguments.}
 }
 \description{
 Calculates the distribution of the total sample sizes of designs
