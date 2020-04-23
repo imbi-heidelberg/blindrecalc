@@ -37,7 +37,7 @@ test_that("pow works for the fixed design (Friede et al. 2007)", {
 test_that("errors are defined correctly", {
   d1 <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 2,
                                delta = 0, delta_NI = 0.1)
-  expect_error(pow(d1, 1.1, TRUE))
+  expect_error(pow(d1, n1 = 30, nuisance = 1.1, TRUE))
 
   d2 <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 2,
                                delta = 0, delta_NI = 0.1, n_max = 301)
@@ -48,6 +48,46 @@ test_that("errors are defined correctly", {
   expect_error(pow(d2, d2@n_max + 1, 0.7, TRUE, "approximate"))
 
   expect_error(pow(d2, c(20, 30), c(0.6, 0.7), TRUE, "approximate"))
+
+})
+
+
+
+
+test_that("vectorization in n1 works", {
+  d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.2)
+  expect_equal(
+    pow(d, n1 = c(10, 20), nuisance = 0.25, recalculation = TRUE, allocation = "approximate"),
+    sapply(c(10, 20), function(n) {
+      pow(d, n1 = n, nuisance = 0.25, recalculation = TRUE, allocation = "approximate")
+    })
+  )
+
+  expect_equal(
+    pow(d, n1 = c(10, 20), nuisance = 0.25, recalculation = FALSE, allocation = "approximate"),
+    sapply(c(10, 20), function(n) {
+      pow(d, n1 = n, nuisance = 0.25, recalculation = FALSE, allocation = "approximate")
+    })
+  )
+
+})
+
+
+test_that("vectorization in nuisance works", {
+  d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.2)
+  expect_equal(
+    pow(d, n1 = 20, nuisance = c(0.4, 0.6), recalculation = TRUE, allocation = "approximate"),
+    sapply(c(0.4, 0.6), function(p) {
+      pow(d, n1 = 20, nuisance = p, recalculation = TRUE, allocation = "approximate")
+    })
+  )
+
+  expect_equal(
+    pow(d, n1 = 20, nuisance = c(0.4, 0.6), recalculation = FALSE, allocation = "exact"),
+    sapply(c(0.4, 0.6), function(p) {
+      pow(d, n1 = 20, nuisance = p, recalculation = FALSE, allocation = "exact")
+    })
+  )
 
 })
 

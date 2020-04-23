@@ -14,7 +14,7 @@ test_that("toer gives same values as pow for delta = 0", {
 test_that("errors are defined correctly", {
   d1 <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 2,
                                delta = 0, delta_NI = 0.1)
-  expect_error(toer(d1, 1.1, TRUE))
+  expect_error(toer(d1, n1 = 30, nuisance = 1.1, TRUE))
 
   d2 <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 2,
                                delta = 0, delta_NI = 0.1, n_max = 301)
@@ -27,3 +27,45 @@ test_that("errors are defined correctly", {
   expect_error(toer(d2, c(20, 30), c(0.6, 0.7), TRUE, "approximate"))
 
 })
+
+
+
+
+test_that("vectorization in n1 works", {
+  d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.2)
+  expect_equal(
+    toer(d, n1 = c(10, 20), nuisance = 0.25, recalculation = TRUE, allocation = "approximate"),
+    sapply(c(10, 20), function(n) {
+      toer(d, n1 = n, nuisance = 0.25, recalculation = TRUE, allocation = "approximate")
+    })
+  )
+
+  expect_equal(
+    toer(d, n1 = c(10, 20), nuisance = 0.25, recalculation = FALSE, allocation = "approximate"),
+    sapply(c(10, 20), function(n) {
+      toer(d, n1 = n, nuisance = 0.25, recalculation = FALSE, allocation = "approximate")
+    })
+  )
+
+})
+
+
+test_that("vectorization in nuisance works", {
+  d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.2)
+  expect_equal(
+    toer(d, n1 = 20, nuisance = c(0.4, 0.6), recalculation = TRUE, allocation = "approximate"),
+    sapply(c(0.4, 0.6), function(p) {
+      toer(d, n1 = 20, nuisance = p, recalculation = TRUE, allocation = "approximate")
+    })
+  )
+
+  expect_equal(
+    toer(d, n1 = 20, nuisance = c(0.4, 0.6), recalculation = FALSE, allocation = "exact"),
+    sapply(c(0.4, 0.6), function(p) {
+      toer(d, n1 = 20, nuisance = p, recalculation = FALSE, allocation = "exact")
+    })
+  )
+
+})
+
+
