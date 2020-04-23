@@ -49,3 +49,20 @@ test_that("vectorization in n1 works", {
   )
 
 })
+
+
+
+test_that("alternative can be 'smaller'", {
+  d1 <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.2, alternative = "greater")
+  d2 <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.2, alternative = "smaller")
+
+  expect_equal(
+    toer(d1, n1 = 20, nuisance = 0.5, recalculation = TRUE),
+    toer(d2, n1 = 20, nuisance = 0.5, recalculation = TRUE)
+  )
+
+  expect_equal(
+    toer(d1, n1 = 20, nuisance = 0.5, recalculation = FALSE),
+    toer(d2, n1 = 20, nuisance = 0.5, recalculation = FALSE)
+  )
+})

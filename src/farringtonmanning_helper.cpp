@@ -49,17 +49,11 @@ double fm_fix_reject(S4 design, double n, double nuisance, String type) {
   double p0_e = nuisance - delta_NI / (1 + r_act);
   double p0_c = p0_e + delta_NI;
 
-  if ((p0_e < 0) | (p0_c > 1)) {
-    stop("probabilities outside [0, 1]");
-  }
+
 
   if (type == "power") {
     p1_e = nuisance - delta / (1 + r_act);
     p1_c = p1_e + delta;
-
-    if ((p1_e < 0) | (p1_c > 1)) {
-      stop("probabilities outside [0, 1]");
-    }
   }
 
   for (int i = 0; i <= n_c; ++i) {
@@ -109,17 +103,10 @@ double fm_recalc_reject(S4 design, double n1, double nuisance,
   double n_e1 = ceil(n1 * r / (r + 1));
   double r_act1 = n_e1 / n_c1;
 
-  if ((p0_e < 0) | (p0_c > 1)) {
-    Rcerr << "probabilities outside [0, 1]";
-  }
 
   if (type == "power") {
     p1_e = nuisance - delta / (1 + r_act1);
     p1_c = p1_e + delta;
-
-    if ((p1_e < 0) | (p1_c > 1)) {
-      Rcerr << "probabilities outside [0, 1]";
-    }
   }
 
   for (int i = 0; i <= n_c1; ++i) {

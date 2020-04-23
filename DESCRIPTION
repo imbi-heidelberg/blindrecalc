@@ -2,7 +2,8 @@ Package: blindrecalc
 Type: Package
 Title: Blinded Sample Size Recalculation
 Version: 0.1.1
-Author: Lukas Baumann and Maximilian Pilz
+Author: Lukas Baumann <baumann@imbi.uni-heidelberg.de>
+ and Maximilian Pilz <pilz@imbi.uni-heidelberg.de>
 Maintainer: Maximilian Pilz <pilz@imbi.uni-heidelberg.de>
 Description: This package computes key characteristics
     and allows the creation of plots for blinded sample
