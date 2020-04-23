@@ -32,17 +32,19 @@ test_that("errors are defined correctly", {
 
 
 test_that("vectorization in n1 works", {
-  d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.2)
+  d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
+  n <- n_fix(d, 0.25)
+
   expect_equal(
-    toer(d, n1 = c(10, 20), nuisance = 0.25, recalculation = TRUE, allocation = "approximate"),
-    sapply(c(10, 20), function(n) {
+    toer(d, n1 = c(n/2, n+10), nuisance = 0.25, recalculation = TRUE, allocation = "approximate"),
+    sapply(c(n/2, n+10), function(n) {
       toer(d, n1 = n, nuisance = 0.25, recalculation = TRUE, allocation = "approximate")
     })
   )
 
   expect_equal(
-    toer(d, n1 = c(10, 20), nuisance = 0.25, recalculation = FALSE, allocation = "approximate"),
-    sapply(c(10, 20), function(n) {
+    toer(d, n1 = c(n/2, n+10), nuisance = 0.25, recalculation = FALSE, allocation = "approximate"),
+    sapply(c(n/2, n+10), function(n) {
       toer(d, n1 = n, nuisance = 0.25, recalculation = FALSE, allocation = "approximate")
     })
   )
