@@ -74,15 +74,15 @@ test_that("vectorization in n1 works", {
 
 
 test_that("vectorization in nuisance works", {
-  d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.2)
+  d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.3)
+  n <- round(n_fix(d, 0.4), -1)
+
   expect_equal(
-    pow(d, n1 = 20, nuisance = c(0.4, 0.6), recalculation = TRUE, allocation = "approximate"),
-    sapply(c(0.4, 0.6), function(p) {
-      pow(d, n1 = 20, nuisance = p, recalculation = TRUE, allocation = "approximate")
+    pow(d, n1 = n, nuisance = c(0.3, 0.4), recalculation = TRUE, allocation = "approximate"),
+    sapply(c(0.3, 0.4), function(p) {
+      pow(d, n1 = n, nuisance = p, recalculation = TRUE, allocation = "approximate")
     })
   )
-
-  n <- round(n_fix(d, 0.4), -1)
 
   expect_equal(
     pow(d, n1 = n, nuisance = c(0.3, 0.4), recalculation = FALSE, allocation = "exact"),
