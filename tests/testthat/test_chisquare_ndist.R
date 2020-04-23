@@ -9,7 +9,7 @@ test_that("error messages are thrown correctly", {
   d2@n_max <- 300
   expect_error(n_dist(d2, 20, 0.5, TRUE, "exact"))
 
-  expect_error(n_dist(d2, c(20, 30), c(0.6, 0.7), TRUE, "approximate"))
+  expect_error(n_dist(d2, c(21, 30), c(0.6, 0.7), TRUE, "approximate"))
 
 })
 

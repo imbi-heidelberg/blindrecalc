@@ -82,10 +82,12 @@ test_that("vectorization in nuisance works", {
     })
   )
 
+  n <- round(n_fix(d, 0.4), -1)
+
   expect_equal(
-    pow(d, n1 = 20, nuisance = c(0.4, 0.6), recalculation = FALSE, allocation = "exact"),
-    sapply(c(0.4, 0.6), function(p) {
-      pow(d, n1 = 20, nuisance = p, recalculation = FALSE, allocation = "exact")
+    pow(d, n1 = n, nuisance = c(0.3, 0.4), recalculation = FALSE, allocation = "exact"),
+    sapply(c(0.3, 0.4), function(p) {
+      pow(d, n1 = n, nuisance = p, recalculation = FALSE, allocation = "exact")
     })
   )
 
