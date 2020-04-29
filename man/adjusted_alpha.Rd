@@ -30,6 +30,6 @@ The method is implemented for the classes \code{\link{Student}},
 \examples{
 d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5, n_max = 848)
 sigma <- c(2, 5.5, 9)
-adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4)
+adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4, iters = 1e3)
 
 }
