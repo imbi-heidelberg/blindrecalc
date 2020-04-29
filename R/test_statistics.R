@@ -1,23 +1,4 @@
-#' Test statistics
-#'
-#' In \code{blindrecalc}, different test statistics are implemented.
-#' Currently, those are Student's t-test for superiority and non-inferiorty
-#' for continuous outcomes, the chi-squared test for superiority tests for binary
-#' outcomes and the Farrington Manning test for non-inferiority tests for
-#' binary outcomes.
-#'
-#' @slot alpha One-sided type I error rate.
-#' @slot beta Type II error rate.
-#' @slot r Allocation ratio between experimental and control group.
-#' @slot delta Difference of effect size between alternative and null
-#'   hypothesis.
-#' @slot delta_NI Non-inferiority margin.
-#' @slot alternative Character string indicating if the alternative contain
-#'   \code{greater} or \code{smaller} values than the null hypothesis.
-#' @slot n_max Maximal overall sample size.
-#'
-#' @aliases TestStatistic
-#' @exportClass TestStatistic
+# abstract class 'TestStatistics' for internal use
 setClass("TestStatistic", slots = c(
   alpha       = "numeric",
   beta        = "numeric",
@@ -46,21 +27,34 @@ setClass("TestStatistic", slots = c(
 #' Distribution of the two-sample t-test statistic following blinded
 #' sample size re-estimation. Pharmaceutical Statistics 15: 208-215.
 #'
+#' @details The following methods are available for this class:
+#' \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
+#' \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
+#' Check the design specific documentation for details.
+#'
 #' @aliases Student
 #' @rdname Student
 #' @exportClass Student
 setClass("Student", contains = "TestStatistic")
+
+
 
 #' Chi-squared test
 #'
 #' This class implements a chi-squared test for superiority trials. A trial
 #' with binary outcomes in two groups \code{T} and \code{C} is assumed.
 #'
+#' @details The following methods are available for this class:
+#' \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
+#' \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
+#' Check the design specific documentation for details.
 #'
 #' @aliases ChiSquare
 #' @rdname ChiSquare
 #' @exportClass ChiSquare
 setClass("ChiSquare", contains = "TestStatistic")
+
+
 
 #' Farrington Manning test
 #'
@@ -68,10 +62,17 @@ setClass("ChiSquare", contains = "TestStatistic")
 #' trials. A trial with binary outcomes in two groups \code{T} and
 #' \code{C} is assumed.
 #'
+#' @details The following methods are available for this class:
+#' \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
+#' \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
+#' Check the design specific documentation for details.
+#'
 #' @aliases FarringtonManning
 #' @rdname FarringtonManning
 #' @exportClass FarringtonManning
 setClass("FarringtonManning", contains = "TestStatistic")
+
+
 
 #' Student's t-test
 #'
@@ -82,6 +83,8 @@ setClass("FarringtonManning", contains = "TestStatistic")
 #' @template NI
 #' @template alternative
 #' @template dotdotdot
+#'
+#' @return An object of class \code{\link{Student}}.
 #'
 #' @examples
 #' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
@@ -107,6 +110,8 @@ setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0,
       delta_NI = -delta_NI, alternative = match.arg(alternative), n_max = n_max)
 }
 
+
+
 #' Setup a chi-squared test
 #'
 #' The function \code{setupChiSquare} creates an object of class
@@ -118,16 +123,21 @@ setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0,
 #'
 #' @details For non-inferiority trials use the function \code{\link{setupFarringtonManning}}.
 #'
-#' @rdname ChiSquare
-#' @export
+#' @return An object of class \code{\link{ChiSquare}}.
+#'
 #' @examples
 #' design <- setupChiSquare(alpha = .025, beta = .2, r = 1, delta = 0.2,
 #' alternative = "greater")
+#'
+#' @rdname ChiSquare
+#' @export
 setupChiSquare <- function(alpha, beta, r = 1, delta,
                            alternative = c("greater", "smaller"), n_max = Inf, ...) {
   new("ChiSquare", alpha = alpha, beta = beta, r = r, delta = delta,
       delta_NI = 0, alternative = match.arg(alternative), n_max = n_max)
 }
+
+
 
 #' Setup a Farrington-Manning test
 #'
@@ -138,11 +148,14 @@ setupChiSquare <- function(alpha, beta, r = 1, delta,
 #' @template NI
 #' @template dotdotdot
 #'
-#' @rdname FarringtonManning
-#' @export
+#' @return An object of class \code{\link{FarringtonManning}}.
+#'
 #' @examples
 #' design <- setupFarringtonManning(alpha = .025, beta = .2, r = 1, delta = 0,
 #' delta_NI = .15)
+#'
+#' @rdname FarringtonManning
+#' @export
 setupFarringtonManning <- function(alpha, beta, r = 1, delta, delta_NI, n_max = Inf, ...) {
   if (delta_NI == 0) warning("The non-inferiority margin equals 0! Do you want to conduct a chi square test?")
   new("FarringtonManning", alpha = alpha, beta = beta, r = r, delta = delta,

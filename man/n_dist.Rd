@@ -22,6 +22,10 @@ be drawn?}
 
 \item{...}{Further optional arguments.}
 }
+\value{
+summary and/or plot of the sample size distribution for
+  each nuisance parameter.
+}
 \description{
 Calculates the distribution of the total sample sizes of designs
 with blinded sample size recalculation for different values of the

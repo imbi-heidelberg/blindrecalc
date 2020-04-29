@@ -19,6 +19,9 @@ patients are recruited?}
 
 \item{...}{Further optional arguments.}
 }
+\value{
+one power value for every nuisance parameter
+}
 \description{
 Calculates the power of designs with blinded sample size recalculation
 or of fixed designs for one or several values of the nuisance parameter.

@@ -12,6 +12,9 @@
 #' @template allocation
 #' @template dotdotdot
 #'
+#' @return simulated rejection probabilities and sample sizes for
+#'    each nuisance parameter
+#'
 #' @details The implementation follows the algorithm in Lu (2019):
 #' Distribution of the two-sample t-test statistic following blinded
 #' sample size re-estimation.
@@ -98,14 +101,25 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
 }
 
 
-
+#' Type I Error Rate
+#'
+#' Computes the type I error rate of designs with blinded sample size recalculation
+#' or of fixed designs for one or several values of the nuisance parameter.
+#'
 #' @template methods_student
 #' @template recalculation
 #' @template iters
 #' @template allocation
 #' @template dotdotdot
 #'
-#' @rdname Student
+#' @return one type I error rate value for every nuisance parameter
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' toer(d, n1 = 20, nuisance = 5.5, recalculation = TRUE)
+#'
+#' @rdname toer.Student
 #' @export
 setMethod("toer", signature("Student"),
           function(design, n1, nuisance, recalculation = TRUE, iters = 1e4, seed = NULL,
@@ -127,13 +141,25 @@ setMethod("toer", signature("Student"),
 
 
 
+#' Power
+#'
+#' Calculates the power of designs with blinded sample size recalculation
+#' or of fixed designs for one or several values of the nuisance parameter.
+#'
 #' @template methods_student
 #' @template recalculation
 #' @template iters
 #' @template allocation
 #' @template dotdotdot
 #'
-#' @rdname Student
+#' @return one power value for every nuisance parameter
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' pow(d, n1 = 20, nuisance = 5.5, recalculation = TRUE)
+#'
+#' @rdname pow.Student
 #' @export
 setMethod("pow", signature("Student"),
           function(design, n1, nuisance, recalculation = TRUE, iters = 1e4, seed = NULL,
@@ -154,6 +180,13 @@ setMethod("pow", signature("Student"),
 
 
 
+
+#' Distribution of the Sample Size
+#'
+#' Calculates the distribution of the total sample sizes of designs
+#' with blinded sample size recalculation for different values of the
+#' nuisance parameter or of n1.
+#'
 #' @template methods_student
 #' @param summary logical - is a summary of the sample size distribution desired?
 #'    Otherwise, a vector with sample sizes is returned.
@@ -166,7 +199,15 @@ setMethod("pow", signature("Student"),
 #'    A value of zero causes the whiskers to extend to the data extremes.
 #' @template dotdotdot
 #'
-#' @rdname Student
+#' @return summary and/or plot of the sample size distribution for
+#'   each nuisance parameter.
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' n_dist(d, n1 = 20, nuisance = 5.5, summary = TRUE, plot = FALSE, seed = 2020)
+#'
+#' @rdname n_dist.Student
 #' @export
 setMethod("n_dist", signature("Student"),
           function(design, n1, nuisance, summary = TRUE, plot = FALSE, iters = 1e4,
@@ -198,33 +239,29 @@ setMethod("n_dist", signature("Student"),
 
 
 
-#' @param design test statistic object
-#' @param nuisance nuisance parameter
-#' @template dotdotdot
+#' Adjusted level of significance
 #'
-#' @rdname Student
-#' @export
-setMethod("n_fix", signature("Student"),
-          function(design, nuisance, ...) {
-            sapply(nuisance, function(sigma)
-              (1 + design@r)^2 / design@r * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
-                (design@delta - design@delta_NI)^2 * sigma^2
-            )
-          })
-
-
-
+#' This method returns an adjusted significance level that can be used
+#' such that the actual type I error rate is preserved.
+#'
 #' @template methods_student
 #' @param tol desired absolute tolerance
 #' @template iters
 #' @template dotdotdot
+#'
+#' @return value of the adjusted significance level
 #'
 #' @details In the case of the Student's t-test, the adjusted alpha is calculated
 #' using the algorithm by Kieser and Friede (2000):
 #' "Re-calculating the sample size in internal pilot study designs
 #' with control of the type I error rate". Statistics in Medicine 19: 901-911.
 #'
-#' @rdname Student
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5, n_max = 848)
+#' sigma <- c(2, 5.5, 9)
+#' adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4)
+#'
+#' @rdname adjusted_alpha.Student
 #' @export
 setMethod("adjusted_alpha", signature("Student"),
           function(design, n1, nuisance, tol, iters = 1e4, seed = NULL, ...) {
@@ -244,3 +281,30 @@ setMethod("adjusted_alpha", signature("Student"),
 
             return(alpha_adj)
         })
+
+
+
+#' Fixed Sample Size
+#'
+#' Returns the sample size of a fixed design without sample size recalculation.
+#'
+#' @param design test statistic object
+#' @param nuisance nuisance parameter
+#' @template dotdotdot
+#'
+#' @return one value of the fixed sample size for every nuisance parameter
+#'
+#' @examples
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
+#'                   alternative = "greater", n_max = 156)
+#' n_fix(design = d, nuisance = 5.5)
+#'
+#' @rdname n_fix.Student
+#' @export
+setMethod("n_fix", signature("Student"),
+          function(design, nuisance, ...) {
+            sapply(nuisance, function(sigma)
+              (1 + design@r)^2 / design@r * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
+                (design@delta - design@delta_NI)^2 * sigma^2
+            )
+          })

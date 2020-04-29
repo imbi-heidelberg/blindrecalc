@@ -32,8 +32,11 @@ setGeneric("toer", function(design, n1, nuisance, recalculation, ...) {
 #' @template recalculation
 #' @template dotdotdot
 #'
+#' @return one power value for every nuisance parameter
+#'
 #' @details The method is implemented for the classes \code{\link{Student}},
 #' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
+#'
 #'
 #' @examples
 #' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
@@ -59,6 +62,9 @@ setGeneric("pow", function(design, n1, nuisance, recalculation, ...) {
 #' @template plot
 #' @template dotdotdot
 #'
+#' @return summary and/or plot of the sample size distribution for
+#'   each nuisance parameter.
+#'
 #' @details The method is implemented for the classes \code{\link{Student}},
 #' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
 #'
@@ -82,6 +88,8 @@ setGeneric("n_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE
 #' @template methods
 #' @template dotdotdot
 #'
+#' @return value of the adjusted significance level
+#'
 #' @details The method is implemented for the classes \code{\link{Student}},
 #' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
 #'
@@ -103,6 +111,8 @@ setGeneric("adjusted_alpha", function(design, n1, nuisance, ...) {
 #' @param design test statistic object
 #' @param nuisance nuisance parameter
 #' @template dotdotdot
+#'
+#' @return one value of the fixed sample size for every nuisance parameter
 #'
 #' @details The method is implemented for the classes \code{\link{Student}},
 #' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
