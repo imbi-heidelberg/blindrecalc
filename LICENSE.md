@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2019 Institute of Medical Biometry and Informatics
+Copyright (c) 2019 Institute of Medical Biometry and Informatics - University of Heidelberg
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
