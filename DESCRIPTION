@@ -11,10 +11,8 @@ Authors@R:
             family = "Baumann", 
             role = c("aut"),
             email = "baumann@imbi.uni-heidelberg.de"))
-Description: Computation of key characteristics and
-   plots for blinded sample size recalculation.
-   Continuous as well as binary endpoints are supported
-   in superiority and non-inferiority trials.
+Description: Computation of key characteristics and plots for blinded sample size recalculation.
+   Continuous as well as binary endpoints are supported in superiority and non-inferiority trials.
 License: MIT + file LICENSE
 URL: https://github.com/imbi-heidelberg/blindrecalc
 Encoding: UTF-8

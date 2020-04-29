@@ -20,7 +20,9 @@ setClass("TestStatistic", slots = c(
 #' \ifelse{html}{\out{&Delta; = &mu;<sub>T</sub> - &mu;<sub>C</sub>}}{\eqn{\Delta = \mu_T - \mu_C}}
 #' is
 #' \ifelse{html}{\out{<p>H<sub>0</sub>: &Delta; &le; -&delta;<sub>NI</sub>  vs.  H<sub>1</sub>: &Delta; > -&delta;<sub>NI</sub>.</p>}}{\deqn{H_0: \Delta \leq -\delta_{NI}  vs.  H_1: \Delta > -\delta_{NI}.}}
-#' Here, \ifelse{html}{\out{&delta;<sub>NI</sub> >0}}{\eqn{\delta_{NI} > 0}} denotes the non-inferiority margin.
+#' Here, \ifelse{html}{\out{&delta;<sub>NI</sub> &ge; 0}}{\eqn{\delta_{NI} \geq 0}} denotes the non-inferiority margin.
+#' For superiority trials, \ifelse{html}{\out{&delta;<sub>NI</sub>}}{\eqn{\delta_{NI}}}
+#' can be set to zero (default).
 #' If \code{alternative=="smaller"}, the direction of the effect is changed.
 #'
 #' @details The notation is based on the paper of Lu (2019):
