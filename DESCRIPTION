@@ -22,11 +22,12 @@ Authors@R:
             role = c("ctb")))
 Description: Computation of key characteristics and plots for blinded sample size recalculation.
    Continuous as well as binary endpoints are supported in superiority and non-inferiority trials.
-   Among others, the algorithms proposed by
+   The implemented methods include the approaches by
    Lu, K. (2019) <doi:10.1002/pst.1737>,
    Kieser, M. and Friede, T. (2000) <[doi:10.1002/(SICI)1097-0258(20000415)19:7<901::AID-SIM405>3.0.CO;2-L]>,
-   Friede, T. and Kieser, M. (2004) <doi:10.1002/pst.140>, and
-   Friede, T. and Kieser, M. (2011) <doi:10.3414/ME09-01-0063> are implemented.
+   Friede, T. and Kieser, M. (2004) <doi:10.1002/pst.140>, 
+   Friede, T., Mitchell, C., Mueller-Veltern, G. (2007) <doi:10.1002/bimj.200610373>, and
+   Friede, T. and Kieser, M. (2011) <doi:10.3414/ME09-01-0063>.
 License: MIT + file LICENSE
 URL: https://github.com/imbi-heidelberg/blindrecalc
 Encoding: UTF-8
