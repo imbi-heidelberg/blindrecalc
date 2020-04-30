@@ -40,8 +40,8 @@ rounds the sample size to the next integer.}
 \item{...}{Further optional arguments.}
 }
 \value{
-summary and/or plot of the sample size distribution for
-  each nuisance parameter.
+Summary and/or plot of the sample size distribution for
+  every nuisance parameter and every value of n1.
 }
 \description{
 Calculates the distribution of the total sample sizes of designs
@@ -51,6 +51,9 @@ nuisance parameter or of n1.
 \details{
 Only sample sizes that occur with a probability of at least 0.01% are
 considered.
+
+The method is only vectorized in either \code{nuisance}
+  or \code{n1}.
 }
 \examples{
   d <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.2)

@@ -8,7 +8,10 @@
 #' @template allocation
 #' @template dotdotdot
 #'
-#' @return one type I error rate value for every nuisance parameter
+#' @return One type I error rate value for every nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.2)
@@ -74,7 +77,10 @@ setMethod("toer", signature("FarringtonManning"),
 #' @template allocation
 #' @template dotdotdot
 #'
-#' @return one power value for every nuisance parameter
+#' @return One power value for every nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
@@ -147,8 +153,11 @@ function(design, n1, nuisance, recalculation,
 #' @details Only sample sizes that occur with a probability of at least 0.01% are
 #' considered.
 #'
-#' @return summary and/or plot of the sample size distribution for
-#'   each nuisance parameter.
+#' @return Summary and/or plot of the sample size distribution for
+#'   each nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
@@ -221,7 +230,11 @@ setMethod("n_dist", signature("FarringtonManning"),
 #' @template allocation
 #' @template dotdotdot
 #'
-#' @return value of the adjusted significance level
+#' @return Value of the adjusted significance level for every nuisance
+#'  parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
@@ -285,7 +298,11 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
 #'   the allocation ratio is preserved.
 #' @template dotdotdot
 #'
-#' @return one value of the fixed sample size for every nuisance parameter
+#' @return One value of the fixed sample size for every nuisance parameter
+#'  and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)

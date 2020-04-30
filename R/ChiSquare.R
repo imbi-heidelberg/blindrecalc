@@ -8,7 +8,10 @@
 #' @template allocation_chisquare
 #' @template dotdotdot
 #'
-#' @return one type I error rate value for every nuisance parameter
+#' @return One type I error rate value for every nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #'   d <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.2)
@@ -74,7 +77,10 @@ setMethod("toer", signature("ChiSquare"),
 #' @template allocation_chisquare
 #' @template dotdotdot
 #'
-#' @return one power value for every nuisance parameter
+#' @return One power value for every nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #'   d <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.2)
@@ -147,8 +153,11 @@ setMethod("pow", signature("ChiSquare"),
 #' @details Only sample sizes that occur with a probability of at least 0.01% are
 #' considered.
 #'
-#' @return summary and/or plot of the sample size distribution for
-#'   each nuisance parameter.
+#' @return Summary and/or plot of the sample size distribution for
+#'   every nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #'   d <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.2)
@@ -221,7 +230,11 @@ setMethod("n_dist", signature("ChiSquare"),
 #' @template allocation_chisquare
 #' @template dotdotdot
 #'
-#' @return value of the adjusted significance level
+#' @return Value of the adjusted significance level for every
+#'  nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #'   d <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.2)
@@ -286,7 +299,11 @@ setMethod("adjusted_alpha", signature("ChiSquare"),
 #'   the allocation ratio is preserved.
 #' @template dotdotdot
 #'
-#' @return one value of the fixed sample size for every nuisance parameter
+#' @return One value of the fixed sample size for every nuisance parameter
+#'  and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #'   design1 <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.2)

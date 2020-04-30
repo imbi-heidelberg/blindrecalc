@@ -48,13 +48,17 @@ exactly (\code{exact}) or approximately (\code{approximate}).}
 \item{...}{Further optional arguments.}
 }
 \value{
-summary and/or plot of the sample size distribution for
-  each nuisance parameter.
+Summary and/or plot of the sample size distribution for
+  every nuisance parameter and every value of n1.
 }
 \description{
 Calculates the distribution of the total sample sizes of designs
 with blinded sample size recalculation for different values of the
 nuisance parameter or of n1.
+}
+\details{
+The method is only vectorized in either \code{nuisance}
+  or \code{n1}.
 }
 \examples{
 d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,

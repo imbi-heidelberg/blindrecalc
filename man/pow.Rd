@@ -20,13 +20,16 @@ patients are recruited?}
 \item{...}{Further optional arguments.}
 }
 \value{
-one power value for every nuisance parameter
+One power value for every nuisance parameter and every value of n1.
 }
 \description{
 Calculates the power of designs with blinded sample size recalculation
 or of fixed designs for one or several values of the nuisance parameter.
 }
 \details{
+The method is only vectorized in either \code{nuisance}
+  or \code{n1}.
+
 The method is implemented for the classes \code{\link{Student}},
 \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
 }

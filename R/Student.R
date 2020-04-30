@@ -12,8 +12,8 @@
 #' @template allocation
 #' @template dotdotdot
 #'
-#' @return simulated rejection probabilities and sample sizes for
-#'    each nuisance parameter
+#' @return Simulated rejection probabilities and sample sizes for
+#'    each nuisance parameter.
 #'
 #' @details The implementation follows the algorithm in Lu (2019):
 #' Distribution of the two-sample t-test statistic following blinded
@@ -112,7 +112,11 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
 #' @template allocation
 #' @template dotdotdot
 #'
-#' @return one type I error rate value for every nuisance parameter
+#' @return One type I error rate value for every nuisance parameter
+#'  and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
@@ -152,7 +156,10 @@ setMethod("toer", signature("Student"),
 #' @template allocation
 #' @template dotdotdot
 #'
-#' @return one power value for every nuisance parameter
+#' @return One power value for every nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
@@ -199,8 +206,11 @@ setMethod("pow", signature("Student"),
 #'    A value of zero causes the whiskers to extend to the data extremes.
 #' @template dotdotdot
 #'
-#' @return summary and/or plot of the sample size distribution for
-#'   each nuisance parameter.
+#' @return Summary and/or plot of the sample size distribution for
+#'   every nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
@@ -249,7 +259,11 @@ setMethod("n_dist", signature("Student"),
 #' @template iters
 #' @template dotdotdot
 #'
-#' @return value of the adjusted significance level
+#' @return Value of the adjusted significance level for every nuisance
+#'  parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @details In the case of the Student's t-test, the adjusted alpha is calculated
 #' using the algorithm by Kieser and Friede (2000):
@@ -292,7 +306,11 @@ setMethod("adjusted_alpha", signature("Student"),
 #' @param nuisance nuisance parameter
 #' @template dotdotdot
 #'
-#' @return one value of the fixed sample size for every nuisance parameter
+#' @return One value of the fixed sample size for every nuisance parameter
+#'  and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @examples
 #' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,

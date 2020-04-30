@@ -41,8 +41,8 @@ exactly (\code{exact}) or approximately (\code{approximate}).}
 \item{...}{Further optional arguments.}
 }
 \value{
-simulated rejection probabilities and sample sizes for
-   each nuisance parameter
+Simulated rejection probabilities and sample sizes for
+   each nuisance parameter.
 }
 \description{
 This function simulates the probability that a test defined by

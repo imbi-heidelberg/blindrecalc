@@ -25,13 +25,17 @@ Student's t-test this is the variance.}
 \item{...}{Further optional arguments.}
 }
 \value{
-value of the adjusted significance level
+Value of the adjusted significance level for every nuisance
+ parameter and every value of n1.
 }
 \description{
 This method returns an adjusted significance level that can be used
 such that the actual type I error rate is preserved.
 }
 \details{
+The method is only vectorized in either \code{nuisance}
+  or \code{n1}.
+
 In the case of the Student's t-test, the adjusted alpha is calculated
 using the algorithm by Kieser and Friede (2000):
 "Re-calculating the sample size in internal pilot study designs

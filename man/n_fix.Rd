@@ -14,12 +14,16 @@ n_fix(design, nuisance, ...)
 \item{...}{Further optional arguments.}
 }
 \value{
-one value of the fixed sample size for every nuisance parameter
+One value of the fixed sample size for every nuisance parameter
+ and every value of n1.
 }
 \description{
 Returns the sample size of a fixed design without sample size recalculation.
 }
 \details{
+The method is only vectorized in either \code{nuisance}
+  or \code{n1}.
+
 The method is implemented for the classes \code{\link{Student}},
 \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
 }

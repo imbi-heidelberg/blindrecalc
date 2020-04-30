@@ -35,11 +35,15 @@ rounds the sample size to the next integer.}
 \item{...}{Further optional arguments.}
 }
 \value{
-one power value for every nuisance parameter
+One power value for every nuisance parameter and every value of n1.
 }
 \description{
 Calculates the power of designs with blinded sample size recalculation
 or of fixed designs for one or several values of the nuisance parameter.
+}
+\details{
+The method is only vectorized in either \code{nuisance}
+  or \code{n1}.
 }
 \examples{
   d <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.2)
