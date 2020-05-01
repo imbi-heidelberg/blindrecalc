@@ -3,23 +3,14 @@ Type: Package
 Title: Blinded Sample Size Recalculation
 Version: 0.1.1
 Authors@R:
-   c(person(given = "Maximilian", 
-            family = "Pilz",
-            role = c("aut", "cre"),
-            email = "pilz@imbi.uni-heidelberg.de"),
-     person(given = "Lukas",
+   c(person(given = "Lukas",
             family = "Baumann", 
             role = c("aut"),
             email = "baumann@imbi.uni-heidelberg.de"),
-     person(given = "Kaifeng",
-            family = "Lu",
-            role = c("ctb")),
-     person(given = "Tim",
-            family = "Friede",
-            role = c("ctb")),
-     person(given = "Meinhard",
-            family = "Kieser",
-            role = c("ctb")))
+     person(given = "Maximilian", 
+            family = "Pilz",
+            role = c("aut", "cre"),
+            email = "pilz@imbi.uni-heidelberg.de"))
 Description: Computation of key characteristics and plots for blinded sample size recalculation.
    Continuous as well as binary endpoints are supported in superiority and non-inferiority trials.
    The implemented methods include the approaches by
