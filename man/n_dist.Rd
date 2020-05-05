@@ -22,12 +22,19 @@ be drawn?}
 
 \item{...}{Further optional arguments.}
 }
+\value{
+Summary and/or plot of the sample size distribution for
+  every nuisance parameter and every value of n1.
+}
 \description{
 Calculates the distribution of the total sample sizes of designs
 with blinded sample size recalculation for different values of the
 nuisance parameter or of n1.
 }
 \details{
+The method is only vectorized in either \code{nuisance}
+  or \code{n1}.
+
 The method is implemented for the classes \code{\link{Student}},
 \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
 }

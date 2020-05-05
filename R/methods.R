@@ -7,7 +7,10 @@
 #' @template recalculation
 #' @template dotdotdot
 #'
-#' @return one type I error rate value for every nuisance parameter
+#' @return One type I error rate value for every nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @details The method is implemented for the classes \code{\link{Student}},
 #' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
@@ -32,8 +35,14 @@ setGeneric("toer", function(design, n1, nuisance, recalculation, ...) {
 #' @template recalculation
 #' @template dotdotdot
 #'
+#' @return One power value for every nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
+#'
 #' @details The method is implemented for the classes \code{\link{Student}},
 #' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
+#'
 #'
 #' @examples
 #' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
@@ -59,6 +68,12 @@ setGeneric("pow", function(design, n1, nuisance, recalculation, ...) {
 #' @template plot
 #' @template dotdotdot
 #'
+#' @return Summary and/or plot of the sample size distribution for
+#'   every nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
+#'
 #' @details The method is implemented for the classes \code{\link{Student}},
 #' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
 #'
@@ -82,13 +97,19 @@ setGeneric("n_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE
 #' @template methods
 #' @template dotdotdot
 #'
+#' @return Value of the adjusted significance level
+#'  for every nuisance parameter and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
+#'
 #' @details The method is implemented for the classes \code{\link{Student}},
 #' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
 #'
 #' @examples
 #' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5, n_max = 848)
 #' sigma <- c(2, 5.5, 9)
-#' adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4)
+#' adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4, iters = 1e3)
 #'
 #' @export
 setGeneric("adjusted_alpha", function(design, n1, nuisance, ...) {
@@ -103,6 +124,12 @@ setGeneric("adjusted_alpha", function(design, n1, nuisance, ...) {
 #' @param design test statistic object
 #' @param nuisance nuisance parameter
 #' @template dotdotdot
+#'
+#' @return One value of the fixed sample size for every nuisance parameter
+#'  and every value of n1.
+#'
+#' @details The method is only vectorized in either \code{nuisance}
+#'   or \code{n1}.
 #'
 #' @details The method is implemented for the classes \code{\link{Student}},
 #' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
