@@ -82,8 +82,8 @@ ui <- navbarPage("blindrecalc",
                                      verbatimTextOutput("t_n_fix"))
                               ),
                             p("This shiny app was developed by:"),
-                            a(href="https://www.klinikum.uni-heidelberg.de/medizinische-biometrie/wir-
-                              ueber-uns/wir-ueber-uns", img(src="Logo-IMBI_ENGL.jpg", height=100))
+                            a(href="https://www.klinikum.uni-heidelberg.de/medizinische-biometrie/wir-ueber-uns/wir-ueber-uns",
+                              img(src="Logo-IMBI_ENGL.jpg", height=100))
                             )
                           ),
                  tabPanel("Chi-Square-test",
@@ -145,8 +145,8 @@ ui <- navbarPage("blindrecalc",
                                      verbatimTextOutput("cs_n_fix"))
                             ),
                             p("This shiny app was developed by:"),
-                            a(href="https://www.klinikum.uni-heidelberg.de/medizinische-biometrie/wir-
-                              ueber-uns/wir-ueber-uns", img(src="Logo-IMBI_ENGL.jpg", height=100))
+                            a(href="https://www.klinikum.uni-heidelberg.de/medizinische-biometrie/wir-ueber-uns/wir-ueber-uns",
+                              img(src="Logo-IMBI_ENGL.jpg", height=100))
                           )
                  ),
                  tabPanel("Farrington Manning test",
@@ -214,8 +214,8 @@ ui <- navbarPage("blindrecalc",
                                      verbatimTextOutput("fm_n_fix"))
                             ),
                             p("This shiny app was developed by:"),
-                            a(href="https://www.klinikum.uni-heidelberg.de/medizinische-biometrie/wir-
-                              ueber-uns/wir-ueber-uns", img(src="Logo-IMBI_ENGL.jpg", height=100))
+                            a(href="https://www.klinikum.uni-heidelberg.de/medizinische-biometrie/wir-ueber-uns/wir-ueber-uns",
+                              img(src="Logo-IMBI_ENGL.jpg", height=100))
                           )
                  )
 
