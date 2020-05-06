@@ -8,8 +8,6 @@ if (!require("blindrecalc"))
 library(shiny)
 library(blindrecalc)
 
-max_sliders <- 10
-
 ui <- navbarPage("blindrecalc",
                  tabPanel("t-test",
                           fluidPage(
