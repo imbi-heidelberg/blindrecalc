@@ -7,9 +7,9 @@
 adjusted_alpha(design, n1, nuisance, ...)
 }
 \arguments{
-\item{design}{object of class \code{TestStatistc} created by \code{setup}}
+\item{design}{object of class \code{TestStatistic} created by \code{setup}}
 
-\item{n1}{number of patients that are recruited before the sample size
+\item{n1}{total number of patients that are recruited before the sample size
 is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
@@ -30,6 +30,8 @@ The method is only vectorized in either \code{nuisance}
 
 The method is implemented for the classes \code{\link{Student}},
 \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
+Check the class-specific documentation for further parameters that have
+to be specified.
 }
 \examples{
 d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5, n_max = 848)

@@ -19,17 +19,17 @@
 by \code{setupFarringtonManning}.}
 
 \item{n1}{Either the sample size of the first stage (if
-\code{recalculation = TRUE} or the toal sample size (if
+\code{recalculation = TRUE} or the total sample size (if
 \code{recalculation = FALSE}).}
 
-\item{nuisance}{Value of the nuisance parameter. For the
+\item{nuisance}{Value of the nuisance parameter in (0,1). For the
 Farrington-Manning test this is the overall response rate.}
 
 \item{summary}{Logical. If \code{TRUE} (default) a summary of the sample
 size distribution is printed. If \code{FALSE} all sample sizes are
 printed.}
 
-\item{plot}{Should a plot of the sample size distribution
+\item{plot}{Logical - should a plot of the sample size distribution
 be drawn?}
 
 \item{allocation}{Whether the allocation ratio should be preserved

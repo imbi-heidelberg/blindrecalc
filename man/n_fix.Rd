@@ -7,9 +7,9 @@
 n_fix(design, nuisance, ...)
 }
 \arguments{
-\item{design}{test statistic object}
+\item{design}{test statistic object created by \code{setup}}
 
-\item{nuisance}{nuisance parameter}
+\item{nuisance}{nuisance parameter for the respective test problem}
 
 \item{...}{Further optional arguments.}
 }
@@ -18,7 +18,7 @@ One value of the fixed sample size for every nuisance parameter
  and every value of n1.
 }
 \description{
-Returns the sample size of a fixed design without sample size recalculation.
+Returns the total sample size of a fixed design without sample size recalculation.
 }
 \details{
 The method is only vectorized in either \code{nuisance}

@@ -26,8 +26,8 @@ simulation(
 \item{nuisance}{Value of the nuisance parameter. For the
 Student's t-test this is the variance.}
 
-\item{recalculation}{Should the sample size be recalcuated after n1
-patients are recruited?}
+\item{recalculation}{Logical parameter whether the sample size is to be
+recalculated after n1 patients are recruited}
 
 \item{delta_true}{effect measure under which the rejection probabilities are computed}
 

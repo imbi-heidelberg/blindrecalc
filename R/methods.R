@@ -105,6 +105,8 @@ setGeneric("n_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE
 #'
 #' @details The method is implemented for the classes \code{\link{Student}},
 #' \code{\link{ChiSquare}}, and \code{\link{FarringtonManning}}.
+#' Check the class-specific documentation for further parameters that have
+#' to be specified.
 #'
 #' @examples
 #' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5, n_max = 848)
@@ -119,10 +121,10 @@ setGeneric("adjusted_alpha", function(design, n1, nuisance, ...) {
 
 #' Fixed Sample Size
 #'
-#' Returns the sample size of a fixed design without sample size recalculation.
+#' Returns the total sample size of a fixed design without sample size recalculation.
 #'
-#' @param design test statistic object
-#' @param nuisance nuisance parameter
+#' @param design test statistic object created by \code{setup}
+#' @param nuisance nuisance parameter for the respective test problem
 #' @template dotdotdot
 #'
 #' @return One value of the fixed sample size for every nuisance parameter

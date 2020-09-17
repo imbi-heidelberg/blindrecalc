@@ -21,7 +21,8 @@ setupFarringtonManning(alpha, beta, r = 1, delta, delta_NI, n_max = Inf, ...)
 \item{delta_NI}{Non-inferiority margin.}
 
 \item{n_max}{Maximal overall sample size. If the recalculated sample size
-is greater than \code{n_max} it is set to \code{n_max}.}
+is greater than \code{n_max} it is set to \code{n_max}.
+The default value equals \code{n_max = Inf}.}
 
 \item{...}{Further optional arguments.}
 }
@@ -30,8 +31,8 @@ An object of class \code{\link{FarringtonManning}}.
 }
 \description{
 This class implements a Farrington-Manning test for non-inferiority
-trials. A trial with binary outcomes in two groups \code{T} and
-\code{C} is assumed.
+trials. A trial with binary outcomes in two groups, an experimental and
+a control group, is assumed.
 
 The function \code{\link{setupFarringtonManning}} creates an object of
 \code{\link{FarringtonManning}}.

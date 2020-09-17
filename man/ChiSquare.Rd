@@ -31,7 +31,8 @@ setupChiSquare(
 null hypothesis.}
 
 \item{n_max}{Maximal overall sample size. If the recalculated sample size
-is greater than \code{n_max} it is set to \code{n_max}.}
+is greater than \code{n_max} it is set to \code{n_max}.
+The default value equals \code{n_max = Inf}.}
 
 \item{...}{Further optional arguments.}
 }

@@ -30,7 +30,7 @@ Student's t-test this is the variance.}
 \item{summary}{logical - is a summary of the sample size distribution desired?
 Otherwise, a vector with sample sizes is returned.}
 
-\item{plot}{Should a plot of the sample size distribution
+\item{plot}{Logical - should a plot of the sample size distribution
 be drawn?}
 
 \item{iters}{Number of simulation iterations.}

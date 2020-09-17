@@ -61,8 +61,8 @@ setClass("ChiSquare", contains = "TestStatistic")
 #' Farrington Manning test
 #'
 #' This class implements a Farrington-Manning test for non-inferiority
-#' trials. A trial with binary outcomes in two groups \code{T} and
-#' \code{C} is assumed.
+#' trials. A trial with binary outcomes in two groups, an experimental and
+#' a control group, is assumed.
 #'
 #' @details The following methods are available for this class:
 #' \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
