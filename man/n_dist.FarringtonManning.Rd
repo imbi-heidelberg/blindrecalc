@@ -29,8 +29,7 @@ Farrington-Manning test this is the overall response rate.}
 size distribution is printed. If \code{FALSE} all sample sizes are
 printed.}
 
-\item{plot}{Logical - should a plot of the sample size distribution
-be drawn?}
+\item{plot}{Should a plot of the sample size distribution be drawn?}
 
 \item{allocation}{Whether the allocation ratio should be preserved
 exactly (\code{exact}) or approximately (\code{approximate}).}

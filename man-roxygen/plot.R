@@ -1,2 +1,1 @@
-#' @param plot Logical - should a plot of the sample size distribution
-#'   be drawn?
+#' @param plot Should a plot of the sample size distribution be drawn?

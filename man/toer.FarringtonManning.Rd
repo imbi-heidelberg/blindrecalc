@@ -24,8 +24,8 @@ by \code{setupFarringtonManning}.}
 \item{nuisance}{Value of the nuisance parameter in (0,1). For the
 Farrington-Manning test this is the overall response rate.}
 
-\item{recalculation}{Logical parameter whether the sample size is to be
-recalculated after n1 patients are recruited}
+\item{recalculation}{Should the sample size be recalculated after n1
+n1 patients are recruited?}
 
 \item{allocation}{Whether the allocation ratio should be preserved
 exactly (\code{exact}) or approximately (\code{approximate}).}

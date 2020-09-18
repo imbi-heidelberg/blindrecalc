@@ -21,8 +21,7 @@ setupFarringtonManning(alpha, beta, r = 1, delta, delta_NI, n_max = Inf, ...)
 \item{delta_NI}{Non-inferiority margin.}
 
 \item{n_max}{Maximal overall sample size. If the recalculated sample size
-is greater than \code{n_max} it is set to \code{n_max}.
-The default value equals \code{n_max = Inf}.}
+is greater than \code{n_max} it is set to \code{n_max}.}
 
 \item{...}{Further optional arguments.}
 }

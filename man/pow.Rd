@@ -14,8 +14,8 @@ is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
 
-\item{recalculation}{Logical parameter whether the sample size is to be
-recalculated after n1 patients are recruited}
+\item{recalculation}{Should the sample size be recalculated after n1
+n1 patients are recruited?}
 
 \item{...}{Further optional arguments.}
 }

@@ -39,8 +39,8 @@ such that the actual level is at most \code{alpha - gamma}. This is
 necessary to maintain the nomininal significance level if a confidence
 interval approach proposed by Friede & Kieser (2011) is used.}
 
-\item{recalculation}{Logical parameter whether the sample size is to be
-recalculated after n1 patients are recruited}
+\item{recalculation}{Should the sample size be recalculated after n1
+n1 patients are recruited?}
 
 \item{allocation}{Whether the allocation ratio should be preserved
 exactly (\code{exact}) or approximately (\code{approximate}
