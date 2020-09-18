@@ -30,8 +30,8 @@ An object of class \code{\link{FarringtonManning}}.
 }
 \description{
 This class implements a Farrington-Manning test for non-inferiority
-trials. A trial with binary outcomes in two groups \code{T} and
-\code{C} is assumed.
+trials. A trial with binary outcomes in two groups, an experimental and
+a control group, is assumed.
 
 The function \code{\link{setupFarringtonManning}} creates an object of
 \code{\link{FarringtonManning}}.

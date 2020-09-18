@@ -195,8 +195,7 @@ setMethod("pow", signature("Student"),
 #' nuisance parameter or of n1.
 #'
 #' @template methods_student
-#' @param summary logical - is a summary of the sample size distribution desired?
-#'    Otherwise, a vector with sample sizes is returned.
+#' @template summary
 #' @template plot
 #' @template iters
 #' @template allocation

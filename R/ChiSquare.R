@@ -143,9 +143,7 @@ setMethod("pow", signature("ChiSquare"),
 #' nuisance parameter or of n1.
 #'
 #' @template methods_chisquare
-#' @param summary Logical. If \code{TRUE} (default) a summary of the sample
-#'   size distribution is printed. If \code{FALSE} all sample sizes are
-#'   printed.
+#' @template summary
 #' @template plot
 #' @template allocation_chisquare
 #' @template dotdotdot
