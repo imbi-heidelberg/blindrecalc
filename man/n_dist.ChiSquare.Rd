@@ -24,9 +24,8 @@
 \item{nuisance}{Value of the nuisance parameter in (0,1). For the
 Chi-Squared test this is the overall response rate.}
 
-\item{summary}{Logical. If \code{TRUE} (default) a summary of the sample
-size distribution is printed. If \code{FALSE} all sample sizes are
-printed.}
+\item{summary}{Is a summary of the sample size distribution desired?
+Otherwise, a vector with sample sizes is returned.}
 
 \item{plot}{Should a plot of the sample size distribution be drawn?}
 
