@@ -1,6 +1,7 @@
 context("test pow for the ChiSquare-test")
 
-test_that("pow works for fixed design (Kieser 2020, Table 5.2)", {
+test_that("pow works for fixed design", {
+  # Compare with Kieser 2020, Table 5.2
   design1 <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 1, delta = 0.2)
   pow1 <- pow(design1, n1 = 164, nuisance = 0.3, recalculation = FALSE)
   pow2 <- pow(design1, n1 = 186, nuisance = 0.4, recalculation = FALSE)
@@ -12,10 +13,39 @@ test_that("pow works for fixed design (Kieser 2020, Table 5.2)", {
   pow4 <- pow(design2, n1 = 189, nuisance = (1 / 3),
     recalculation = FALSE)
 
+  # Compare with PASS 16.0.3 (Z-Test Pooled)
+  design4 <- setupChiSquare(alpha = 0.025, beta = 0.5, r = 1, delta = 0.2)
+  pow5 <- pow(design4, n1 = 62, nuisance = 0.2, allocation = "exact",
+    recalculation = FALSE)
+  pow6 <- pow(design4, n1 = 78, nuisance = 0.3, allocation = "exact",
+    recalculation = FALSE)
+  pow7 <- pow(design4, n1 = 94, nuisance = 0.4, allocation = "exact",
+    recalculation = FALSE)
+  pow8 <- pow(design4, n1 = 96, nuisance = 0.5, allocation = "exact",
+    recalculation = FALSE)
+
+  design5 <- setupChiSquare(alpha = 0.025, beta = 0.8, r = 1, delta = 0.2)
+  pow9 <- pow(design5, n1 = 26, nuisance = 0.2, allocation = "exact",
+    recalculation = FALSE)
+  pow10 <- pow(design5, n1 = 26, nuisance = 0.3, allocation = "exact",
+    recalculation = FALSE)
+  pow11 <- pow(design5, n1 = 26, nuisance = 0.4, allocation = "exact",
+    recalculation = FALSE)
+  pow12 <- pow(design5, n1 = 26, nuisance = 0.5, allocation = "exact",
+    recalculation = FALSE)
+
   expect_equal(pow1, 0.8074344, tolerance = 1e-7)
   expect_equal(pow2, 0.7991127, tolerance = 1e-7)
   expect_equal(pow3, 0.8028214, tolerance = 1e-7)
   expect_equal(pow4, 0.8114369, tolerance = 1e-7)
+  expect_equal(pow5, 0.5159118, tolerance = 1e-7)
+  expect_equal(pow6, 0.5032302, tolerance = 1e-7)
+  expect_equal(pow7, 0.5041563, tolerance = 1e-7)
+  expect_equal(pow8, 0.5111488, tolerance = 1e-7)
+  expect_equal(pow9, 0.2252016, tolerance = 1e-7)
+  expect_equal(pow10, 0.2125732, tolerance = 1e-7)
+  expect_equal(pow11, 0.2210516, tolerance = 1e-7)
+  expect_equal(pow12, 0.225603, tolerance = 1e-7)
 })
 
 test_that("pow works for recalculation design (Friede & Kieser 2004)", {
@@ -38,7 +68,26 @@ test_that("pow works for recalculation design (Friede & Kieser 2004)", {
   expect_equal(pow4, 0.7789805, tolerance = 1e-7)
 })
 
+test_that("power of the recalculation design is close to target power", {
+  design1 <- setupChiSquare(alpha = 0.025, beta = 0.2,
+    r = 1, delta = 0.3)
+  pow1 <- pow(design1, n1 = 40, nuisance = c(0.2, 0.3, 0.4, 0.5),
+    recalculation = TRUE)
 
+  design2 <- setupChiSquare(alpha = 0.025, beta = 0.4,
+    r = 1, delta = 0.2)
+  pow2 <- pow(design2, n1 = 40, nuisance = c(0.2, 0.3, 0.4, 0.5),
+    recalculation = TRUE)
+
+  design3 <- setupChiSquare(alpha = 0.025, beta = 0.6,
+    r = 1, delta = 0.2)
+  pow3 <- pow(design3, n1 = 30, nuisance = c(0.2, 0.3, 0.4, 0.5),
+    recalculation = TRUE)
+
+  expect_equal(pow1, rep(0.8, 4), tolerance = 0.025)
+  expect_equal(pow2, rep(0.6, 4), tolerance = 0.025)
+  expect_equal(pow3, rep(0.4, 4), tolerance = 0.025)
+})
 
 
 test_that("errors are thrown correctly", {

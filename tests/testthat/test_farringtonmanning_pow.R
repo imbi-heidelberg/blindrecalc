@@ -1,6 +1,7 @@
 context("test pow for the Farrington-Manning test")
 
-test_that("pow works for the fixed design (Friede et al. 2007)", {
+test_that("pow works for the fixed design", {
+  # Compare with Friede et al., 2007
   design1 <- setupFarringtonManning(alpha = 0.025, beta = 0.2,
                                     r = 1, delta = 0, delta_NI = 0.1)
   pow1 <- pow(design1, n1 = 658, nuisance = 0.3, recalculation = FALSE)
@@ -24,6 +25,28 @@ test_that("pow works for the fixed design (Friede et al. 2007)", {
   pow6 <- pow(design3, n1 = n2d3, nuisance = 0.4,
               allocation = "approximate", recalculation = FALSE)
 
+  # Compare with PASS 16.0.3
+  design4 <- setupFarringtonManning(alpha = 0.025, beta = 0.5,
+    r = 1, delta = 0, delta_NI = 0.2)
+  pow7 <- pow(design4, n1 = 64, nuisance = 0.2, allocation = "exact",
+    recalculation = FALSE)
+  pow8 <- pow(design4, n1 = 80, nuisance = 0.3, allocation = "exact",
+    recalculation = FALSE)
+  pow9 <- pow(design4, n1 = 90, nuisance = 0.4, allocation = "exact",
+    recalculation = FALSE)
+  pow10 <- pow(design4, n1 = 92, nuisance = 0.5, allocation = "exact",
+    recalculation = FALSE)
+
+  design5 <- setupFarringtonManning(alpha = 0.025, beta = 0.2,
+    r = 1, delta = 0, delta_NI = 0.2)
+  pow11 <- pow(design5, n1 = 22, nuisance = 0.2, allocation = "exact",
+    recalculation = FALSE)
+  pow12 <- pow(design5, n1 = 28, nuisance = 0.3, allocation = "exact",
+    recalculation = FALSE)
+  pow13 <- pow(design5, n1 = 32, nuisance = 0.4, allocation = "exact",
+    recalculation = FALSE)
+  pow14 <- pow(design5, n1 = 36, nuisance = 0.5, allocation = "exact",
+    recalculation = FALSE)
 
   expect_equal(pow1, 0.8005762, tolerance = 1e-7)
   expect_equal(pow2, 0.7948942, tolerance = 1e-7)
@@ -31,8 +54,36 @@ test_that("pow works for the fixed design (Friede et al. 2007)", {
   expect_equal(pow4, 0.8000787, tolerance = 1e-7)
   expect_equal(pow5, 0.8009629, tolerance = 1e-7)
   expect_equal(pow6, 0.8026954, tolerance = 1e-7)
+  expect_equal(pow7, 0.5107838, tolerance = 1e-7)
+  expect_equal(pow8, 0.5123605, tolerance = 1e-7)
+  expect_equal(pow9, 0.5083387, tolerance = 1e-7)
+  expect_equal(pow10, 0.5026442, tolerance = 1e-7)
+  expect_equal(pow11, 0.2192882, tolerance = 1e-7)
+  expect_equal(pow12, 0.2280977, tolerance = 1e-7)
+  expect_equal(pow13, 0.2130656, tolerance = 1e-7)
+  expect_equal(pow14, 0.2123263, tolerance = 1e-7)
 })
 
+test_that("power of the recalculation design is close to target power", {
+  design1 <- setupFarringtonManning(alpha = 0.025, beta = 0.2,
+    r = 1, delta = 0, delta_NI = 0.3)
+  pow1 <- pow(design1, n1 = 50, nuisance = c(0.2, 0.3, 0.4, 0.5),
+    recalculation = TRUE)
+
+  design2 <- setupFarringtonManning(alpha = 0.025, beta = 0.4,
+    r = 1, delta = 0, delta_NI = 0.2)
+  pow2 <- pow(design2, n1 = 30, nuisance = c(0.2, 0.3, 0.4, 0.5),
+    recalculation = TRUE)
+
+  design3 <- setupFarringtonManning(alpha = 0.025, beta = 0.6,
+    r = 1, delta = 0, delta_NI = 0.2)
+  pow3 <- pow(design3, n1 = 20, nuisance = c(0.2, 0.3, 0.4, 0.5),
+    recalculation = TRUE)
+
+  expect_equal(pow1, rep(0.8, 4), tolerance = 0.025)
+  expect_equal(pow2, rep(0.6, 4), tolerance = 0.025)
+  expect_equal(pow3, rep(0.4, 4), tolerance = 0.025)
+})
 
 test_that("errors are defined correctly", {
   d1 <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 2,
