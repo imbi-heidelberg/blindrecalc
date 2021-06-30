@@ -1,3 +1,5 @@
+# Helper function that creates a matrix with the total sample sizes
+# for all possible outcomes of the internal pilot study
 get_nmat_fm <- function(design, n1, allocation, ...) {
   n_c1 <- ceiling(n1 / (design@r + 1))
   n_e1 <- ceiling(n1 * design@r / (design@r + 1))
@@ -19,6 +21,8 @@ get_nmat_fm <- function(design, n1, allocation, ...) {
   return(as.matrix(out.mat))
 }
 
+# Helper function that calculates the probability for all possible
+# total sample sizes based on n1 and nuisance
 n_distrib_fm <- function(design, n1, nuisance, allocation, ...) {
   p_e <- nuisance + design@delta / (1 + design@r)
   p_c <- p_e - design@delta

@@ -44,7 +44,7 @@ setMethod("toer", signature("FarringtonManning"),
       stop("Only one of n1 and nuisance can have length > 1.")
     } else if (length(n1) > 1) {
       if (recalculation) {
-        # Create matrix with sample sizes
+        # Create matrix with total sample sizes
         nmat <- lapply(n1, function(x) get_nmat_fm(design, x, allocation, ...))
         mapply(fm_recalc_reject, n1 = n1, nmat = nmat,
           MoreArgs = list(design = design, nuisance = nuisance, type = "size"))
@@ -53,7 +53,7 @@ setMethod("toer", signature("FarringtonManning"),
       }
     } else if (length(nuisance) > 1) {
       if (recalculation) {
-        # Create matrix with sample sizes
+        # Create matrix with total sample sizes
         nmat <- get_nmat_fm(design, n1, allocation, ...)
         sapply(nuisance, function(x) fm_recalc_reject(design, n1, x, "size", nmat))
       } else {
@@ -61,7 +61,7 @@ setMethod("toer", signature("FarringtonManning"),
       }
     } else {
       if (recalculation) {
-        # Create matrix with sample sizes
+        # Create matrix with total sample sizes
         nmat <- get_nmat_fm(design, n1, allocation, ...)
         fm_recalc_reject(design, n1, nuisance, "size", nmat)
       } else {
@@ -118,7 +118,7 @@ function(design, n1, nuisance, recalculation,
     stop("only one of n1 and nuisance can have length > 1")
   } else if (length(n1) > 1) {
     if (recalculation) {
-      # Create matrix with sample sizes
+      # Create matrix with total sample sizes
       nmat <- lapply(n1, function(x) get_nmat_fm(design, x, allocation, ...))
       mapply(fm_recalc_reject, n1 = n1, nmat = nmat,
         MoreArgs = list(design = design, nuisance = nuisance, type = "power"))
@@ -127,7 +127,7 @@ function(design, n1, nuisance, recalculation,
     }
   } else if (length(nuisance) > 1) {
     if (recalculation) {
-      # Create matrix with sample sizes
+      # Create matrix with total sample sizes
       nmat <- get_nmat_fm(design, n1, allocation, ...)
       sapply(nuisance, function(x) fm_recalc_reject(design, n1, x, "power", nmat))
     } else {
@@ -135,7 +135,7 @@ function(design, n1, nuisance, recalculation,
     }
   } else {
     if (recalculation) {
-      # Create matrix with sample sizes
+      # Create matrix with total sample sizes
       nmat <- get_nmat_fm(design, n1, allocation, ...)
       fm_recalc_reject(design, n1, nuisance, "power", nmat)
     } else {
@@ -212,7 +212,7 @@ setMethod("n_dist", signature("FarringtonManning"),
                 out.list
               }
             } else {
-              # Calculate possible sample sizes and probabilities
+              # Calculate possible total sample sizes and probabilities
               out <- lapply(n1, function(x) n_distrib_fm(design, x, nuisance, allocation, ...))
               out <- Map(cbind, out, n1 = n1)
               out <- do.call("rbind", out)
