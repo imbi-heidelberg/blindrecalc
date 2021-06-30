@@ -23,6 +23,7 @@ setMethod("toer", signature("FarringtonManning"),
   function(design, n1, nuisance, recalculation,
            allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)
+    # Check if input is valid
     if (allocation == "exact") {
       if (sum(n1 %% (design@r + 1) != 0) > 0) {
         stop("No integer sample sizes.")
@@ -38,10 +39,12 @@ setMethod("toer", signature("FarringtonManning"),
       stop("n_max is smaller than n1.")
     }
 
+    # Check whether n1 or nuisance is a vector
     if ((length(n1) > 1) & (length(nuisance) > 1)) {
       stop("Only one of n1 and nuisance can have length > 1.")
     } else if (length(n1) > 1) {
       if (recalculation) {
+        # Create matrix with sample sizes
         nmat <- lapply(n1, function(x) get_nmat_fm(design, x, allocation, ...))
         mapply(fm_recalc_reject, n1 = n1, nmat = nmat,
           MoreArgs = list(design = design, nuisance = nuisance, type = "size"))
@@ -50,6 +53,7 @@ setMethod("toer", signature("FarringtonManning"),
       }
     } else if (length(nuisance) > 1) {
       if (recalculation) {
+        # Create matrix with sample sizes
         nmat <- get_nmat_fm(design, n1, allocation, ...)
         sapply(nuisance, function(x) fm_recalc_reject(design, n1, x, "size", nmat))
       } else {
@@ -57,6 +61,7 @@ setMethod("toer", signature("FarringtonManning"),
       }
     } else {
       if (recalculation) {
+        # Create matrix with sample sizes
         nmat <- get_nmat_fm(design, n1, allocation, ...)
         fm_recalc_reject(design, n1, nuisance, "size", nmat)
       } else {
@@ -92,6 +97,7 @@ setMethod("pow", signature("FarringtonManning"),
 function(design, n1, nuisance, recalculation,
          allocation = c("exact", "approximate"), ...) {
   allocation <- match.arg(allocation)
+  # Check if input is valid
   if (allocation == "exact") {
     if (sum(n1 %% (design@r + 1) != 0) > 0) {
       stop("No integer sample sizes for first stage.")
@@ -107,10 +113,12 @@ function(design, n1, nuisance, recalculation,
     stop("n_max is smaller than n1.")
   }
 
+  # Check whether n1 or nuisance is a vector
   if ((length(n1) > 1) & (length(nuisance) > 1)) {
     stop("only one of n1 and nuisance can have length > 1")
   } else if (length(n1) > 1) {
     if (recalculation) {
+      # Create matrix with sample sizes
       nmat <- lapply(n1, function(x) get_nmat_fm(design, x, allocation, ...))
       mapply(fm_recalc_reject, n1 = n1, nmat = nmat,
         MoreArgs = list(design = design, nuisance = nuisance, type = "power"))
@@ -119,6 +127,7 @@ function(design, n1, nuisance, recalculation,
     }
   } else if (length(nuisance) > 1) {
     if (recalculation) {
+      # Create matrix with sample sizes
       nmat <- get_nmat_fm(design, n1, allocation, ...)
       sapply(nuisance, function(x) fm_recalc_reject(design, n1, x, "power", nmat))
     } else {
@@ -126,6 +135,7 @@ function(design, n1, nuisance, recalculation,
     }
   } else {
     if (recalculation) {
+      # Create matrix with sample sizes
       nmat <- get_nmat_fm(design, n1, allocation, ...)
       fm_recalc_reject(design, n1, nuisance, "power", nmat)
     } else {
@@ -169,6 +179,7 @@ setMethod("n_dist", signature("FarringtonManning"),
           function(design, n1, nuisance, summary, plot,
                    allocation = c("exact", "approximate"), ...) {
             allocation <- match.arg(allocation)
+            # Check if input is valid
             if (allocation == "exact") {
               if (sum(n1 %% (design@r + 1) != 0) > 0) {
                 stop("No integer sample sizes for first stage.")
@@ -181,9 +192,11 @@ setMethod("n_dist", signature("FarringtonManning"),
               stop("Nuisance has to be within [0, 1].")
             }
 
+            # Check whether n1 or nuisance is a vector
             if ((length(n1) > 1) & (length(nuisance) > 1)) {
               stop("Only one of n1 and nuisance can have length > 1.")
             } else if (length(n1) == 1) {
+              # Calculate possible sample sizes and probabilities
               out <- lapply(nuisance, function(x) n_distrib_fm(design, n1, x, allocation, ...))
               out <- Map(cbind, out, nuisance = nuisance)
               out <- do.call("rbind", out)
@@ -199,6 +212,7 @@ setMethod("n_dist", signature("FarringtonManning"),
                 out.list
               }
             } else {
+              # Calculate possible sample sizes and probabilities
               out <- lapply(n1, function(x) n_distrib_fm(design, x, nuisance, allocation, ...))
               out <- Map(cbind, out, n1 = n1)
               out <- do.call("rbind", out)
@@ -244,8 +258,9 @@ setMethod("n_dist", signature("FarringtonManning"),
 #' @export
 setMethod("adjusted_alpha", signature("FarringtonManning"),
   function(design, n1, nuisance, nuis_ass, precision = 0.001, gamma = 0,
-    recalculation, allocation = c("exact", "approximate"), ...) {
+           recalculation, allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)
+    # Check if input is valid
     if (allocation == "exact") {
       if (n1 %% (design@r + 1) != 0) {
         stop("No integer sample sizes for first stage.")
@@ -260,6 +275,8 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
 
     alpha_nom <- design@alpha - gamma
     if (recalculation) {
+      # Decrease alpha until actual significance level is at most
+      # the nominal significance level
       repeat {
         nmat <- get_nmat_fm(design, n1, allocation, ...)
         alpha_max <- max(sapply(nuisance,
@@ -269,6 +286,8 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
       }
     } else {
       repeat {
+        # Decrease alpha until actual significance level is at most
+        # the nominal significance level
         alpha_max <- max(sapply(nuisance,
           function(x) fm_fix_reject(design, n1, x, "size")))
         if (alpha_max <= alpha_nom) break
@@ -312,12 +331,14 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
 #' @export
 setMethod("n_fix", signature("FarringtonManning"),
           function(design, nuisance, rounded = TRUE, ...) {
+            # Check if input is valid
             if (design@delta_NI <= 0) {
               stop("delta_NI has to be positive.")
             }
             if (sum(nuisance < 0) + sum(nuisance > 1) > 0) {
               stop("Nuisance has to be within [0, 1].")
             }
+            # Use recursion if nuisance is a vector
             if (length(nuisance) > 1) {
               sapply(nuisance, function(x) n_fix(design = design, nuisance = x,
                                                  rounded = rounded, ...))
@@ -335,7 +356,7 @@ setMethod("n_fix", signature("FarringtonManning"),
               z_b <- stats::qnorm(1 - design@beta)
 
               n <- ((1 + design@r) / design@r) * (z_a * sqrt(v0) + z_b *
-                                                    sqrt(v1))^2 / (design@delta + design@delta_NI)^2
+                sqrt(v1))^2 / (design@delta + design@delta_NI)^2
 
               if (rounded) {
                 n <- ceiling(n)
