@@ -275,8 +275,7 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
 
     alpha_nom <- design@alpha - gamma
     if (recalculation) {
-      # Decrease alpha until actual significance level is at most
-      # the nominal significance level
+      # iteratively reduce the significance level until it is sufficiently small
       repeat {
         nmat <- get_nmat_fm(design, n1, allocation, ...)
         alpha_max <- max(sapply(nuisance,
@@ -286,8 +285,7 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
       }
     } else {
       repeat {
-        # Decrease alpha until actual significance level is at most
-        # the nominal significance level
+        # iteratively reduce the significance level until it is sufficiently small
         alpha_max <- max(sapply(nuisance,
           function(x) fm_fix_reject(design, n1, x, "size")))
         if (alpha_max <= alpha_nom) break

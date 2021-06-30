@@ -274,8 +274,7 @@ setMethod("adjusted_alpha", signature("ChiSquare"),
 
     alpha_nom <- design@alpha - gamma
     if (recalculation) {
-      # Decrease alpha until actual significance level is at most
-      # the nominal significance level
+      # iteratively reduce the significance level until it is sufficiently small
       repeat {
         nmat <- get_nmat_chisq(design, n1, allocation, ...)
         alpha_max <- max(sapply(nuisance,
@@ -284,8 +283,7 @@ setMethod("adjusted_alpha", signature("ChiSquare"),
         design@alpha <- design@alpha - precision
       }
     } else {
-      # Decrease alpha until actual significance level is at most
-      # the nominal significance level
+      # iteratively reduce the significance level until it is sufficiently small
       repeat {
         alpha_max <- max(sapply(nuisance,
           function(x) chisq_fix_reject(design, n1, x, "size")))
