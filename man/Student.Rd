@@ -44,11 +44,11 @@ An object of class \code{\link{Student}}.
 \description{
 This class implements Student's t-test for superiority and non-inferiority
 tests.
-A trial with continuous outcomes of the two groups \code{T} and \code{C}
+A trial with continuous outcomes of the two groups \code{E} and \code{C}
 is assumed.
 If \code{alternative == "greater"} the null hypothesis for the
 mean difference
-\ifelse{html}{\out{&Delta; = &mu;<sub>T</sub> - &mu;<sub>C</sub>}}{\eqn{\Delta = \mu_T - \mu_C}}
+\ifelse{html}{\out{&Delta; = &mu;<sub>E</sub> - &mu;<sub>C</sub>}}{\eqn{\Delta = \mu_E - \mu_C}}
 is
 \ifelse{html}{\out{<p>H<sub>0</sub>: &Delta; &le; -&delta;<sub>NI</sub>  vs.  H<sub>1</sub>: &Delta; > -&delta;<sub>NI</sub>.</p>}}{\deqn{H_0: \Delta \leq -\delta_{NI}  vs.  H_1: \Delta > -\delta_{NI}.}}
 Here, \ifelse{html}{\out{&delta;<sub>NI</sub> &ge; 0}}{\eqn{\delta_{NI} \geq 0}} denotes the non-inferiority margin.
@@ -60,10 +60,6 @@ The function \code{setupStudent} creates an object of class
 \code{\link{Student}} that can be used for sample size recalculation.
 }
 \details{
-The notation is based on the paper of Lu (2019):
-Distribution of the two-sample t-test statistic following blinded
-sample size re-estimation. Pharmaceutical Statistics 15: 208-215.
-
 The following methods are available for this class:
 \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
 \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
@@ -71,5 +67,10 @@ Check the design specific documentation for details.
 }
 \examples{
 d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
-                   alternative = "greater", n_max = 156)
+                  alternative = "greater", n_max = 156)
+}
+\references{
+Lu, K. (2019).
+Distribution of the two-sample t-test statistic following blinded
+sample size re-estimation. Pharmaceutical Statistics 15(3): 208-215.
 }
