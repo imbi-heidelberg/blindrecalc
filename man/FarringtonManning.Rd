@@ -30,13 +30,44 @@ An object of class \code{\link{FarringtonManning}}.
 }
 \description{
 This class implements a Farrington-Manning test for non-inferiority
-trials. A trial with binary outcomes in two groups, an experimental and
-a control group, is assumed.
+trials. A trial with binary outcomes in two groups \code{E} and
+\code{C} is assumed. The null and alternative hypotheses for the
+non-inferiority of response probabilities are:
+\ifelse{html}{\out{<p>H<sub>0</sub>: p<sub>E</sub> - p<sub>C</sub>
+&le; -&delta; vs.
+H<sub>1</sub>: p<sub>E</sub> - p<sub>C</sub> > -&delta;,</p>}}{\deqn{
+H_0: p_E - p_C \leq -\delta vs. H_1: p_E - p_C > -\delta,}}
+where \ifelse{html}{\out{&delta;}}{\eqn{\delta}} denotes the
+non-inferiority margin.
 
 The function \code{\link{setupFarringtonManning}} creates an object of
 \code{\link{FarringtonManning}}.
 }
 \details{
+The nuisance parameter is the overall response probability
+\ifelse{html}{\out{p<sub>0</sub>}}{\eqn{p_0}}. In the blinded sample size
+recalculation procedure it is blindly estimated by:
+\ifelse{html}{\out{<p>p<sub>0,est</sub> :=
+(X<sub>1,E</sub> + X<sub>1,C</sub>) / (n<sub>1,E</sub> +
+n<sub>1,C</sub>),</p>}}{\deqn{\hat{p}_0 :=
+(X_{1,E} + X_{1,C}) / (n_{1,E} + n_{1,C}),}}
+where \ifelse{html}{\out{X<sub>1,E</sub>}}{\eqn{X_{1,E}}} and
+\ifelse{html}{\out{X<sub>1,C</sub>}}{\eqn{X_{1,C}}} are the numbers of
+responses and \ifelse{html}{\out{n<sub>1,E</sub>}}{\eqn{n_{1,E}}} and
+\ifelse{html}{\out{n<sub>1,C</sub>}}{\eqn{n_{1,C}}} are the sample sizes
+of the respective group after the first stage. The event rates in both
+groups under the alternative hypothesis can then be blindly estimated as:
+\ifelse{html}{\out{<p>p<sub>C,A,est</sub> :=
+p<sub>0,est</sub> - &Delta; * r / (1 + r),
+p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r).</p>}}{\deqn{
+\hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r),
+\hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}}
+where \ifelse{html}{\out{&Delta;}}{\eqn{\Delta}} is the difference in
+response probabilities under the alternative hypothesis and r is the
+allocation ratio of the sample sizes in the two groups.
+These blinded estimates can then be used to re-estimate the sample
+size.
+
 The following methods are available for this class:
 \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
 \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
@@ -46,4 +77,11 @@ Check the design specific documentation for details.
 design <- setupFarringtonManning(alpha = .025, beta = .2, r = 1, delta = 0,
 delta_NI = .15)
 
+}
+\references{
+Friede, T., Mitchell, C., & Mueller-Velten, G. (2007). Blinded sample size
+reestimation in non‐inferiority trials with binary endpoints.
+Biometrical Journal, 49(6), 903-916. \cr
+Kieser, M. (2020). Methods and applications of sample size calculation and
+recalculation in clinical trials. Springer.
 }

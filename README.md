@@ -1,4 +1,4 @@
-[![Travis build status](https://travis-ci.com/imbi-heidelberg/blindrecalc.svg?branch=master)](https://travis-ci.com/imbi-heidelberg/blindrecalc)
+[![R-CMD-check](https://github.com/imbi-heidelberg/blindrecalc/workflows/R-CMD-check/badge.svg)](https://github.com/imbi-heidelberg/blindrecalc/actions)
 [![Codecov test coverage](https://codecov.io/gh/imbi-heidelberg/blindrecalc/branch/master/graph/badge.svg)](https://codecov.io/gh/imbi-heidelberg/blindrecalc?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/blindrecalc)](https://cran.r-project.org/package=blindrecalc)
 
