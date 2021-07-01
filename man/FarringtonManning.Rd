@@ -30,7 +30,6 @@ An object of class \code{\link{FarringtonManning}}.
 }
 \description{
 This class implements a Farrington-Manning test for non-inferiority
-<<<<<<< HEAD
 trials. A trial with binary outcomes in two groups \code{E} and
 \code{C} is assumed. The null and alternative hypotheses for the
 non-inferiority of response probabilities are:
@@ -40,10 +39,6 @@ H<sub>1</sub>: p<sub>E</sub> - p<sub>C</sub> > -&delta;,</p>}}{\deqn{
 H_0: p_E - p_C \leq -\delta vs. H_1: p_E - p_C > -\delta,}}
 where \ifelse{html}{\out{&delta;}}{\eqn{\delta}} denotes the
 non-inferiority margin.
-=======
-trials. A trial with binary outcomes in two groups, an experimental and
-a control group, is assumed.
->>>>>>> master
 
 The function \code{\link{setupFarringtonManning}} creates an object of
 \code{\link{FarringtonManning}}.
