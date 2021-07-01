@@ -153,9 +153,7 @@ function(design, n1, nuisance, recalculation,
 #' nuisance parameter or of n1.
 #'
 #' @template methods_fm
-#' @param summary Logical. If \code{TRUE} (default) a summary of the sample
-#'   size distribution is printed. If \code{FALSE} all sample sizes are
-#'   printed.
+#' @template summary
 #' @template plot
 #' @template allocation
 #' @template dotdotdot

@@ -50,7 +50,8 @@ If \code{alternative == "greater"} the null hypothesis for the
 mean difference
 \ifelse{html}{\out{&Delta; = &mu;<sub>E</sub> - &mu;<sub>C</sub>}}{\eqn{\Delta = \mu_E - \mu_C}}
 is
-\ifelse{html}{\out{<p>H<sub>0</sub>: &Delta; &le; -&delta;<sub>NI</sub>  vs.  H<sub>1</sub>: &Delta; > -&delta;<sub>NI</sub>.</p>}}{\deqn{H_0: \Delta \leq -\delta_{NI}  vs.  H_1: \Delta > -\delta_{NI}.}}
+\ifelse{html}{\out{<p>H<sub>0</sub>: &Delta; &le; -&delta;<sub>NI</sub>  vs.  H<sub>1</sub>: &Delta; > -&delta;<sub>NI</sub>.
+</p>}}{\deqn{H_0: \Delta \leq -\delta_{NI}  vs.  H_1: \Delta > -\delta_{NI}.}}
 Here, \ifelse{html}{\out{&delta;<sub>NI</sub> &ge; 0}}{\eqn{\delta_{NI} \geq 0}} denotes the non-inferiority margin.
 For superiority trials, \ifelse{html}{\out{&delta;<sub>NI</sub>}}{\eqn{\delta_{NI}}}
 can be set to zero (default).
@@ -60,6 +61,20 @@ The function \code{setupStudent} creates an object of class
 \code{\link{Student}} that can be used for sample size recalculation.
 }
 \details{
+The nuisance parameter is the variance
+\ifelse{html}{\out{&sigma;<sup>2</sup>}}{\eqn{\sigma^2}}.
+Within the blinded sample size recalculation procedure, it is re-estimated by
+the one-sample variance estimator that is defined by
+\ifelse{html}{\out{<p>
+&sigma;<sup>2</sup><sub>est</sub> := 1/(n<sub>1</sub>-1) &sum;<sub>j=T,C</sub> &sum;<sub>k=1,...,n<sub>1,j</sub></sub> (x<sub>j,k</sub> - <SPAN STYLE="text-decoration:overline">x</span>)<sup>2</sup>,
+</p>}}{\deqn{\widehat{\sigma}^2 := \frac{1}{n_1-1} \sum_{j \in \{T, C \}} \sum_{k=1}^{n_{1,j}}(x_{j,k} - \bar{x} )^2,}}
+where  \ifelse{html}{\out{x<sub>j,k</sub>}}{\eqn{x_{j,k}}} is the outcome of patient
+\ifelse{html}{\out{k}}{\eqn{k}} in group \ifelse{html}{j}{\eqn{j}},
+\ifelse{html}{\out{n<sub>1,j</sub>}}{\eqn{n_{1,j}}} denotes the first-stage sample size
+in group \ifelse{html}{\out{j}}{\eqn{j}} and \ifelse{html}{\out{<SPAN STYLE="text-decoration:overline">x</span>}}{\eqn{\bar{x}}}
+equals the mean over all \ifelse{html}{\out{n<sub>1</sub>}}{\eqn{n_1}} observations.
+
+
 The following methods are available for this class:
 \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
 \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.

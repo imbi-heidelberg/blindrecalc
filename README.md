@@ -10,3 +10,9 @@ Install the latest CRAN version via
 ```r
 install.packages("blindrecalc")
 ```
+
+The current development version can be installed via
+
+```r
+devtools::install_github("imbi-heidelberg/blindrecalc")
+```

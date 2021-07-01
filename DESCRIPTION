@@ -1,7 +1,7 @@
 Package: blindrecalc
 Type: Package
 Title: Blinded Sample Size Recalculation
-Version: 0.1.2
+Version: 0.1.3
 Authors@R:
    c(person(given = "Lukas",
             family = "Baumann", 
@@ -10,7 +10,8 @@ Authors@R:
      person(given = "Maximilian", 
             family = "Pilz",
             role = c("aut", "cre"),
-            email = "pilz@imbi.uni-heidelberg.de"),
+            email = "pilz@imbi.uni-heidelberg.de",
+            comment = c(ORCID = "0000-0002-9685-1613")),
       person(given = "Institute of Medical Biometry and Informatics - University of Heidelberg",
              role = c("cph")))
 Description: Computation of key characteristics and plots for blinded sample size recalculation.

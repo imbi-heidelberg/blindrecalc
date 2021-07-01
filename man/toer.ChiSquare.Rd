@@ -17,14 +17,14 @@
 \item{design}{Object of class \code{ChiSquare} created by \code{setupChiSquare}.}
 
 \item{n1}{Either the sample size of the first stage (if
-\code{recalculation = TRUE} or the toal sample size (if
+\code{recalculation = TRUE} or the total sample size (if
 \code{recalculation = FALSE}).}
 
-\item{nuisance}{Value of the nuisance parameter. For the
+\item{nuisance}{Value of the nuisance parameter in (0,1). For the
 Chi-Squared test this is the overall response rate.}
 
-\item{recalculation}{Should the sample size be recalcuated after n1
-patients are recruited?}
+\item{recalculation}{Should the sample size be recalculated after n1
+n1 patients are recruited?}
 
 \item{allocation}{Whether the allocation ratio should be preserved
 exactly (\code{exact}) or approximately (\code{approximate}

@@ -7,9 +7,9 @@
 n_dist(design, n1, nuisance, summary = TRUE, plot = FALSE, ...)
 }
 \arguments{
-\item{design}{object of class \code{TestStatistc} created by \code{setup}}
+\item{design}{object of class \code{TestStatistic} created by \code{setup}}
 
-\item{n1}{number of patients that are recruited before the sample size
+\item{n1}{total number of patients that are recruited before the sample size
 is recalculated}
 
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
@@ -17,8 +17,7 @@ is recalculated}
 \item{summary}{logical - is a summary of the sample size distribution desired?
 Otherwise, a vector with sample sizes is returned.}
 
-\item{plot}{Should a plot of the sample size distribution
-be drawn?}
+\item{plot}{Should a plot of the sample size distribution be drawn?}
 
 \item{...}{Further optional arguments.}
 }
