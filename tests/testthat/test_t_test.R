@@ -2,22 +2,109 @@ context("test t-test")
 
 its <- 1e5
 
-test_that("Example of Lu can be reproduced", {
-  design <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5,
+test_that("Examples of Lu (2019) can be reproduced", {
+  set.seed(123)
+  design1 <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5,
                          delta_NI = 0, n_max = Inf)
 
   expect_equal(
-    toer(design, 40, 5.5, TRUE, its),
-    design@alpha,
+    toer(design1, 40, 5.5, TRUE, its),
+    design1@alpha,
+    tolerance = 2 / sqrt(its), scale = 1)
+
+  expect_equal(
+    pow(design1, 40, 5.5, TRUE, its),
+    1 - design1@beta,
     tolerance = 2 / sqrt(its), scale = 1)
 
 
+  design2 <- setupStudent(alpha = .05, beta = 1-.903, r = 1, delta = 0,
+                          delta_NI = 0.5, n_max = Inf)
+
   expect_equal(
-    pow(design, 40, 5.5, TRUE, its),
-    1 - design@beta,
+    toer(design2, 60, 1, TRUE, its),
+    design2@alpha,
+    tolerance = 2 / sqrt(its), scale = 1)
+
+  expect_equal(
+    pow(design2, 60, 1, TRUE, its),
+    1 - design2@beta,
     tolerance = 2 / sqrt(its), scale = 1)
 
 })
+
+
+
+
+test_that("Different values of alpha and beta work", {
+  # try design with low power and small alpha
+  design1 <- setupStudent(alpha = .025, beta = .8, r = 1, delta = 1,
+                         delta_NI = 0, n_max = Inf)
+  expect_equal(
+    toer(design1, 10, 2, TRUE, its),
+    design1@alpha,
+    tolerance = 2 / sqrt(its), scale = 1)
+  expect_equal(
+    pow(design1, 10, 2, TRUE, its),
+    1 - design1@beta,
+    tolerance = 2 / sqrt(its), scale = 1)
+
+
+  # try design with low power and large alpha
+  design2 <- setupStudent(alpha = .2, beta = .5, r = 1, delta = 1,
+                         delta_NI = 0, n_max = Inf)
+  expect_equal(
+    toer(design2, 20, 5, TRUE, its),
+    design2@alpha,
+    tolerance = 2 / sqrt(its), scale = 1)
+  expect_equal(
+    pow(design2, 20, 5, TRUE, its),
+    1 - design2@beta,
+    tolerance = 2 / sqrt(its), scale = 1)
+
+
+  # try design with large power and large alpha
+  design3 <- setupStudent(alpha = .3, beta = .05, r = 1, delta = 1,
+                         delta_NI = 0, n_max = Inf)
+  expect_equal(
+    toer(design3, 50, 3, TRUE, its),
+    design3@alpha,
+    tolerance = 2 / sqrt(its), scale = 1)
+  expect_equal(
+    pow(design3, 50, 3, TRUE, its),
+    1 - design3@beta,
+    tolerance = 2 / sqrt(its), scale = 1)
+
+})
+
+
+test_that("Smaller power requires smaller sample sizes", {
+  design1 <- setupStudent(alpha = .05, beta = .1, r = 1, delta = 1,
+                          delta_NI = 0, n_max = Inf)
+  design2 <- setupStudent(alpha = .05, beta = .5, r = 1, delta = 1,
+                          delta_NI = 0, n_max = Inf)
+  design3 <- setupStudent(alpha = .05, beta = .8, r = 1, delta = 1,
+                          delta_NI = 0, n_max = Inf)
+  design4 <- setupStudent(alpha = .05, beta = .99, r = 1, delta = 1,
+                          delta_NI = 0, n_max = Inf)
+
+  expect_lte(
+    mean(unlist(n_dist(design4, 10, 5, FALSE, FALSE))),
+    mean(unlist(n_dist(design3, 10, 5, FALSE, FALSE)))
+  )
+
+  expect_lte(
+    mean(unlist(n_dist(design3, 10, 5, FALSE, FALSE))),
+    mean(unlist(n_dist(design2, 10, 5, FALSE, FALSE)))
+  )
+
+  expect_lte(
+    mean(unlist(n_dist(design2, 10, 5, FALSE, FALSE))),
+    mean(unlist(n_dist(design1, 10, 5, FALSE, FALSE)))
+  )
+
+})
+
 
 
 test_that("Alpha can be adjusted in non-inferiority case", {

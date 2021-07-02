@@ -39,8 +39,8 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
     design@r     <- 1 / design@r
   }
 
+  # check if allocation can be done exactly
   allocation <- match.arg(allocation)
-
   if (allocation == "exact") {
     if (sum(n1 %% (design@r + 1) != 0) > 0) {
       stop("n1 cannot be allocated exactly!")
@@ -49,18 +49,17 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
       stop("n_max cannot be allocated exactly!")
     }
   }
-
-
   alloc <- design@r / (1 + design@r)^2
 
-  # Step 1
+  # the following implements the 5 steps of the algorithm by Lu (2019), p.210
+  ## Step 1
   z1 <- stats::rnorm(n = iters, mean = 0, sd = 1)
   v1 <- stats::rchisq(n = iters, df = n1 - 2)
 
-  # Step 2
+  ## Step 2
   var_hat <- nuisance^2 / (n1 - 1) * (v1 + (z1 + sqrt(n1 * alloc) * delta_true / nuisance)^2)
 
-  # Step 3
+  ## Step 3
   if (recalculation == FALSE) {
     n <- rep(n1, iters)
   } else {
@@ -75,11 +74,11 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
   n2 <- n - n1
 
   f <- function(i) {
-    # Step 4
+    ## Step 4
     if (n2[i] == 0) {
       test_statistic <- (z1[i] + sqrt(n1 * alloc) * (delta_true - design@delta_NI) / nuisance) / sqrt(v1[i] / (n1 - 2))
       } else {
-        # Step 5
+        ## Step 5
         z2 <- stats::rnorm(n = 1, mean = 0, sd = 1)
         w2 <- stats::rchisq(n = 1, df = n2[i] - 1)
         v2 <- w2 + (sqrt(n2[i] / n[i]) * z1[i] - sqrt(n1 / n[i]) * z2)^2
@@ -133,7 +132,7 @@ setMethod("toer", signature("Student"),
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
 
-
+            # apply simulation function at the non-inferiority boundary (i.e., the null hypothesis)
             if (length(n1) == 1) {
               return(sapply(nuisance, function(sigma)
                 simulation(design, n1, sigma, recalculation, design@delta_NI, iters, seed, allocation, ...)$rejection_probability))
@@ -175,6 +174,7 @@ setMethod("pow", signature("Student"),
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
 
+            # apply simulation function at the specified effect size (i.e., the alternative hypothesis)
             if (length(n1) == 1) {
               return(sapply(nuisance, function(sigma)
                 simulation(design, n1, sigma, recalculation, design@delta, iters, seed, allocation, ...)$rejection_probability))
@@ -195,8 +195,7 @@ setMethod("pow", signature("Student"),
 #' nuisance parameter or of n1.
 #'
 #' @template methods_student
-#' @param summary logical - is a summary of the sample size distribution desired?
-#'    Otherwise, a vector with sample sizes is returned.
+#' @template summary
 #' @template plot
 #' @template iters
 #' @template allocation
@@ -226,6 +225,7 @@ setMethod("n_dist", signature("Student"),
               stop("Only one of n1 and nuisance can have length > 1.")
             }
 
+            # create data frame that includes the simulated sample sizes
             if (length(n1) == 1) {
               n <- sapply(nuisance, function(sigma)
                 simulation(design, n1, sigma, recalculation = TRUE, design@delta, iters, seed, allocation, ...)$sample_sizes)
@@ -288,6 +288,7 @@ setMethod("adjusted_alpha", signature("Student"),
             alpha_adj <- design@alpha
             alpha_act <- alpha_max(alpha_adj)
 
+            # iteratively reduce the significance level until it is sufficiently small
             while(alpha_act - design@alpha > tol) {
               alpha_adj <- alpha_adj * design@alpha / alpha_act
               alpha_act <- alpha_max(alpha_adj)
@@ -321,6 +322,7 @@ setMethod("adjusted_alpha", signature("Student"),
 #' @export
 setMethod("n_fix", signature("Student"),
           function(design, nuisance, ...) {
+            # apply known formula for fixed sample size
             sapply(nuisance, function(sigma)
               (1 + design@r)^2 / design@r * (stats::qnorm(1 - design@alpha) + stats::qnorm(1 - design@beta))^2 /
                 (design@delta - design@delta_NI)^2 * sigma^2
