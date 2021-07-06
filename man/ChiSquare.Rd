@@ -45,7 +45,7 @@ with binary outcomes in two groups \code{E} and \code{C} is assumed. If
 difference in response probabilities are
 \ifelse{html}{\out{<p>H<sub>0</sub>: p<sub>E</sub> &le; p<sub>C</sub>
 vs. H<sub>1</sub>: p<sub>E</sub> > p<sub>C</sub>.</p>}}{\deqn{
-H_0: p_E \leq p_C vs. H_1: p_E > p_C.}}
+H_0: p_E \leq p_C \textrm{ vs. } H_1: p_E > p_C.}}
 If \code{alternative == "smaller"}, the direction of the effect is changed.
 
 The function \code{setupChiSquare} creates an object of class
@@ -68,7 +68,7 @@ groups under the alternative hypothesis can then be blindly estimated as:
 \ifelse{html}{\out{<p>p<sub>C,A,est</sub> :=
 p<sub>0,est</sub> - &Delta; * r / (1 + r),
 p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r),</p>}}{\deqn{
-\hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r),
+\hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
 \hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}}
 where \ifelse{html}{\out{&Delta;}}{\eqn{\Delta}} is the difference in
 response probabilities under the alternative hypothesis and r is the
