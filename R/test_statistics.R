@@ -152,7 +152,7 @@ setClass("ChiSquare", contains = "TestStatistic")
 #'
 #' @references
 #' Friede, T., Mitchell, C., & Mueller-Velten, G. (2007). Blinded sample size
-#' reestimation in non‐inferiority trials with binary endpoints.
+#' reestimation in non-inferiority trials with binary endpoints.
 #' Biometrical Journal, 49(6), 903-916. \cr
 #' Kieser, M. (2020). Methods and applications of sample size calculation and
 #' recalculation in clinical trials. Springer.
