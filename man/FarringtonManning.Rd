@@ -36,7 +36,7 @@ non-inferiority of response probabilities are:
 \ifelse{html}{\out{<p>H<sub>0</sub>: p<sub>E</sub> - p<sub>C</sub>
 &le; -&delta; vs.
 H<sub>1</sub>: p<sub>E</sub> - p<sub>C</sub> > -&delta;,</p>}}{\deqn{
-H_0: p_E - p_C \leq -\delta vs. H_1: p_E - p_C > -\delta,}}
+H_0: p_E - p_C \leq -\delta \textrm{ vs. } H_1: p_E - p_C > -\delta,}}
 where \ifelse{html}{\out{&delta;}}{\eqn{\delta}} denotes the
 non-inferiority margin.
 
@@ -60,7 +60,7 @@ groups under the alternative hypothesis can then be blindly estimated as:
 \ifelse{html}{\out{<p>p<sub>C,A,est</sub> :=
 p<sub>0,est</sub> - &Delta; * r / (1 + r),
 p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r).</p>}}{\deqn{
-\hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r),
+\hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
 \hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}}
 where \ifelse{html}{\out{&Delta;}}{\eqn{\Delta}} is the difference in
 response probabilities under the alternative hypothesis and r is the

@@ -20,7 +20,7 @@ setClass("TestStatistic", slots = c(
 #' \ifelse{html}{\out{&Delta; = &mu;<sub>E</sub> - &mu;<sub>C</sub>}}{\eqn{\Delta = \mu_E - \mu_C}}
 #' is
 #' \ifelse{html}{\out{<p>H<sub>0</sub>: &Delta; &le; -&delta;<sub>NI</sub>  vs.  H<sub>1</sub>: &Delta; > -&delta;<sub>NI</sub>.
-#' </p>}}{\deqn{H_0: \Delta \leq -\delta_{NI}  vs.  H_1: \Delta > -\delta_{NI}.}}
+#' </p>}}{\deqn{H_0: \Delta \leq -\delta_{NI} \textrm{ vs. }  H_1: \Delta > -\delta_{NI}.}}
 #' Here, \ifelse{html}{\out{&delta;<sub>NI</sub> &ge; 0}}{\eqn{\delta_{NI} \geq 0}} denotes the non-inferiority margin.
 #' For superiority trials, \ifelse{html}{\out{&delta;<sub>NI</sub>}}{\eqn{\delta_{NI}}}
 #' can be set to zero (default).
@@ -62,7 +62,7 @@ setClass("Student", contains = "TestStatistic")
 #' difference in response probabilities are
 #' \ifelse{html}{\out{<p>H<sub>0</sub>: p<sub>E</sub> &le; p<sub>C</sub>
 #' vs. H<sub>1</sub>: p<sub>E</sub> > p<sub>C</sub>.</p>}}{\deqn{
-#' H_0: p_E \leq p_C vs. H_1: p_E > p_C.}}
+#' H_0: p_E \leq p_C \textrm{ vs. } H_1: p_E > p_C.}}
 #' If \code{alternative == "smaller"}, the direction of the effect is changed.
 #'
 #' @details The nuisance parameter is the overall response probability
@@ -81,7 +81,7 @@ setClass("Student", contains = "TestStatistic")
 #' \ifelse{html}{\out{<p>p<sub>C,A,est</sub> :=
 #' p<sub>0,est</sub> - &Delta; * r / (1 + r),
 #' p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r),</p>}}{\deqn{
-#' \hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r),
+#' \hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
 #' \hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}}
 #' where \ifelse{html}{\out{&Delta;}}{\eqn{\Delta}} is the difference in
 #' response probabilities under the alternative hypothesis and r is the
@@ -117,7 +117,7 @@ setClass("ChiSquare", contains = "TestStatistic")
 #' \ifelse{html}{\out{<p>H<sub>0</sub>: p<sub>E</sub> - p<sub>C</sub>
 #' &le; -&delta; vs.
 #' H<sub>1</sub>: p<sub>E</sub> - p<sub>C</sub> > -&delta;,</p>}}{\deqn{
-#' H_0: p_E - p_C \leq -\delta vs. H_1: p_E - p_C > -\delta,}}
+#' H_0: p_E - p_C \leq -\delta \textrm{ vs. } H_1: p_E - p_C > -\delta,}}
 #' where \ifelse{html}{\out{&delta;}}{\eqn{\delta}} denotes the
 #' non-inferiority margin.
 #'
@@ -137,7 +137,7 @@ setClass("ChiSquare", contains = "TestStatistic")
 #' \ifelse{html}{\out{<p>p<sub>C,A,est</sub> :=
 #' p<sub>0,est</sub> - &Delta; * r / (1 + r),
 #' p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r).</p>}}{\deqn{
-#' \hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r),
+#' \hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
 #' \hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}}
 #' where \ifelse{html}{\out{&Delta;}}{\eqn{\Delta}} is the difference in
 #' response probabilities under the alternative hypothesis and r is the

@@ -51,7 +51,7 @@ mean difference
 \ifelse{html}{\out{&Delta; = &mu;<sub>E</sub> - &mu;<sub>C</sub>}}{\eqn{\Delta = \mu_E - \mu_C}}
 is
 \ifelse{html}{\out{<p>H<sub>0</sub>: &Delta; &le; -&delta;<sub>NI</sub>  vs.  H<sub>1</sub>: &Delta; > -&delta;<sub>NI</sub>.
-</p>}}{\deqn{H_0: \Delta \leq -\delta_{NI}  vs.  H_1: \Delta > -\delta_{NI}.}}
+</p>}}{\deqn{H_0: \Delta \leq -\delta_{NI} \textrm{ vs. }  H_1: \Delta > -\delta_{NI}.}}
 Here, \ifelse{html}{\out{&delta;<sub>NI</sub> &ge; 0}}{\eqn{\delta_{NI} \geq 0}} denotes the non-inferiority margin.
 For superiority trials, \ifelse{html}{\out{&delta;<sub>NI</sub>}}{\eqn{\delta_{NI}}}
 can be set to zero (default).
