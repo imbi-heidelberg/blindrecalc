@@ -4,7 +4,7 @@
 
 [![R-CMD-check](https://github.com/imbi-heidelberg/blindrecalc/workflows/R-CMD-check/badge.svg)](https://github.com/imbi-heidelberg/blindrecalc/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/imbi-heidelberg/blindrecalc/branch/master/graph/badge.svg)](https://codecov.io/gh/imbi-heidelberg/blindrecalc?branch=master)
+coverage](https://codecov.io/gh/imbi-heidelberg/blindrecalc/branch/master/graph/badge.svg)](https://app.codecov.io/gh/imbi-heidelberg/blindrecalc?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/blindrecalc)](https://cran.r-project.org/package=blindrecalc)
 <!-- badges: end -->
@@ -16,7 +16,7 @@ internal pilot study and blinded sample size recalculation.
 
 ## Installation
 
-Install the currenct CRAN version of blindrecalc with:
+Install the current CRAN version of blindrecalc with:
 
 ``` r
 install.packages("blindrecalc")

@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/imbi-heidelberg/blindrecalc/workflows/R-CMD-check/badge.svg)](https://github.com/imbi-heidelberg/blindrecalc/actions)
-[![Codecov test coverage](https://codecov.io/gh/imbi-heidelberg/blindrecalc/branch/master/graph/badge.svg)](https://codecov.io/gh/imbi-heidelberg/blindrecalc?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/imbi-heidelberg/blindrecalc/branch/master/graph/badge.svg)](https://app.codecov.io/gh/imbi-heidelberg/blindrecalc?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/blindrecalc)](https://cran.r-project.org/package=blindrecalc)
 <!-- badges: end -->
 
@@ -28,7 +28,7 @@ blindrecalc facilitates the planning of a clinical trial with an internal pilot 
 
 ## Installation
 
-Install the currenct CRAN version of blindrecalc with:
+Install the current CRAN version of blindrecalc with:
 
 ``` r
 install.packages("blindrecalc")
