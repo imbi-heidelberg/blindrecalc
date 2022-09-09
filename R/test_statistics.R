@@ -18,8 +18,7 @@ setClass("TestStatistic", slots = c(
 #' If \code{alternative == "greater"} the null hypothesis for the
 #' mean difference
 #' \ifelse{html}{\out{&Delta; = &mu;<sub>E</sub> - &mu;<sub>C</sub>}}{\eqn{\Delta = \mu_E - \mu_C}}
-#' is
-#' \ifelse{html}{\out{<p>H<sub>0</sub>: &Delta; &le; -&delta;<sub>NI</sub>  vs.  H<sub>1</sub>: &Delta; > -&delta;<sub>NI</sub>.
+#' is \ifelse{html}{\out{<p>H<sub>0</sub>: &Delta; &le; -&delta;<sub>NI</sub>  vs.  H<sub>1</sub>: &Delta; > -&delta;<sub>NI</sub>.
 #' </p>}}{\deqn{H_0: \Delta \leq -\delta_{NI} \textrm{ vs. }  H_1: \Delta > -\delta_{NI}.}}
 #' Here, \ifelse{html}{\out{&delta;<sub>NI</sub> &ge; 0}}{\eqn{\delta_{NI} \geq 0}} denotes the non-inferiority margin.
 #' For superiority trials, \ifelse{html}{\out{&delta;<sub>NI</sub>}}{\eqn{\delta_{NI}}}
@@ -29,8 +28,7 @@ setClass("TestStatistic", slots = c(
 #' @details The nuisance parameter is the variance
 #' \ifelse{html}{\out{&sigma;<sup>2</sup>}}{\eqn{\sigma^2}}.
 #' Within the blinded sample size recalculation procedure, it is re-estimated by
-#' the one-sample variance estimator that is defined by
-#' \ifelse{html}{\out{<p>
+#' the one-sample variance estimator that is defined by \ifelse{html}{\out{<p>
 #' &sigma;<sup>2</sup><sub>est</sub> := 1/(n<sub>1</sub>-1) &sum;<sub>j=T,C</sub> &sum;<sub>k=1,...,n<sub>1,j</sub></sub> (x<sub>j,k</sub> - <SPAN STYLE="text-decoration:overline">x</span>)<sup>2</sup>,
 #' </p>}}{\deqn{\widehat{\sigma}^2 := \frac{1}{n_1-1} \sum_{j \in \{T, C \}} \sum_{k=1}^{n_{1,j}}(x_{j,k} - \bar{x} )^2,}}
 #' where  \ifelse{html}{\out{x<sub>j,k</sub>}}{\eqn{x_{j,k}}} is the outcome of patient
@@ -59,16 +57,14 @@ setClass("Student", contains = "TestStatistic")
 #' This class implements a chi-squared test for superiority trials. A trial
 #' with binary outcomes in two groups \code{E} and \code{C} is assumed. If
 #' \code{alternative == "greater"} the null and alternative hypotheses for the
-#' difference in response probabilities are
-#' \ifelse{html}{\out{<p>H<sub>0</sub>: p<sub>E</sub> &le; p<sub>C</sub>
-#' vs. H<sub>1</sub>: p<sub>E</sub> > p<sub>C</sub>.</p>}}{\deqn{
+#' difference in response probabilities are \ifelse{html}{\out{<p>H<sub>0</sub>:
+#' p<sub>E</sub> &le; p<sub>C</sub> vs. H<sub>1</sub>: p<sub>E</sub> > p<sub>C</sub>.</p>}}{\deqn{
 #' H_0: p_E \leq p_C \textrm{ vs. } H_1: p_E > p_C.}}
 #' If \code{alternative == "smaller"}, the direction of the effect is changed.
 #'
 #' @details The nuisance parameter is the overall response probability
 #' \ifelse{html}{\out{p<sub>0</sub>}}{\eqn{p_0}}. In the blinded sample size
-#' recalculation procedure it is blindly estimated by:
-#' \ifelse{html}{\out{<p>p<sub>0,est</sub> :=
+#' recalculation procedure it is blindly estimated by: \ifelse{html}{\out{<p>p<sub>0,est</sub> :=
 #' (X<sub>1,E</sub> + X<sub>1,C</sub>) / (n<sub>1,E</sub> +
 #' n<sub>1,C</sub>),</p>}}{\deqn{\hat{p}_0 :=
 #' (X_{1,E} + X_{1,C}) / (n_{1,E} + n_{1,C}),}}
@@ -77,8 +73,8 @@ setClass("Student", contains = "TestStatistic")
 #' responses and \ifelse{html}{\out{n<sub>1,E</sub>}}{\eqn{n_{1,E}}} and
 #' \ifelse{html}{\out{n<sub>1,C</sub>}}{\eqn{n_{1,C}}} are the sample sizes
 #' of the respective group after the first stage. The event rates in both
-#' groups under the alternative hypothesis can then be blindly estimated as:
-#' \ifelse{html}{\out{<p>p<sub>C,A,est</sub> :=
+#' groups under the alternative hypothesis can then be blindly estimated as
+#' as: \ifelse{html}{\out{<p>p<sub>C,A,est</sub> :=
 #' p<sub>0,est</sub> - &Delta; * r / (1 + r),
 #' p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r),</p>}}{\deqn{
 #' \hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
@@ -113,8 +109,8 @@ setClass("ChiSquare", contains = "TestStatistic")
 #' This class implements a Farrington-Manning test for non-inferiority
 #' trials. A trial with binary outcomes in two groups \code{E} and
 #' \code{C} is assumed. The null and alternative hypotheses for the
-#' non-inferiority of response probabilities are:
-#' \ifelse{html}{\out{<p>H<sub>0</sub>: p<sub>E</sub> - p<sub>C</sub>
+#' non-inferiority of response probabilities
+#' are: \ifelse{html}{\out{<p>H<sub>0</sub>: p<sub>E</sub> - p<sub>C</sub>
 #' &le; -&delta; vs.
 #' H<sub>1</sub>: p<sub>E</sub> - p<sub>C</sub> > -&delta;,</p>}}{\deqn{
 #' H_0: p_E - p_C \leq -\delta \textrm{ vs. } H_1: p_E - p_C > -\delta,}}
@@ -123,8 +119,8 @@ setClass("ChiSquare", contains = "TestStatistic")
 #'
 #' @details The nuisance parameter is the overall response probability
 #' \ifelse{html}{\out{p<sub>0</sub>}}{\eqn{p_0}}. In the blinded sample size
-#' recalculation procedure it is blindly estimated by:
-#' \ifelse{html}{\out{<p>p<sub>0,est</sub> :=
+#' recalculation procedure it is blindly estimated
+#' by: \ifelse{html}{\out{<p>p<sub>0,est</sub> :=
 #' (X<sub>1,E</sub> + X<sub>1,C</sub>) / (n<sub>1,E</sub> +
 #' n<sub>1,C</sub>),</p>}}{\deqn{\hat{p}_0 :=
 #' (X_{1,E} + X_{1,C}) / (n_{1,E} + n_{1,C}),}}
@@ -133,8 +129,8 @@ setClass("ChiSquare", contains = "TestStatistic")
 #' responses and \ifelse{html}{\out{n<sub>1,E</sub>}}{\eqn{n_{1,E}}} and
 #' \ifelse{html}{\out{n<sub>1,C</sub>}}{\eqn{n_{1,C}}} are the sample sizes
 #' of the respective group after the first stage. The event rates in both
-#' groups under the alternative hypothesis can then be blindly estimated as:
-#' \ifelse{html}{\out{<p>p<sub>C,A,est</sub> :=
+#' groups under the alternative hypothesis can then be blindly estimated
+#' as: \ifelse{html}{\out{<p>p<sub>C,A,est</sub> :=
 #' p<sub>0,est</sub> - &Delta; * r / (1 + r),
 #' p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r).</p>}}{\deqn{
 #' \hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }

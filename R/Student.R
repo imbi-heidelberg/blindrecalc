@@ -7,7 +7,8 @@
 #'
 #' @template methods_student
 #' @template recalculation
-#' @param delta_true effect measure under which the rejection probabilities are computed
+#' @param delta_true effect measure under which the rejection probabilities are
+#' computed
 #' @template iters
 #' @template allocation
 #' @template dotdotdot
@@ -102,8 +103,9 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
 
 #' Type I Error Rate
 #'
-#' Computes the type I error rate of designs with blinded sample size recalculation
-#' or of fixed designs for one or several values of the nuisance parameter.
+#' Computes the type I error rate of designs with blinded sample size
+#' recalculation or of fixed designs for one or several values of the nuisance
+#' parameter.
 #'
 #' @template methods_student
 #' @template recalculation
@@ -199,7 +201,7 @@ setMethod("pow", signature("Student"),
 #' @template plot
 #' @template iters
 #' @template allocation
-#' @param range this determines how far the plot whiskers extend out from the box.
+#' @param range determines how far the plot whiskers extend out from the box.
 #'    If range is positive, the whiskers extend to the most extreme data point
 #'    which is no more than range times the interquartile range from the box.
 #'    A value of zero causes the whiskers to extend to the data extremes.
@@ -265,13 +267,14 @@ setMethod("n_dist", signature("Student"),
 #' @details The method is only vectorized in either \code{nuisance}
 #'   or \code{n1}.
 #'
-#' @details In the case of the Student's t-test, the adjusted alpha is calculated
-#' using the algorithm by Kieser and Friede (2000):
+#' @details In the case of the Student's t-test, the adjusted alpha is
+#' calculated using the algorithm by Kieser and Friede (2000):
 #' "Re-calculating the sample size in internal pilot study designs
 #' with control of the type I error rate". Statistics in Medicine 19: 901-911.
 #'
 #' @examples
-#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5, n_max = 848)
+#' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5,
+#'                   n_max = 848)
 #' sigma <- c(2, 5.5, 9)
 #' adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4, iters = 1e3)
 #'

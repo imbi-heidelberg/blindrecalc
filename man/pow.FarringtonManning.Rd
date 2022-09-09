@@ -44,7 +44,9 @@ The method is only vectorized in either \code{nuisance}
   or \code{n1}.
 }
 \examples{
-d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
-pow(d, n1 = 30, nuisance = 0.4, allocation = "approximate", recalculation = TRUE)
+d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1,
+                            delta = 0, delta_NI = 0.25)
+pow(d, n1 = 30, nuisance = 0.4, allocation = "approximate",
+    recalculation = TRUE)
 
 }

@@ -1,14 +1,16 @@
 #' Type I Error Rate
 #'
-#' Computes the type I error rate of designs with blinded sample size recalculation
-#' or of fixed designs for one or several values of the nuisance parameter.
+#' Computes the type I error rate of designs with blinded sample size
+#' recalculation or of fixed designs for one or several values of the
+#' nuisance parameter.
 #'
 #' @template methods_chisquare
 #' @template recalculation
 #' @template allocation_chisquare
 #' @template dotdotdot
 #'
-#' @return One type I error rate value for every nuisance parameter and every value of n1.
+#' @return One type I error rate value for every nuisance parameter and
+#'   every value of n1.
 #'
 #' @details The method is only vectorized in either \code{nuisance}
 #'   or \code{n1}.
@@ -157,8 +159,8 @@ setMethod("pow", signature("ChiSquare"),
 #' @template allocation_chisquare
 #' @template dotdotdot
 #'
-#' @details Only sample sizes that occur with a probability of at least 0.01% are
-#' considered.
+#' @details Only sample sizes that occur with a probability of at least 0.01%
+#' are considered.
 #'
 #' @return Summary and/or plot of the sample size distribution for
 #'   every nuisance parameter and every value of n1.
@@ -306,10 +308,10 @@ setMethod("adjusted_alpha", signature("ChiSquare"),
 #' @param design Object of class \code{ChiSquare} created by \code{setupChiSquare}.
 #' @param nuisance Value of the nuisance parameter. For the
 #'   Chi-Squared test this is the overall response rate.
-#' @param variance A character string indicating whether the "\code{heterogenous}" (default)
-#'   or the "\code{homogeneous}" variance formula should be used.
-#' @param rounded Whether the calculated sample size should be rounded up such that
-#'   the allocation ratio is preserved.
+#' @param variance A character string indicating whether the "\code{heterogenous}"
+#'   (default) or the "\code{homogeneous}" variance formula should be used.
+#' @param rounded Whether the calculated sample size should be rounded up such
+#'   that the allocation ratio is preserved.
 #' @template dotdotdot
 #'
 #' @return One value of the fixed sample size for every nuisance parameter
