@@ -11,6 +11,8 @@ setClass("TestStatistic", slots = c(
 
 #' Student's t test
 #'
+#' The function \code{setupStudent} creates an object of class
+#' \code{\link{Student}} that can be used for sample size recalculation.
 #' This class implements Student's t-test for superiority and non-inferiority
 #' tests.
 #' A trial with continuous outcomes of the two groups \code{E} and \code{C}
@@ -46,14 +48,13 @@ setClass("TestStatistic", slots = c(
 #' equals the mean over all \ifelse{html}{\out{n<sub>1</sub>}}{\eqn{n_1}}
 #' observations.
 #'
-#' @references Lu, K. (2019).
-#' Distribution of the two-sample t-test statistic following blinded
-#' sample size re-estimation. Pharmaceutical Statistics 15(3): 208-215.
-#'
-#' @details The following methods are available for this class:
+#' The following methods are available for this class:
 #' \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
 #' \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
 #' Check the design specific documentation for details.
+#' @references Lu, K. (2019).
+#' Distribution of the two-sample t-test statistic following blinded
+#' sample size re-estimation. Pharmaceutical Statistics 15(3): 208-215.
 #'
 #' @aliases Student
 #' @rdname Student
@@ -171,9 +172,6 @@ setClass("FarringtonManning", contains = "TestStatistic")
 
 
 #' Student's t-test
-#'
-#' The function \code{setupStudent} creates an object of class
-#' \code{\link{Student}} that can be used for sample size recalculation.
 #'
 #' @template setup
 #' @template NI

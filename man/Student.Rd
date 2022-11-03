@@ -42,6 +42,8 @@ is greater than \code{n_max} it is set to \code{n_max}.}
 An object of class \code{\link{Student}}.
 }
 \description{
+The function \code{setupStudent} creates an object of class
+\code{\link{Student}} that can be used for sample size recalculation.
 This class implements Student's t-test for superiority and non-inferiority
 tests.
 A trial with continuous outcomes of the two groups \code{E} and \code{C}
@@ -59,9 +61,6 @@ denotes the non-inferiority margin.
 For superiority trials, \ifelse{html}{\out{&delta;<sub>NI</sub>}}{\eqn{\delta_{NI}}}
 can be set to zero (default).
 If \code{alternative=="smaller"}, the direction of the effect is changed.
-
-The function \code{setupStudent} creates an object of class
-\code{\link{Student}} that can be used for sample size recalculation.
 }
 \details{
 The nuisance parameter is the variance
