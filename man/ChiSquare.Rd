@@ -46,8 +46,7 @@ difference in response probabilities are \ifelse{html}{\out{<p>H<sub>0</sub>:
 p<sub>E</sub> &le; p<sub>C</sub> vs. H<sub>1</sub>: p<sub>E</sub> > p<sub>C</sub>.</p>}}{\deqn{
 H_0: p_E \leq p_C \textrm{ vs. } H_1: p_E > p_C.}}
 If \code{alternative == "smaller"}, the direction of the effect is changed.
-The function \code{setupChiSquare} creates an object of class
-\code{\link{ChiSquare}}.
+The function \code{setupChiSquare} creates an object of class \code{ChiSquare}.
 }
 \details{
 The nuisance parameter is the overall response probability
@@ -77,8 +76,7 @@ The following methods are available for this class:
 \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
 \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
 Check the design specific documentation for details.
-
-For non-inferiority trials use the function \code{\link{setupFarringtonManning}}.
+For non-inferiority trials use the function \code{setupFarringtonManning}.
 }
 \examples{
 design <- setupChiSquare(alpha = .025, beta = .2, r = 1, delta = 0.2,
