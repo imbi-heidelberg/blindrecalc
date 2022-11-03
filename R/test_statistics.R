@@ -47,11 +47,11 @@ setClass("TestStatistic", slots = c(
 #' \ifelse{html}{\out{<SPAN STYLE="text-decoration:overline">x</span>}}{\eqn{\bar{x}}}
 #' equals the mean over all \ifelse{html}{\out{n<sub>1</sub>}}{\eqn{n_1}}
 #' observations.
-#'
 #' The following methods are available for this class:
 #' \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
 #' \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
 #' Check the design specific documentation for details.
+#'
 #' @references Lu, K. (2019).
 #' Distribution of the two-sample t-test statistic following blinded
 #' sample size re-estimation. Pharmaceutical Statistics 15(3): 208-215.

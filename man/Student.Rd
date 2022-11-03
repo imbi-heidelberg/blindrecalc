@@ -79,7 +79,6 @@ sample size in group \ifelse{html}{\out{j}}{\eqn{j}} and
 \ifelse{html}{\out{<SPAN STYLE="text-decoration:overline">x</span>}}{\eqn{\bar{x}}}
 equals the mean over all \ifelse{html}{\out{n<sub>1</sub>}}{\eqn{n_1}}
 observations.
-
 The following methods are available for this class:
 \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
 \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
