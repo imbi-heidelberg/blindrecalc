@@ -17,10 +17,14 @@ setClass("TestStatistic", slots = c(
 #' is assumed.
 #' If \code{alternative == "greater"} the null hypothesis for the
 #' mean difference
-#' \ifelse{html}{\out{&Delta; = &mu;<sub>E</sub> - &mu;<sub>C</sub>}}{\eqn{\Delta = \mu_E - \mu_C}}
-#' is \ifelse{html}{\out{<p>H<sub>0</sub>: &Delta; &le; -&delta;<sub>NI</sub>  vs.  H<sub>1</sub>: &Delta; > -&delta;<sub>NI</sub>.
-#' </p>}}{\deqn{H_0: \Delta \leq -\delta_{NI} \textrm{ vs. }  H_1: \Delta > -\delta_{NI}.}}
-#' Here, \ifelse{html}{\out{&delta;<sub>NI</sub> &ge; 0}}{\eqn{\delta_{NI} \geq 0}} denotes the non-inferiority margin.
+#' \ifelse{html}{\out{&Delta; = &mu;<sub>E</sub> -
+#' &mu;<sub>C</sub>}}{\eqn{\Delta = \mu_E - \mu_C}}
+#' is \ifelse{html}{\out{<p>H<sub>0</sub>: &Delta; &le;
+#'  -&delta;<sub>NI</sub>  vs.  H<sub>1</sub>: &Delta; > -&delta;<sub>NI</sub>.
+#' </p>}}{\deqn{H_0: \Delta \leq -\delta_{NI} \textrm{ vs. }
+#' H_1: \Delta > -\delta_{NI}.}}
+#' Here, \ifelse{html}{\out{&delta;<sub>NI</sub> &ge; 0}}{\eqn{\delta_{NI} \geq 0}}
+#' denotes the non-inferiority margin.
 #' For superiority trials, \ifelse{html}{\out{&delta;<sub>NI</sub>}}{\eqn{\delta_{NI}}}
 #' can be set to zero (default).
 #' If \code{alternative=="smaller"}, the direction of the effect is changed.
@@ -29,13 +33,18 @@ setClass("TestStatistic", slots = c(
 #' \ifelse{html}{\out{&sigma;<sup>2</sup>}}{\eqn{\sigma^2}}.
 #' Within the blinded sample size recalculation procedure, it is re-estimated by
 #' the one-sample variance estimator that is defined by \ifelse{html}{\out{<p>
-#' &sigma;<sup>2</sup><sub>est</sub> := 1/(n<sub>1</sub>-1) &sum;<sub>j=T,C</sub> &sum;<sub>k=1,...,n<sub>1,j</sub></sub> (x<sub>j,k</sub> - <SPAN STYLE="text-decoration:overline">x</span>)<sup>2</sup>,
-#' </p>}}{\deqn{\widehat{\sigma}^2 := \frac{1}{n_1-1} \sum_{j \in \{T, C \}} \sum_{k=1}^{n_{1,j}}(x_{j,k} - \bar{x} )^2,}}
-#' where  \ifelse{html}{\out{x<sub>j,k</sub>}}{\eqn{x_{j,k}}} is the outcome of patient
-#' \ifelse{html}{\out{k}}{\eqn{k}} in group \ifelse{html}{j}{\eqn{j}},
-#' \ifelse{html}{\out{n<sub>1,j</sub>}}{\eqn{n_{1,j}}} denotes the first-stage sample size
-#' in group \ifelse{html}{\out{j}}{\eqn{j}} and \ifelse{html}{\out{<SPAN STYLE="text-decoration:overline">x</span>}}{\eqn{\bar{x}}}
-#' equals the mean over all \ifelse{html}{\out{n<sub>1</sub>}}{\eqn{n_1}} observations.
+#' &sigma;<sup>2</sup><sub>est</sub> := 1/(n<sub>1</sub>-1)
+#' &sum;<sub>j=T,C</sub> &sum;<sub>k=1,...,n<sub>1,j</sub></sub>
+#' (x<sub>j,k</sub> - <SPAN STYLE="text-decoration:overline">x</span>)<sup>2</sup>,
+#' </p>}}{\deqn{\widehat{\sigma}^2 := \frac{1}{n_1-1} \sum_{j \in \{T, C \}}
+#'  \sum_{k=1}^{n_{1,j}}(x_{j,k} - \bar{x} )^2,}}
+#' where  \ifelse{html}{\out{x<sub>j,k</sub>}}{\eqn{x_{j,k}}} is the outcome of
+#' patient \ifelse{html}{\out{k}}{\eqn{k}} in group \ifelse{html}{j}{\eqn{j}},
+#' \ifelse{html}{\out{n<sub>1,j</sub>}}{\eqn{n_{1,j}}} denotes the first-stage
+#' sample size in group \ifelse{html}{\out{j}}{\eqn{j}} and
+#' \ifelse{html}{\out{<SPAN STYLE="text-decoration:overline">x</span>}}{\eqn{\bar{x}}}
+#' equals the mean over all \ifelse{html}{\out{n<sub>1</sub>}}{\eqn{n_1}}
+#' observations.
 #'
 #' @references Lu, K. (2019).
 #' Distribution of the two-sample t-test statistic following blinded
@@ -64,7 +73,8 @@ setClass("Student", contains = "TestStatistic")
 #'
 #' @details The nuisance parameter is the overall response probability
 #' \ifelse{html}{\out{p<sub>0</sub>}}{\eqn{p_0}}. In the blinded sample size
-#' recalculation procedure it is blindly estimated by: \ifelse{html}{\out{<p>p<sub>0,est</sub> :=
+#' recalculation procedure it is blindly estimated
+#' by: \ifelse{html}{\out{<p>p<sub>0,est</sub> :=
 #' (X<sub>1,E</sub> + X<sub>1,C</sub>) / (n<sub>1,E</sub> +
 #' n<sub>1,C</sub>),</p>}}{\deqn{\hat{p}_0 :=
 #' (X_{1,E} + X_{1,C}) / (n_{1,E} + n_{1,C}),}}

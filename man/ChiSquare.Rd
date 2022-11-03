@@ -53,7 +53,8 @@ The function \code{setupChiSquare} creates an object of class
 \details{
 The nuisance parameter is the overall response probability
 \ifelse{html}{\out{p<sub>0</sub>}}{\eqn{p_0}}. In the blinded sample size
-recalculation procedure it is blindly estimated by: \ifelse{html}{\out{<p>p<sub>0,est</sub> :=
+recalculation procedure it is blindly estimated
+by: \ifelse{html}{\out{<p>p<sub>0,est</sub> :=
 (X<sub>1,E</sub> + X<sub>1,C</sub>) / (n<sub>1,E</sub> +
 n<sub>1,C</sub>),</p>}}{\deqn{\hat{p}_0 :=
 (X_{1,E} + X_{1,C}) / (n_{1,E} + n_{1,C}),}}
