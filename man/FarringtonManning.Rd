@@ -33,6 +33,11 @@ This class implements a Farrington-Manning test for non-inferiority
 trials. A trial with binary outcomes in two groups \code{E} and
 \code{C} is assumed. The null and alternative hypotheses for the
 non-inferiority of response probabilities
+are:
+\ifelse{html}{\out{H<sub>0</sub>: p<sub>E</sub> - p<sub>C</sub>
+&le; -&delta; vs.
+H<sub>1</sub>: p<sub>E</sub> - p<sub>C</sub> > -&delta;,}}{\deqn{
+H_0: p_E - p_C \leq -\delta \textrm{ vs. } H_1: p_E - p_C > -\delta,}}
 where \ifelse{html}{\out{&delta;}}{\eqn{\delta}} denotes the
 non-inferiority margin.
 
@@ -41,6 +46,27 @@ The function \code{\link{setupFarringtonManning}} creates an object of
 }
 \details{
 The nuisance parameter is the overall response probability
+\ifelse{html}{\out{p<sub>0</sub>}}{\eqn{p_0}}. In the blinded sample size
+recalculation procedure it is blindly estimated
+by:
+\ifelse{html}{\out{p<sub>0,est</sub> :=
+(X<sub>1,E</sub> + X<sub>1,C</sub>) / (n<sub>1,E</sub> +
+n<sub>1,C</sub>),}}{\deqn{\hat{p}_0 :=
+(X_{1,E} + X_{1,C}) / (n_{1,E} + n_{1,C}),}}
+where
+\ifelse{html}{\out{X<sub>1,E</sub>}}{\eqn{X_{1,E}}} and
+\ifelse{html}{\out{X<sub>1,C</sub>}}{\eqn{X_{1,C}}} are the numbers of
+responses and \ifelse{html}{\out{n<sub>1,E</sub>}}{\eqn{n_{1,E}}} and
+\ifelse{html}{\out{n<sub>1,C</sub>}}{\eqn{n_{1,C}}} are the sample sizes
+of the respective group after the first stage. The event rates in both
+groups under the alternative hypothesis can then be blindly estimated
+as: \ifelse{html}{\out{<p>p<sub>C,A,est</sub> :=
+p<sub>0,est</sub> - &Delta; * r / (1 + r),
+p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r).</p>}}{\deqn{
+\hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
+\hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}}
+where \ifelse{html}{\out{&Delta;}}{\eqn{\Delta}} is the difference in
+response probabilities under the alternative hypothesis and r is the
 allocation ratio of the sample sizes in the two groups.
 These blinded estimates can then be used to re-estimate the sample
 size.
