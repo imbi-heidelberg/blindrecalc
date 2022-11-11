@@ -37,7 +37,6 @@ are: \ifelse{html}{\out{<p>H<sub>0</sub>: p<sub>E</sub> - p<sub>C</sub>
 &le; -&delta; vs.
 H<sub>1</sub>: p<sub>E</sub> - p<sub>C</sub> > -&delta;,</p>}}{\deqn{
 H_0: p_E - p_C \leq -\delta \textrm{ vs. } H_1: p_E - p_C > -\delta,}}
-where \ifelse{html}{\out{&delta;}}{\eqn{\delta}} denotes the
 non-inferiority margin.
 
 The function \code{\link{setupFarringtonManning}} creates an object of
