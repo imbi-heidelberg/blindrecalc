@@ -39,9 +39,6 @@ H<sub>1</sub>: p<sub>E</sub> - p<sub>C</sub> > -&delta;,</p>}}{\deqn{
 H_0: p_E - p_C \leq -\delta \textrm{ vs. } H_1: p_E - p_C > -\delta,}}
 where \ifelse{html}{\out{&delta;}}{\eqn{\delta}} denotes the
 non-inferiority margin.
-
-The function \code{\link{setupFarringtonManning}} creates an object of
-\code{\link{FarringtonManning}}.
 }
 \details{
 The nuisance parameter is the overall response probability
@@ -67,10 +64,7 @@ response probabilities under the alternative hypothesis and r is the
 allocation ratio of the sample sizes in the two groups.
 These blinded estimates can then be used to re-estimate the sample
 size.
-
 The following methods are available for this class:
-\code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
-\code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
 Check the design specific documentation for details.
 }
 \examples{
