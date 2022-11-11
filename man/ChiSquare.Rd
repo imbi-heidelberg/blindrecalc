@@ -42,8 +42,8 @@ An object of class \code{\link{ChiSquare}}.
 This class implements a chi-squared test for superiority trials. A trial
 with binary outcomes in two groups \code{E} and \code{C} is assumed. If
 \code{alternative == "greater"} the null and alternative hypotheses for the
-difference in response probabilities are \ifelse{html}{\out{<p>H<sub>0</sub>:
-p<sub>E</sub> &le; p<sub>C</sub> vs. H<sub>1</sub>: p<sub>E</sub> > p<sub>C</sub>.</p>}}{\deqn{
+difference in response probabilities are \ifelse{html}{\out{H<sub>0</sub>:
+p<sub>E</sub> &le; p<sub>C</sub> vs. H<sub>1</sub>: p<sub>E</sub> > p<sub>C</sub>.}}{\deqn{
 H_0: p_E \leq p_C \textrm{ vs. } H_1: p_E > p_C.}}
 If \code{alternative == "smaller"}, the direction of the effect is changed.
 
@@ -54,9 +54,9 @@ The function \code{setupChiSquare} creates an object of class
 The nuisance parameter is the overall response probability
 \ifelse{html}{\out{p<sub>0</sub>}}{\eqn{p_0}}. In the blinded sample size
 recalculation procedure it is blindly estimated
-by: \ifelse{html}{\out{<p>p<sub>0,est</sub> :=
+by: \ifelse{html}{\out{p<sub>0,est</sub> :=
 (X<sub>1,E</sub> + X<sub>1,C</sub>) / (n<sub>1,E</sub> +
-n<sub>1,C</sub>),</p>}}{\deqn{\hat{p}_0 :=
+n<sub>1,C</sub>),}}{\deqn{\hat{p}_0 :=
 (X_{1,E} + X_{1,C}) / (n_{1,E} + n_{1,C}),}}
 where \ifelse{html}{\out{X<sub>1,E</sub>}}{\eqn{X_{1,E}}} and
 \ifelse{html}{\out{X<sub>1,C</sub>}}{\eqn{X_{1,C}}} are the numbers of
@@ -64,9 +64,9 @@ responses and \ifelse{html}{\out{n<sub>1,E</sub>}}{\eqn{n_{1,E}}} and
 \ifelse{html}{\out{n<sub>1,C</sub>}}{\eqn{n_{1,C}}} are the sample sizes
 of the respective group after the first stage. The event rates in both
 groups under the alternative hypothesis can then be blindly estimated as
-as: \ifelse{html}{\out{<p>p<sub>C,A,est</sub> :=
+as: \ifelse{html}{\out{p<sub>C,A,est</sub> :=
 p<sub>0,est</sub> - &Delta; * r / (1 + r),
-p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r),</p>}}{\deqn{
+p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r),}}{\deqn{
 \hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
 \hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}}
 where \ifelse{html}{\out{&Delta;}}{\eqn{\Delta}} is the difference in
