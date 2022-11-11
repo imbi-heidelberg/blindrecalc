@@ -152,11 +152,6 @@ setClass("ChiSquare", contains = "TestStatistic")
 #' These blinded estimates can then be used to re-estimate the sample
 #' size.
 #'
-#' The following methods are available for this class:
-#' \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
-#' \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
-#' Check the design specific documentation for details.
-#'
 #' @references
 #' Friede, T., Mitchell, C., & Mueller-Velten, G. (2007). Blinded sample size
 #' reestimation in non-inferiority trials with binary endpoints.
