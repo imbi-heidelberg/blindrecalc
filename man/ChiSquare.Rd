@@ -50,29 +50,19 @@ The function \code{setupChiSquare} creates an object of class
 \code{\link{ChiSquare}}.
 }
 \details{
-The nuisance parameter is the overall response probability
-\ifelse{html}{\out{p<sub>0</sub>}}{\eqn{p_0}}. In the blinded sample size
-recalculation procedure it is blindly estimated
-by: \ifelse{html}{\out{p<sub>0,est</sub> :=
-(X<sub>1,E</sub> + X<sub>1,C</sub>) / (n<sub>1,E</sub> +
-n<sub>1,C</sub>),}}{\deqn{\hat{p}_0 :=
-(X_{1,E} + X_{1,C}) / (n_{1,E} + n_{1,C}),}}
-where \ifelse{html}{\out{X<sub>1,E</sub>}}{\eqn{X_{1,E}}} and
-\ifelse{html}{\out{X<sub>1,C</sub>}}{\eqn{X_{1,C}}} are the numbers of
-responses and \ifelse{html}{\out{n<sub>1,E</sub>}}{\eqn{n_{1,E}}} and
-\ifelse{html}{\out{n<sub>1,C</sub>}}{\eqn{n_{1,C}}} are the sample sizes
+The nuisance parameter is the overall response probability \eqn{p_0}.
+In the blinded sample size #' recalculation procedure it is blindly estimated
+by: \deqn{\hat{p}_0 := (X_{1,E} + X_{1,C}) / (n_{1,E} + n_{1,C}),}
+where \eqn{X_{1,E}} and \eqn{X_{1,C}} are the numbers of
+responses and \eqn{n_{1,E}} and \eqn{n_{1,C}} are the sample sizes
 of the respective group after the first stage. The event rates in both
-groups under the alternative hypothesis can then be blindly estimated
-as: \ifelse{html}{\out{p<sub>C,A,est</sub> :=
-p<sub>0,est</sub> - &Delta; * r / (1 + r),
-p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r),}}{\deqn{
-\hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
-\hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}}
-where \eqn{\Delta} is the difference in
-response probabilities under the alternative hypothesis and r is the
-allocation ratio of the sample sizes in the two groups.
-These blinded estimates can then be used to re-estimate the sample
-size.
+groups under the alternative hypothesis can then be blindly estimated as:
+\deqn{\hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
+\hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}
+where \eqn{\Delta} is the difference in response probabilities under the
+alternative hypothesis and r is the allocation ratio of the sample sizes
+in the two groups.
+These blinded estimates can then be used to re-estimate the sample size.
 
 The following methods are available for this class:
 \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
