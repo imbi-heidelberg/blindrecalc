@@ -63,7 +63,7 @@ where \ifelse{html}{\out{X<sub>1,E</sub>}}{\eqn{X_{1,E}}} and
 responses and \ifelse{html}{\out{n<sub>1,E</sub>}}{\eqn{n_{1,E}}} and
 \ifelse{html}{\out{n<sub>1,C</sub>}}{\eqn{n_{1,C}}} are the sample sizes
 of the respective group after the first stage. The event rates in both
-groups under the alternative hypothesis can then be blindly estimated as
+groups under the alternative hypothesis can then be blindly estimated
 as: \ifelse{html}{\out{p<sub>C,A,est</sub> :=
 p<sub>0,est</sub> - &Delta; * r / (1 + r),
 p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r),}}{\deqn{
