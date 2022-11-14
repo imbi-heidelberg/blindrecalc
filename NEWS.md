@@ -1,4 +1,4 @@
-# blindrecalc 0.1.4
+# blindrecalc 1.0.0
 
 * fix documentation to pass CRAN check
 

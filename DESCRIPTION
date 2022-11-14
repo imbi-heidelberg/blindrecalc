@@ -1,7 +1,7 @@
 Package: blindrecalc
 Type: Package
 Title: Blinded Sample Size Recalculation
-Version: 0.1.4
+Version: 1.0.0
 Authors@R:
    c(person(given = "Lukas",
             family = "Baumann", 
