@@ -30,6 +30,10 @@ jobs:
           http-user-agent: 'release'
           use-public-rspm: true
 
+      - name: Query dependencies
+        run: install.packages('V8')
+        shell: Rscript {0}
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: any::rcmdcheck

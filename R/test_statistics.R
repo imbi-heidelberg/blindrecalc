@@ -68,9 +68,8 @@ setClass("Student", contains = "TestStatistic")
 #' This class implements a chi-squared test for superiority trials. A trial
 #' with binary outcomes in two groups \code{E} and \code{C} is assumed. If
 #' \code{alternative == "greater"} the null and alternative hypotheses for the
-#' difference in response probabilities are \ifelse{html}{\out{H<sub>0</sub>:
-#' p<sub>E</sub> &le; p<sub>C</sub> vs. H<sub>1</sub>: p<sub>E</sub> > p<sub>C</sub>.}}{\deqn{
-#' H_0: p_E \leq p_C \textrm{ vs. } H_1: p_E > p_C.}}
+#' difference in response probabilities are
+#' \deqn{H_0: p_E \leq p_C \textrm{ vs. } H_1: p_E > p_C.}
 #' If \code{alternative == "smaller"}, the direction of the effect is changed.
 #'
 #' @details The nuisance parameter is the overall response probability
@@ -91,7 +90,7 @@ setClass("Student", contains = "TestStatistic")
 #' p<sub>E,A,est</sub> := p<sub>0,est</sub> - &Delta; r / (1 + r),}}{\deqn{
 #' \hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
 #' \hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}}
-#' where \ifelse{html}{\out{&Delta;}}{\eqn{\Delta}} is the difference in
+#' where \eqn{\Delta} is the difference in
 #' response probabilities under the alternative hypothesis and r is the
 #' allocation ratio of the sample sizes in the two groups.
 #' These blinded estimates can then be used to re-estimate the sample
