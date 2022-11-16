@@ -1,0 +1,22 @@
+citHeader("To cite blindrecalc in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "{blindrecalc} - An {R} Package for Blinded Sample Size Recalculation",
+  author   = c(person(given = "Lukas",
+                      family = "Baumann",
+                      email = "baumann@imbi.uni-heidelberg.de"),
+               person(given = "Maximilian",
+                      family = "Pilz",
+                      email = "maximilian.pilz@itwm.fraunhofer.de"),
+               person(given = "Meinhard",
+                      family = "Kieser",
+                      email = "kieser@imbi.uni-heidelberg.de")),
+  journal  = "The {R} Journal",
+  year     = "2022",
+  volume   = "14",
+  number   = "1",
+  pages    = "137--145",
+  doi      = "10.32614/RJ-2022-001",
+  textVersion = "Baumann, et al., blindrecalc - An R Package for Blinded Sample Size Recalculation, The R Journal, 2022"
+)

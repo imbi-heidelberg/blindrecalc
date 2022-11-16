@@ -14,7 +14,8 @@
 #'   or \code{n1}.
 #'
 #' @examples
-#' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.2)
+#' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1,
+#'                             delta = 0, delta_NI = 0.2)
 #' toer(d, n1 = 20, nuisance = 0.25, recalculation = TRUE, allocation = "approximate")
 #'
 #' @rdname toer.FarringtonManning
@@ -88,8 +89,10 @@ setMethod("toer", signature("FarringtonManning"),
 #'   or \code{n1}.
 #'
 #' @examples
-#' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
-#' pow(d, n1 = 30, nuisance = 0.4, allocation = "approximate", recalculation = TRUE)
+#' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1,
+#'                             delta = 0, delta_NI = 0.25)
+#' pow(d, n1 = 30, nuisance = 0.4, allocation = "approximate",
+#'     recalculation = TRUE)
 #'
 #' @rdname pow.FarringtonManning
 #' @export
@@ -158,8 +161,8 @@ function(design, n1, nuisance, recalculation,
 #' @template allocation
 #' @template dotdotdot
 #'
-#' @details Only sample sizes that occur with a probability of at least 0.01% are
-#' considered.
+#' @details Only sample sizes that occur with a probability of at least 0.01%
+#' are considered.
 #'
 #' @return Summary and/or plot of the sample size distribution for
 #'   each nuisance parameter and every value of n1.
@@ -168,7 +171,8 @@ function(design, n1, nuisance, recalculation,
 #'   or \code{n1}.
 #'
 #' @examples
-#' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
+#' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1,
+#'                             delta = 0, delta_NI = 0.25)
 #' n_dist(d, n1 = 30, nuisance = 0.2, summary = TRUE, plot = FALSE)
 #'
 #' @rdname n_dist.FarringtonManning
@@ -249,7 +253,8 @@ setMethod("n_dist", signature("FarringtonManning"),
 #'   or \code{n1}.
 #'
 #' @examples
-#' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
+#' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1,
+#'                             delta = 0, delta_NI = 0.25)
 #' adjusted_alpha(d, n1 = 20, nuisance = 0.5, recalculation = TRUE)
 #'
 #' @rdname adjusted_alpha.FarringtonManning
@@ -309,8 +314,8 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
 #'   by \code{setupFarringtonManning}.
 #' @param nuisance Value of the nuisance parameter. For the
 #'   Farrington-Manning test this is the overall response rate.
-#' @param rounded Whether the calculated sample size should be rounded up such that
-#'   the allocation ratio is preserved.
+#' @param rounded Whether the calculated sample size should be rounded up such
+#'   that the allocation ratio is preserved.
 #' @template dotdotdot
 #'
 #' @return One value of the fixed sample size for every nuisance parameter
@@ -320,7 +325,8 @@ setMethod("adjusted_alpha", signature("FarringtonManning"),
 #'   or \code{n1}.
 #'
 #' @examples
-#' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
+#' d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1,
+#'                             delta = 0, delta_NI = 0.25)
 #' n_fix(d, nuisance = 0.3)
 #'
 #' @rdname n_fix.FarringtonManning

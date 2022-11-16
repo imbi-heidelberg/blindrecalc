@@ -45,14 +45,15 @@ with blinded sample size recalculation for different values of the
 nuisance parameter or of n1.
 }
 \details{
-Only sample sizes that occur with a probability of at least 0.01% are
-considered.
+Only sample sizes that occur with a probability of at least 0.01%
+are considered.
 
 The method is only vectorized in either \code{nuisance}
   or \code{n1}.
 }
 \examples{
-d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
+d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1,
+                            delta = 0, delta_NI = 0.25)
 n_dist(d, n1 = 30, nuisance = 0.2, summary = TRUE, plot = FALSE)
 
 }

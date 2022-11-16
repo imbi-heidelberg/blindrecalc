@@ -36,13 +36,14 @@ such that the actual type I error rate is preserved.
 The method is only vectorized in either \code{nuisance}
   or \code{n1}.
 
-In the case of the Student's t-test, the adjusted alpha is calculated
-using the algorithm by Kieser and Friede (2000):
+In the case of the Student's t-test, the adjusted alpha is
+calculated using the algorithm by Kieser and Friede (2000):
 "Re-calculating the sample size in internal pilot study designs
 with control of the type I error rate". Statistics in Medicine 19: 901-911.
 }
 \examples{
-d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5, n_max = 848)
+d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5,
+                  n_max = 848)
 sigma <- c(2, 5.5, 9)
 adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4, iters = 1e3)
 

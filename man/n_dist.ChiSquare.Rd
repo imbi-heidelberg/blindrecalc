@@ -47,8 +47,8 @@ with blinded sample size recalculation for different values of the
 nuisance parameter or of n1.
 }
 \details{
-Only sample sizes that occur with a probability of at least 0.01% are
-considered.
+Only sample sizes that occur with a probability of at least 0.01%
+are considered.
 
 The method is only vectorized in either \code{nuisance}
   or \code{n1}.

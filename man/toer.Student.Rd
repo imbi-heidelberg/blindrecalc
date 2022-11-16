@@ -42,8 +42,9 @@ One type I error rate value for every nuisance parameter
  and every value of n1.
 }
 \description{
-Computes the type I error rate of designs with blinded sample size recalculation
-or of fixed designs for one or several values of the nuisance parameter.
+Computes the type I error rate of designs with blinded sample size
+recalculation or of fixed designs for one or several values of the nuisance
+parameter.
 }
 \details{
 The method is only vectorized in either \code{nuisance}

@@ -36,7 +36,7 @@ Otherwise, a vector with sample sizes is returned.}
 
 \item{seed}{Random seed for simulation.}
 
-\item{range}{this determines how far the plot whiskers extend out from the box.
+\item{range}{determines how far the plot whiskers extend out from the box.
 If range is positive, the whiskers extend to the most extreme data point
 which is no more than range times the interquartile range from the box.
 A value of zero causes the whiskers to extend to the data extremes.}
