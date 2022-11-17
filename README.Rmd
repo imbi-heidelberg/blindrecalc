@@ -78,3 +78,8 @@ To calculate the distribution of the total sample sizes use `n_dist`:
 ```{r}
 n_dist(design, n1 = c(30, 60, 90), nuisance = 10)
 ```
+
+
+## Reference
+
+A paper describing blindrecalc can be found [here](https://journal.r-project.org/articles/RJ-2022-001/).
