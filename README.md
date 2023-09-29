@@ -7,6 +7,7 @@
 coverage](https://codecov.io/gh/imbi-heidelberg/blindrecalc/branch/master/graph/badge.svg)](https://app.codecov.io/gh/imbi-heidelberg/blindrecalc?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/blindrecalc)](https://cran.r-project.org/package=blindrecalc)
+[![R-CMD-check](https://github.com/imbi-heidelberg/blindrecalc/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/imbi-heidelberg/blindrecalc/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # blindrecalc
@@ -65,7 +66,7 @@ size recalculation, use `toer`:
 
 ``` r
 toer(design, n1 = c(30, 60, 90), nuisance = 10, recalculation = TRUE)
-#> [1] 0.0263 0.0271 0.0242
+#> [1] 0.0270 0.0249 0.0230
 ```
 
 `n1` refers to the sample size of the internal pilot study
@@ -76,7 +77,7 @@ To compute the power of the design, use `pow`:
 
 ``` r
 pow(design, n1 = c(30, 60, 90), nuisance = 10, recalculation = TRUE)
-#> [1] 0.7979 0.7938 0.8067
+#> [1] 0.7869 0.7975 0.7999
 ```
 
 To calculate the distribution of the total sample sizes use `n_dist`:
@@ -84,10 +85,15 @@ To calculate the distribution of the total sample sizes use `n_dist`:
 ``` r
 n_dist(design, n1 = c(30, 60, 90), nuisance = 10)
 #>     n_1 = 30        n_1 = 60        n_1 = 90    
-#>  Min.   : 40.0   Min.   : 64.0   Min.   : 90.0  
-#>  1st Qu.:109.0   1st Qu.:117.0   1st Qu.:120.0  
-#>  Median :131.0   Median :133.0   Median :133.0  
-#>  Mean   :134.2   Mean   :133.9   Mean   :134.1  
-#>  3rd Qu.:156.0   3rd Qu.:149.0   3rd Qu.:147.0  
-#>  Max.   :305.0   Max.   :251.0   Max.   :219.0
+#>  Min.   : 30.0   Min.   : 62.0   Min.   : 90.0  
+#>  1st Qu.:110.0   1st Qu.:117.0   1st Qu.:120.0  
+#>  Median :132.0   Median :132.0   Median :133.0  
+#>  Mean   :134.8   Mean   :134.2   Mean   :133.8  
+#>  3rd Qu.:157.0   3rd Qu.:150.0   3rd Qu.:147.0  
+#>  Max.   :297.0   Max.   :242.0   Max.   :219.0
 ```
+
+## Reference
+
+A paper describing blindrecalc can be found
+[here](https://journal.r-project.org/articles/RJ-2022-001/).
