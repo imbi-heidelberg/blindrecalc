@@ -1,7 +1,7 @@
 Package: blindrecalc
 Type: Package
 Title: Blinded Sample Size Recalculation
-Version: 1.0.0
+Version: 1.0.1
 Authors@R:
    c(person(given = "Lukas",
             family = "Baumann", 
@@ -44,6 +44,6 @@ Collate:
     FarringtonManning.R 
     FarringtonManning_helper.R
     RcppExports.R
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 LinkingTo: 
     Rcpp
