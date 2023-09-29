@@ -1,7 +1,7 @@
-citHeader("To cite blindrecalc in publications use:")
-
-citEntry(
-  entry    = "Article",
+bibentry(
+  bibtype  = "article",
+  header   = "To cite blindrecalc in publications use:",
+  key      = "baumann2022",
   title    = "{blindrecalc} - An {R} Package for Blinded Sample Size Recalculation",
   author   = c(person(given = "Lukas",
                       family = "Baumann",
