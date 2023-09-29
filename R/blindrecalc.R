@@ -13,5 +13,6 @@
 #' @import methods
 #' @importFrom Rcpp sourceCpp
 #' @docType package
+#' @aliases blindrecalc-package
 #' @name blindrecalc
 NULL
