@@ -44,6 +44,6 @@ Collate:
     FarringtonManning.R 
     FarringtonManning_helper.R
     RcppExports.R
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 LinkingTo: 
     Rcpp
