@@ -13,7 +13,7 @@ Authors@R:
             role = c("aut"),
             email = "maximilian.pilz@itwm.fraunhofer.de",
             comment = c(ORCID = "0000-0002-9685-1613")),
-      person(given = "Institute of Medical Biometry and Informatics - University of Heidelberg",
+      person(given = "Institute of Medical Biometry - University of Heidelberg",
              role = c("cph")))
 Description: Computation of key characteristics and plots for blinded sample size recalculation.
    Continuous as well as binary endpoints are supported in superiority and non-inferiority trials.
