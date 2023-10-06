@@ -13,8 +13,8 @@ by \code{setupFarringtonManning}.}
 \item{nuisance}{Value of the nuisance parameter. For the
 Farrington-Manning test this is the overall response rate.}
 
-\item{rounded}{Whether the calculated sample size should be rounded up such that
-the allocation ratio is preserved.}
+\item{rounded}{Whether the calculated sample size should be rounded up such
+that the allocation ratio is preserved.}
 
 \item{...}{Further optional arguments.}
 }
@@ -30,7 +30,8 @@ The method is only vectorized in either \code{nuisance}
   or \code{n1}.
 }
 \examples{
-d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
+d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1,
+                            delta = 0, delta_NI = 0.25)
 n_fix(d, nuisance = 0.3)
 
 }

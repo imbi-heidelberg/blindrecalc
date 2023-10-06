@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // chisq_fix_reject
 double chisq_fix_reject(S4 design, double n1, double nuisance, String type);
 RcppExport SEXP _blindrecalc_chisq_fix_reject(SEXP designSEXP, SEXP n1SEXP, SEXP nuisanceSEXP, SEXP typeSEXP) {

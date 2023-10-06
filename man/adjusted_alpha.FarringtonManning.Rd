@@ -21,10 +21,10 @@
 by \code{setupFarringtonManning}.}
 
 \item{n1}{Either the sample size of the first stage (if
-\code{recalculation = TRUE} or the toal sample size (if
+\code{recalculation = TRUE} or the total sample size (if
 \code{recalculation = FALSE}).}
 
-\item{nuisance}{Value of the nuisance parameter. For the
+\item{nuisance}{Value of the nuisance parameter in (0,1). For the
 Farrington-Manning test this is the overall response rate.}
 
 \item{nuis_ass}{If \code{recalculation = FALSE} this is the value for
@@ -40,8 +40,8 @@ such that the actual level is at most \code{alpha - gamma}. This is
 necessary to maintain the nomininal significance level if a confidence
 interval approach proposed by Friede & Kieser (2011) is used.}
 
-\item{recalculation}{Should the sample size be recalcuated after n1
-patients are recruited?}
+\item{recalculation}{Should the sample size be recalculated after n1
+n1 patients are recruited?}
 
 \item{allocation}{Whether the allocation ratio should be preserved
 exactly (\code{exact}) or approximately (\code{approximate}).}
@@ -61,7 +61,8 @@ The method is only vectorized in either \code{nuisance}
   or \code{n1}.
 }
 \examples{
-d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
+d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1,
+                            delta = 0, delta_NI = 0.25)
 adjusted_alpha(d, n1 = 20, nuisance = 0.5, recalculation = TRUE)
 
 }

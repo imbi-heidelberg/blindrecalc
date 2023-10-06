@@ -25,8 +25,8 @@
 \item{nuisance}{Value of the nuisance parameter. For the
 Student's t-test this is the variance.}
 
-\item{recalculation}{Should the sample size be recalcuated after n1
-patients are recruited?}
+\item{recalculation}{Should the sample size be recalculated after n1
+n1 patients are recruited?}
 
 \item{iters}{Number of simulation iterations.}
 

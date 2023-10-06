@@ -18,11 +18,11 @@
 \item{nuisance}{Value of the nuisance parameter. For the
 Chi-Squared test this is the overall response rate.}
 
-\item{variance}{A character string indicating whether the "\code{heterogenous}" (default)
-or the "\code{homogeneous}" variance formula should be used.}
+\item{variance}{A character string indicating whether the "\code{heterogenous}"
+(default) or the "\code{homogeneous}" variance formula should be used.}
 
-\item{rounded}{Whether the calculated sample size should be rounded up such that
-the allocation ratio is preserved.}
+\item{rounded}{Whether the calculated sample size should be rounded up such
+that the allocation ratio is preserved.}
 
 \item{...}{Further optional arguments.}
 }

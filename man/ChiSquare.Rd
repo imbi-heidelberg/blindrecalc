@@ -40,12 +40,30 @@ An object of class \code{\link{ChiSquare}}.
 }
 \description{
 This class implements a chi-squared test for superiority trials. A trial
-with binary outcomes in two groups \code{T} and \code{C} is assumed.
+with binary outcomes in two groups \code{E} and \code{C} is assumed. If
+\code{alternative == "greater"} the null and alternative hypotheses for the
+difference in response probabilities are
+\deqn{H_0: p_E \leq p_C \textrm{ vs. } H_1: p_E > p_C.}
+If \code{alternative == "smaller"}, the direction of the effect is changed.
 
 The function \code{setupChiSquare} creates an object of class
 \code{\link{ChiSquare}}.
 }
 \details{
+The nuisance parameter is the overall response probability \eqn{p_0}.
+In the blinded sample size #' recalculation procedure it is blindly estimated
+by: \deqn{\hat{p}_0 := (X_{1,E} + X_{1,C}) / (n_{1,E} + n_{1,C}),}
+where \eqn{X_{1,E}} and \eqn{X_{1,C}} are the numbers of
+responses and \eqn{n_{1,E}} and \eqn{n_{1,C}} are the sample sizes
+of the respective group after the first stage. The event rates in both
+groups under the alternative hypothesis can then be blindly estimated as:
+\deqn{\hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
+\hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}
+where \eqn{\Delta} is the difference in response probabilities under the
+alternative hypothesis and r is the allocation ratio of the sample sizes
+in the two groups.
+These blinded estimates can then be used to re-estimate the sample size.
+
 The following methods are available for this class:
 \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
 \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
@@ -57,4 +75,12 @@ For non-inferiority trials use the function \code{\link{setupFarringtonManning}}
 design <- setupChiSquare(alpha = .025, beta = .2, r = 1, delta = 0.2,
 alternative = "greater")
 
+}
+\references{
+Friede, T., & Kieser, M. (2004). Sample size recalculation for binary data
+in internal pilot study designs. Pharmaceutical Statistics:
+The Journal of Applied Statistics in the Pharmaceutical Industry,
+3(4), 269-279. \cr
+Kieser, M. (2020). Methods and applications of sample size calculation and
+recalculation in clinical trials. Springer.
 }

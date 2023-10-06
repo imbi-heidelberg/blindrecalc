@@ -27,17 +27,16 @@
 \item{nuisance}{Value of the nuisance parameter. For the
 Student's t-test this is the variance.}
 
-\item{summary}{logical - is a summary of the sample size distribution desired?
+\item{summary}{Is a summary of the sample size distribution desired?
 Otherwise, a vector with sample sizes is returned.}
 
-\item{plot}{Should a plot of the sample size distribution
-be drawn?}
+\item{plot}{Should a plot of the sample size distribution be drawn?}
 
 \item{iters}{Number of simulation iterations.}
 
 \item{seed}{Random seed for simulation.}
 
-\item{range}{this determines how far the plot whiskers extend out from the box.
+\item{range}{determines how far the plot whiskers extend out from the box.
 If range is positive, the whiskers extend to the most extreme data point
 which is no more than range times the interquartile range from the box.
 A value of zero causes the whiskers to extend to the data extremes.}

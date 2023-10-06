@@ -1,20 +1,23 @@
 Package: blindrecalc
 Type: Package
 Title: Blinded Sample Size Recalculation
-Version: 0.1.2
+Version: 1.0.1
 Authors@R:
    c(person(given = "Lukas",
             family = "Baumann", 
-            role = c("aut"),
-            email = "baumann@imbi.uni-heidelberg.de"),
+            role = c("aut", "cre"),
+            email = "baumann@imbi.uni-heidelberg.de",
+            comment = c(ORCID = "0000-0001-7931-7470")),
      person(given = "Maximilian", 
             family = "Pilz",
-            role = c("aut", "cre"),
-            email = "pilz@imbi.uni-heidelberg.de"),
-      person(given = "Institute of Medical Biometry and Informatics - University of Heidelberg",
+            role = c("aut"),
+            email = "maximilian.pilz@itwm.fraunhofer.de",
+            comment = c(ORCID = "0000-0002-9685-1613")),
+      person(given = "Institute of Medical Biometry - University of Heidelberg",
              role = c("cph")))
 Description: Computation of key characteristics and plots for blinded sample size recalculation.
    Continuous as well as binary endpoints are supported in superiority and non-inferiority trials.
+   See Baumann, Pilz, Kieser (2022) <doi:10.32614/RJ-2022-001> for a detailed description.
    The implemented methods include the approaches by
    Lu, K. (2019) <doi:10.1002/pst.1737>,
    Kieser, M. and Friede, T. (2000) <doi:10.1002/(SICI)1097-0258(20000415)19:7%3C901::AID-SIM405%3E3.0.CO;2-L>,
@@ -41,6 +44,6 @@ Collate:
     FarringtonManning.R 
     FarringtonManning_helper.R
     RcppExports.R
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.3
 LinkingTo: 
     Rcpp

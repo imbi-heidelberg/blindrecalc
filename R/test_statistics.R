@@ -1,4 +1,4 @@
-# abstract class 'TestStatistics' for internal use
+# abstract class 'TestStatistic' for internal use
 setClass("TestStatistic", slots = c(
   alpha       = "numeric",
   beta        = "numeric",
@@ -13,26 +13,32 @@ setClass("TestStatistic", slots = c(
 #'
 #' This class implements Student's t-test for superiority and non-inferiority
 #' tests.
-#' A trial with continuous outcomes of the two groups \code{T} and \code{C}
+#' A trial with continuous outcomes of the two groups \code{E} and \code{C}
 #' is assumed.
 #' If \code{alternative == "greater"} the null hypothesis for the
-#' mean difference
-#' \ifelse{html}{\out{&Delta; = &mu;<sub>T</sub> - &mu;<sub>C</sub>}}{\eqn{\Delta = \mu_T - \mu_C}}
-#' is
-#' \ifelse{html}{\out{<p>H<sub>0</sub>: &Delta; &le; -&delta;<sub>NI</sub>  vs.  H<sub>1</sub>: &Delta; > -&delta;<sub>NI</sub>.</p>}}{\deqn{H_0: \Delta \leq -\delta_{NI}  vs.  H_1: \Delta > -\delta_{NI}.}}
-#' Here, \ifelse{html}{\out{&delta;<sub>NI</sub> &ge; 0}}{\eqn{\delta_{NI} \geq 0}} denotes the non-inferiority margin.
-#' For superiority trials, \ifelse{html}{\out{&delta;<sub>NI</sub>}}{\eqn{\delta_{NI}}}
-#' can be set to zero (default).
+#' mean difference \eqn{\Delta = \mu_E - \mu_C} is
+#' \deqn{H_0: \Delta \leq -\delta_{NI} \textrm{ vs. } H_1: \Delta > -\delta_{NI}.}
+#' Here, \eqn{\delta_{NI} \geq 0} denotes the non-inferiority margin.
+#' For superiority trials,\eqn{\delta_{NI}} can be set to zero (default).
 #' If \code{alternative=="smaller"}, the direction of the effect is changed.
 #'
-#' @details The notation is based on the paper of Lu (2019):
-#' Distribution of the two-sample t-test statistic following blinded
-#' sample size re-estimation. Pharmaceutical Statistics 15: 208-215.
-#'
-#' @details The following methods are available for this class:
+#' @details The nuisance parameter is the variance \eqn{\sigma^2}.
+#' Within the blinded sample size recalculation procedure, it is re-estimated by
+#' the one-sample variance estimator that is defined by
+#' \deqn{\widehat{\sigma}^2
+#' := \frac{1}{n_1-1} \sum_{j \in \{T, C \}}
+#'  \sum_{k=1}^{n_{1,j}}(x_{j,k} - \bar{x} )^2,}
+#' where \eqn{x_{j,k}} is the outcome of patient \eqn{k} in group \eqn{j},
+#' \eqn{n_{1,j}} denotes the first-stage sample size in group \eqn{j} and
+#' \eqn{\bar{x}} equals the mean over all \eqn{n_1} observations.
+#' The following methods are available for this class:
 #' \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
 #' \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
 #' Check the design specific documentation for details.
+#'
+#' @references Lu, K. (2019).
+#' Distribution of the two-sample t-test statistic following blinded
+#' sample size re-estimation. Pharmaceutical Statistics 15(3): 208-215.
 #'
 #' @aliases Student
 #' @rdname Student
@@ -40,17 +46,41 @@ setClass("TestStatistic", slots = c(
 setClass("Student", contains = "TestStatistic")
 
 
-
 #' Chi-squared test
 #'
 #' This class implements a chi-squared test for superiority trials. A trial
-#' with binary outcomes in two groups \code{T} and \code{C} is assumed.
+#' with binary outcomes in two groups \code{E} and \code{C} is assumed. If
+#' \code{alternative == "greater"} the null and alternative hypotheses for the
+#' difference in response probabilities are
+#' \deqn{H_0: p_E \leq p_C \textrm{ vs. } H_1: p_E > p_C.}
+#' If \code{alternative == "smaller"}, the direction of the effect is changed.
 #'
-#' @details The following methods are available for this class:
+#' @details The nuisance parameter is the overall response probability \eqn{p_0}.
+#' In the blinded sample size #' recalculation procedure it is blindly estimated
+#' by: \deqn{\hat{p}_0 := (X_{1,E} + X_{1,C}) / (n_{1,E} + n_{1,C}),}
+#' where \eqn{X_{1,E}} and \eqn{X_{1,C}} are the numbers of
+#' responses and \eqn{n_{1,E}} and \eqn{n_{1,C}} are the sample sizes
+#' of the respective group after the first stage. The event rates in both
+#' groups under the alternative hypothesis can then be blindly estimated as:
+#' \deqn{\hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
+#' \hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}
+#' where \eqn{\Delta} is the difference in response probabilities under the
+#' alternative hypothesis and r is the allocation ratio of the sample sizes
+#' in the two groups.
+#' These blinded estimates can then be used to re-estimate the sample size.
+#'
+#' The following methods are available for this class:
 #' \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
 #' \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
 #' Check the design specific documentation for details.
 #'
+#' @references
+#' Friede, T., & Kieser, M. (2004). Sample size recalculation for binary data
+#' in internal pilot study designs. Pharmaceutical Statistics:
+#' The Journal of Applied Statistics in the Pharmaceutical Industry,
+#' 3(4), 269-279. \cr
+#' Kieser, M. (2020). Methods and applications of sample size calculation and
+#' recalculation in clinical trials. Springer.
 #' @aliases ChiSquare
 #' @rdname ChiSquare
 #' @exportClass ChiSquare
@@ -61,13 +91,35 @@ setClass("ChiSquare", contains = "TestStatistic")
 #' Farrington Manning test
 #'
 #' This class implements a Farrington-Manning test for non-inferiority
-#' trials. A trial with binary outcomes in two groups \code{T} and
-#' \code{C} is assumed.
+#' trials. A trial with binary outcomes in two groups \code{E} and
+#' \code{C} is assumed. The null and alternative hypotheses for the
+#' non-inferiority of response probabilities are:
+#' \deqn{H_0: p_E - p_C \leq -\delta \textrm{ vs. } H_1: p_E - p_C > -\delta,}
+#' where \eqn{\delta} denotes the non-inferiority margin.
 #'
-#' @details The following methods are available for this class:
-#' \code{\link{toer}}, \code{\link{pow}}, \code{\link{n_dist}},
-#' \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
-#' Check the design specific documentation for details.
+#' @details The nuisance parameter is the overall response probability \eqn{p_0}.
+#' In the blinded sample size recalculation procedure it is blindly estimated
+#' by:
+#' \deqn{\hat{p}_0 := (X_{1,E} + X_{1,C}) / (n_{1,E} + n_{1,C}),}
+#' where
+#' \eqn{X_{1,E}} and \eqn{X_{1,C}} are the numbers of responses and \eqn{n_{1,E}}
+#' and \eqn{n_{1,C}} are the sample sizes of the respective group after the first stage.
+#' The event rates in both groups under the alternative hypothesis can then be
+#' blindly estimated as:
+#' \deqn{\hat{p}_{C,A} := \hat{p}_0 - \Delta \cdot r / (1 + r) \textrm{, }
+#' \hat{p}_{E,A} := \hat{p}_0 + \Delta / (1 + r),}
+#' where \eqn{\Delta} is the difference in
+#' response probabilities under the alternative hypothesis and r is the
+#' allocation ratio of the sample sizes in the two groups.
+#' These blinded estimates can then be used to re-estimate the sample
+#' size.
+#'
+#' @references
+#' Friede, T., Mitchell, C., & Mueller-Velten, G. (2007). Blinded sample size
+#' reestimation in non-inferiority trials with binary endpoints.
+#' Biometrical Journal, 49(6), 903-916. \cr
+#' Kieser, M. (2020). Methods and applications of sample size calculation and
+#' recalculation in clinical trials. Springer.
 #'
 #' @aliases FarringtonManning
 #' @rdname FarringtonManning
@@ -90,7 +142,7 @@ setClass("FarringtonManning", contains = "TestStatistic")
 #'
 #' @examples
 #' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
-#'                    alternative = "greater", n_max = 156)
+#'                   alternative = "greater", n_max = 156)
 #' @rdname Student
 #' @export
 setupStudent <- function(alpha, beta, r = 1, delta, delta_NI = 0,

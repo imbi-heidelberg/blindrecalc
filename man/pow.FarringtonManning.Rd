@@ -18,14 +18,14 @@
 by \code{setupFarringtonManning}.}
 
 \item{n1}{Either the sample size of the first stage (if
-\code{recalculation = TRUE} or the toal sample size (if
+\code{recalculation = TRUE} or the total sample size (if
 \code{recalculation = FALSE}).}
 
-\item{nuisance}{Value of the nuisance parameter. For the
+\item{nuisance}{Value of the nuisance parameter in (0,1). For the
 Farrington-Manning test this is the overall response rate.}
 
-\item{recalculation}{Should the sample size be recalcuated after n1
-patients are recruited?}
+\item{recalculation}{Should the sample size be recalculated after n1
+n1 patients are recruited?}
 
 \item{allocation}{Whether the allocation ratio should be preserved
 exactly (\code{exact}) or approximately (\code{approximate}).}
@@ -44,7 +44,9 @@ The method is only vectorized in either \code{nuisance}
   or \code{n1}.
 }
 \examples{
-d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
-pow(d, n1 = 30, nuisance = 0.4, allocation = "approximate", recalculation = TRUE)
+d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1,
+                            delta = 0, delta_NI = 0.25)
+pow(d, n1 = 30, nuisance = 0.4, allocation = "approximate",
+    recalculation = TRUE)
 
 }

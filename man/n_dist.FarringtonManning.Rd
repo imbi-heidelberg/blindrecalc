@@ -19,18 +19,16 @@
 by \code{setupFarringtonManning}.}
 
 \item{n1}{Either the sample size of the first stage (if
-\code{recalculation = TRUE} or the toal sample size (if
+\code{recalculation = TRUE} or the total sample size (if
 \code{recalculation = FALSE}).}
 
-\item{nuisance}{Value of the nuisance parameter. For the
+\item{nuisance}{Value of the nuisance parameter in (0,1). For the
 Farrington-Manning test this is the overall response rate.}
 
-\item{summary}{Logical. If \code{TRUE} (default) a summary of the sample
-size distribution is printed. If \code{FALSE} all sample sizes are
-printed.}
+\item{summary}{Is a summary of the sample size distribution desired?
+Otherwise, a vector with sample sizes is returned.}
 
-\item{plot}{Should a plot of the sample size distribution
-be drawn?}
+\item{plot}{Should a plot of the sample size distribution be drawn?}
 
 \item{allocation}{Whether the allocation ratio should be preserved
 exactly (\code{exact}) or approximately (\code{approximate}).}
@@ -47,14 +45,15 @@ with blinded sample size recalculation for different values of the
 nuisance parameter or of n1.
 }
 \details{
-Only sample sizes that occur with a probability of at least 0.01% are
-considered.
+Only sample sizes that occur with a probability of at least 0.01%
+are considered.
 
 The method is only vectorized in either \code{nuisance}
   or \code{n1}.
 }
 \examples{
-d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1, delta = 0, delta_NI = 0.25)
+d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 1,
+                            delta = 0, delta_NI = 0.25)
 n_dist(d, n1 = 30, nuisance = 0.2, summary = TRUE, plot = FALSE)
 
 }
