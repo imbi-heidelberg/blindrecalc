@@ -95,6 +95,7 @@ setGeneric("n_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE
 #' such that the actual type I error rate is preserved.
 #'
 #' @template methods
+#' @template recalculation
 #' @template dotdotdot
 #'
 #' @return Value of the adjusted significance level

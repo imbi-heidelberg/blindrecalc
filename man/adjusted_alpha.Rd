@@ -15,6 +15,9 @@ is recalculated}
 \item{nuisance}{nuisance parameter that is estimated at the interim analysis}
 
 \item{...}{Further optional arguments.}
+
+\item{recalculation}{Should the sample size be recalculated after n1
+n1 patients are recruited?}
 }
 \value{
 Value of the adjusted significance level

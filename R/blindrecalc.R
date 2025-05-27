@@ -12,7 +12,6 @@
 #' @useDynLib blindrecalc
 #' @import methods
 #' @importFrom Rcpp sourceCpp
-#' @docType package
 #' @aliases blindrecalc-package
 #' @name blindrecalc
-NULL
+"_PACKAGE"
