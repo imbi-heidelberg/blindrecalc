@@ -1,7 +1,7 @@
 Package: blindrecalc
 Type: Package
 Title: Blinded Sample Size Recalculation
-Version: 1.0.1
+Version: 1.1.0
 Authors@R:
    c(person(given = "Lukas",
             family = "Baumann", 
@@ -30,7 +30,9 @@ Encoding: UTF-8
 LazyData: true
 Suggests: 
     testthat,
-    covr
+    covr,
+    knitr,
+    rmarkdown
 Imports:
     methods,
     Rcpp
@@ -47,3 +49,4 @@ Collate:
 RoxygenNote: 7.2.3
 LinkingTo: 
     Rcpp
+VignetteBuilder: knitr
