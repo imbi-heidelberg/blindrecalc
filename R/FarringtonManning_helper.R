@@ -49,6 +49,7 @@ n_distrib_fm <- function(design, n1, nuisance, allocation, ...) {
 
   n_new[which(is.na(n_new))] <- n1
   n_new[which(n_new < n1)] <- n1
+  n_new[which(n_new > design@n_max)] <- design@n_max
   out <- stats::aggregate(prob, list(n_new), sum)
   colnames(out) <- c("n", "prob")
   return(out)
