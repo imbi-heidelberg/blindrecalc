@@ -416,7 +416,7 @@ equals $0.2$.
 In this setting, \pkg{blindrecalc} can be used to compare the actual levels
 of a fixed design and a recalculation design with the same parameters.
 
-```{r type-1-error, cache=TRUE}
+```{r type-1-error}
 n <- n_fix(design, nuisance = 0.2)
 p <- seq(0.1, 0.9, by = 0.01)
 toer_fix <- toer(design, n1 = n, nuisance = p, recalculation = FALSE)
