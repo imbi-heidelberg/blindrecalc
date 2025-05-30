@@ -116,7 +116,8 @@ test_that("Alpha can be adjusted in non-inferiority case", {
     design@alpha
   )
 
-  alpha_adj <- adjusted_alpha(design, 10, 5, 1e-4, its)
+  alpha_adj <- adjusted_alpha(design, n1 = 10, nuisance = 5, recalculation = TRUE,
+                              tol = 1e-4, iters = its)
 
   expect_lte(
     alpha_adj,

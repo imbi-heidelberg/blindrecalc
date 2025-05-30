@@ -257,6 +257,7 @@ setMethod("n_dist", signature("Student"),
 #' such that the actual type I error rate is preserved.
 #'
 #' @template methods_student
+#' @template recalculation
 #' @param tol desired absolute tolerance
 #' @template iters
 #' @template dotdotdot
@@ -276,16 +277,18 @@ setMethod("n_dist", signature("Student"),
 #' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5,
 #'                   n_max = 848)
 #' sigma <- c(2, 5.5, 9)
-#' adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4, iters = 1e3)
+#' adjusted_alpha(design = d, n1 = 20, nuisance = sigma, recalculation = TRUE,
+#'                tol = 1e-4, iters = 1e3)
 #'
 #' @rdname adjusted_alpha.Student
 #' @export
 setMethod("adjusted_alpha", signature("Student"),
-          function(design, n1, nuisance, tol, iters = 1e4, seed = NULL, ...) {
+          function(design, n1, nuisance, recalculation,
+                   tol, iters = 1e4, seed = NULL, ...) {
             alpha_max <- function(alp) {
               d       <- design
               d@alpha <- alp
-              return(max(toer(d, n1, nuisance, TRUE, iters, seed)))
+              return(max(toer(d, n1, nuisance, recalculation, iters, seed)))
             }
 
             alpha_adj <- design@alpha

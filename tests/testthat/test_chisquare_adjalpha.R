@@ -27,7 +27,7 @@ test_that("adjusted_alpha gives actual level at most nominal level", {
 
   design3 <- setupChiSquare(alpha = 0.025, beta = 0.2, r = 3, delta = 0.3)
   adjalpha3 <- adjusted_alpha(design3, n1 = 50, nuisance = nuis_vec,
-                              gamma = gamma, precision = 0.005,
+                              gamma = gamma, nuis_ass = 0.3, precision = 0.005,
                               recalculation = TRUE, allocation = "approximate")
   design3@alpha <- adjalpha3
   alpha_max3 <- max(toer(design3, n1 = 50, nuisance = nuis_vec,

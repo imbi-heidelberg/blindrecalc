@@ -27,7 +27,7 @@ simulation(
 Student's t-test this is the variance.}
 
 \item{recalculation}{Should the sample size be recalculated after n1
-n1 patients are recruited?}
+patients are recruited?}
 
 \item{delta_true}{effect measure under which the rejection probabilities are
 computed}

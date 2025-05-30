@@ -237,8 +237,8 @@ setMethod("n_dist", signature("ChiSquare"),
 #' such that the actual type I error rate is preserved.
 #'
 #' @template methods_chisquare
-#' @template adjalpha_binary
 #' @template recalculation
+#' @template adjalpha_binary
 #' @template allocation_chisquare
 #' @template dotdotdot
 #'
@@ -256,8 +256,9 @@ setMethod("n_dist", signature("ChiSquare"),
 #' @rdname adjusted_alpha.ChiSquare
 #' @export
 setMethod("adjusted_alpha", signature("ChiSquare"),
-  function(design, n1, nuisance, nuis_ass, precision = 0.001, gamma = 0,
-           recalculation, allocation = c("exact", "approximate"), ...) {
+  function(design, n1, nuisance, recalculation,
+           nuis_ass, precision = 0.001, gamma = 0,
+           allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)
     # Check if input is valid
     if (allocation == "exact") {

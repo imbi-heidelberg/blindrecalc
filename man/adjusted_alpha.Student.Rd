@@ -4,7 +4,16 @@
 \alias{adjusted_alpha,Student-method}
 \title{Adjusted level of significance}
 \usage{
-\S4method{adjusted_alpha}{Student}(design, n1, nuisance, tol, iters = 10000, seed = NULL, ...)
+\S4method{adjusted_alpha}{Student}(
+  design,
+  n1,
+  nuisance,
+  recalculation,
+  tol,
+  iters = 10000,
+  seed = NULL,
+  ...
+)
 }
 \arguments{
 \item{design}{Object of class \code{Student} created by \code{setupStudent}.}
@@ -15,6 +24,9 @@
 
 \item{nuisance}{Value of the nuisance parameter. For the
 Student's t-test this is the variance.}
+
+\item{recalculation}{Should the sample size be recalculated after n1
+patients are recruited?}
 
 \item{tol}{desired absolute tolerance}
 
@@ -45,6 +57,7 @@ with control of the type I error rate". Statistics in Medicine 19: 901-911.
 d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5,
                   n_max = 848)
 sigma <- c(2, 5.5, 9)
-adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4, iters = 1e3)
+adjusted_alpha(design = d, n1 = 20, nuisance = sigma, recalculation = TRUE,
+               tol = 1e-4, iters = 1e3)
 
 }
