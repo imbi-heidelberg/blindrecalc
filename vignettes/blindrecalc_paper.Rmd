@@ -1,5 +1,5 @@
 ---
-title: \pkg{blindrecalc} - An R Package for Blinded Sample Size Recalculation
+title: blindrecalc - An R Package for Blinded Sample Size Recalculation
 author:
   - name: Lukas Baumann
     affiliation: Institute of Medical Biometry
@@ -36,18 +36,17 @@ abstract: >
   parameters is high, an internal pilot study design with a blinded sample size
   recalculation can be used to achieve the target power even when the initially assumed
   value for the nuisance parameter is wrong. 
-  In this paper, we present the R-package \pkg{blindrecalc} that helps with
+  In this paper, we present the R-package blindrecalc that helps with
   planning a clinical trial with such a design by computing the operating
   characteristics and the distribution of the total sample size under different
   true values of the nuisance parameter. We implemented methods for continuous
   and binary outcomes in the superiority and the non-inferiority setting.
 preamble: >
   \usepackage[hyphens]{url}
-  \usepackage{xcolor}
+  \usepackage{xcolor} 
 output: 
   bookdown::html_document2:
-    number_sections: true
-    toc: true
+      base_format: rmarkdown::html_vignette
 date: "`r Sys.Date()`"
 bibliography: blindrecalc-paper.bib
 vignette: >
@@ -135,7 +134,7 @@ Associated methods were, for instance, presented by @Gould1992 and @FK2004 for
 superiority trials and by @Friede2007 for non-inferiority trials.
 
 However, despite the clear benefit of a blinded sample size recalculation and a
-great number of publications on that topic, \pkg{blindrecalc} is to the 
+great number of publications on that topic, **blindrecalc** is to the 
 knowledge of the authors the first R-package on CRAN, 
 and thus a freely available software,
 that helps with the planning of a clinical trial with such a design
@@ -154,7 +153,7 @@ In the [Statistical methods] section, we explain the general way of proceeding
 when conducting a trial with an internal pilot study and how to obtain a blinded
 estimate of the nuisance parameter for continuous and binary outcomes.
 The structure of the package is introduced in [Package structure]. 
-We demonstrate how \pkg{blindrecalc} can be utilized to plan a trial with an
+We demonstrate how **blindrecalc** can be utilized to plan a trial with an
 internal pilot study design and blinded sample size recalculation in [Usage and example].
 In [Development principles], we outline the principles of the development process
 and how we ensure the quality of our code.
@@ -212,7 +211,7 @@ into the above sample size formula may lead to a more reasonable sample size
 for the respective trial than sticking to the value assumed in the planning stage.
 There exist different methods for estimating $\sigma^2$ in a blinded manner
 [@Zucker1999].
-In \pkg{blindrecalc}, the one-sample variance estimator is implemented.
+In **blindrecalc**, the one-sample variance estimator is implemented.
 It is defined as
 $$
 \widehat{\sigma}^2 := \frac{1}{n_1-1} \sum_{j \in \{E, C \}} \sum_{k=1}^{n_{1,j}}
@@ -246,9 +245,9 @@ power meets the target value $1-\beta$ for a wide range of values of $\sigma^2$.
 of the two-sample $t$-test in this setting.
 This allows the simulation of error probabilities and of the sample size distribution
 in an acceptable amount of time.
-The proposals made by @Lu2016 are implemented in \pkg{blindrecalc}.
+The proposals made by @Lu2016 are implemented in **blindrecalc**.
 Thus, the design characteristics for continuous outcomes presented in
-\pkg{blindrecalc} are obtained by simulation and not by exact computation.
+**blindrecalc** are obtained by simulation and not by exact computation.
 This is the case for for binary outcomes that are presented in the following.
 
 ## Binary outcomes
@@ -259,7 +258,7 @@ $$H_0: p_E \leq p_C \text{ vs. } H_1: p_E > p_C,$$
 where $p_E$ and $p_C$ denote the event probabilities in the experimental
 and the control group, respectively.
 While several tests exist for this test problem, the widely used chi-squared test
-is implemented in \pkg{blindrecalc}.
+is implemented in **blindrecalc**.
 The sample size for this test can be approximated with the formula [@Kieser2020]:
 $$n = \frac{1 + r}{r} \frac{\left(z_{1 - \alpha / 2} 
 \sqrt{(1 + r) \cdot p_0 \cdot (1 - p_0)} + z_{1 - \beta} 
@@ -319,7 +318,7 @@ is caused by blinded re-estimation of the sample size.
 Nevertheless, it is possible for the chi-squared test as well as for the
 Farrington-Manning test to choose the nominal significance level smaller than
 $\alpha$ in order to protect the type 1 error rate at level $\alpha$.
-Such an adjustment of $\alpha$ is implemented in \pkg{blindrecalc} for the
+Such an adjustment of $\alpha$ is implemented in **blindrecalc** for the
 binary and the continuous case.
 
 
@@ -330,64 +329,64 @@ to know the characteristics of the applied design.
 To this end, the performance in terms of achieved power levels, type I error rates,
 and sample size distribution has to be known for different values of the
 nuisance parameter and the first-stage sample size $n_1$.
-The package \pkg{blindrecalc} provides all necessary tools that are needed to plan
+The package **blindrecalc** provides all necessary tools that are needed to plan
 a trial with a blinded sample size recalculation with only a small number of 
 functions, which makes using the package very accessible.
 
-\pkg{blindrecalc} makes use of R's S4 class system.
+**blindrecalc** makes use of R's S4 class system.
 This allows the application of the same methods for different design classes
 and facilitates the usage of the package.
 Furthermore, this approach makes the package easily extendable without
 any changes in the current source code.
 
-The usage of \pkg{blindrecalc} is intended to be as intuitive as possible.
+The usage of **blindrecalc** is intended to be as intuitive as possible.
 To obtain characteristics of a blinded sample size recalculation procedure,
 two steps have to be made.
 At first, the user has to define a design object to indicate which test
 and which characteristics such as the desired type 1 and type 2 error rates
 are to be applied.
-To this end, the three functions \code{setupChiSquare},
-\code{setupFarringtonManning}, and \code{setupStudent} exist to define
+To this end, the three functions `setupChiSquare`,
+`setupFarringtonManning`, and `setupStudent` exist to define
 a design object of the class corresponding to the respective test.
 
 Secondly, the trial characteristic of interest can be calculated.
 Currently, the following methods are implemented:
-The method \code{toer} allows the computation of the actual type 1 error rate
+The method `toer` allows the computation of the actual type 1 error rate
 for different values of the nuisance parameter and the sample size of
 the internal pilot study.
-By means of \code{adjusted\_alpha}, the adjusted significance level
+By means of `adjusted_alpha`, the adjusted significance level
 can be calculated that can be applied as nominal significance level
 when strict type 1 error rate control is desired.
-The method \code{pow} computes the achieved power of the design under a given
+The method `pow` computes the achieved power of the design under a given
 set of nuisance parameters or internal pilot sample sizes.
-With \code{n\_fix}, the sample size of the corresponding fixed design
+With `n_fix`, the sample size of the corresponding fixed design
 can be computed.
-Finally, the method \code{n\_dist} provides plots and summaries of the
+Finally, the method `n_dist` provides plots and summaries of the
 distribution of the sample size.
-For all these methods (except for \code{n\_dist}), the logical parameter 
-\code{recalculation} allows to define whether a fixed design or a design 
+For all these methods (except for `n_dist`), the logical parameter 
+`recalculation` allows to define whether a fixed design or a design 
 with blinded sample size recalculation is analyzed.
 
 
 # Usage and example
 
-For each test, there is a \code{setup} function (e.g., \code{setupChiSquare}
+For each test, there is a `setup` function (e.g., `setupChiSquare`
 for the chi-squared test) that creates an object of the class of the test.
-Each \code{setup} function takes the same arguments:
+Each `setup` function takes the same arguments:
 
-* \code{alpha}: The one-sided type 1 error rate.
-* \code{beta}: The type 2 error rate.
-* \code{r}: The allocation ratio between experimental and control group, 
+* `alpha`: The one-sided type 1 error rate.
+* `beta`: The type 2 error rate.
+* `r`: The allocation ratio between experimental and control group, 
 with a default of 1.
-* \code{delta}: The difference in effect size between alternative and null hypothesis.
-* \code{alternative}: Whether the alternative hypothesis contains greater 
+* `delta`: The difference in effect size between alternative and null hypothesis.
+* `alternative`: Whether the alternative hypothesis contains greater 
 (default) or smaller values than the null.
-* \code{n\_max}: The maximal total sample size, with a default value of \code{Inf}.
+* `n_max`: The maximal total sample size, with a default value of `Inf`.
 
 In this example, the nuisance parameter is the overall response rate $p$.
 A difference in response rates between the two treatment groups of
 $\Delta = p_{E} - p_{C} = 0.2$ is to be detected.
-Using \pkg{blindrecalc}, a chi-squared test that achieves a power of
+Using **blindrecalc**, a chi-squared test that achieves a power of
 $1 - \beta = 0.8$ to detect this effect of $\Delta = 0.2$ and that uses a nominal
 type 1 error rate of $\alpha = 0.025$ can be set up by
 
@@ -396,40 +395,40 @@ design <- setupChiSquare(alpha = 0.025, beta = 0.2, delta = 0.2)
 ```
 
 The sample size for a fixed design given one or multiple values of the
-nuisance parameter (argument \code{nuisance}) can then be calculated with
-the function \code{n\_fix}:
+nuisance parameter (argument `nuisance`) can then be calculated with
+the function `n_fix`:
 
 ```{r fixed-sample-size}
 n_fix(design, nuisance = c(0.2, 0.3, 0.4, 0.5))
 ```
 
-The function \code{toer} calculates the actual level of a design with blinded 
-sample size recalculation or of a fixed design (logical argument \code{recalculation})
+The function `toer` calculates the actual level of a design with blinded 
+sample size recalculation or of a fixed design (logical argument `recalculation`)
 given either one or more values of the total sample size in a fixed or the
-sample size for the first stage in a recalculation design (argument \code{n1})
+sample size for the first stage in a recalculation design (argument `n1`)
 or one or more values of the nuisance parameter.
 Note that all functions are only vectorized in one of the two arguments
-\code{n1} and \code{nuisance}.
+`n1` and `nuisance`.
 In this example, it is assumed that the internal pilot study contains half of
 the fixed sample size that would be needed if the overall response rate $p$
 equals $0.2$.
-In this setting, \pkg{blindrecalc} can be used to compare the actual levels
+In this setting, **blindrecalc** can be used to compare the actual levels
 of a fixed design and a recalculation design with the same parameters.
 
-```{r type-1-error}
+```{r type-1-error, cache=TRUE}
 n <- n_fix(design, nuisance = 0.2)
 p <- seq(0.1, 0.9, by = 0.01)
 toer_fix <- toer(design, n1 = n, nuisance = p, recalculation = FALSE)
 toer_ips <- toer(design, n1 = n/2, nuisance = p, recalculation = TRUE)
 ``` 
 
-In Figure \ref{fig:toer}, the type 1 error rate in dependence of the
+In Figure \@ref(fig:plot-type-1-error), the type 1 error rate in dependence of the
 nuisance parameter is depicted for the designs with and without sample size
 recalculation.
 Note that, as mentioned in Section [Binary outcomes], the level of significance
 exceeds the pre-defined level of $\alpha = 0.025$ in both cases.
 If strict control of the type 1 error rate is desired, the function
-\code{adjusted\_alpha} can be used to to calculate an adjusted significance level,
+`adjusted_alpha` can be used to to calculate an adjusted significance level,
 such that the nominal significance level is preserved.
 
 ```{r adjust-alpha, cache=TRUE}
@@ -442,7 +441,7 @@ toer_adj <- toer(design, n1 = n/2, nuisance = p, recalculation = TRUE)
 In this example, the adjusted significance level equals `r round(adj_sig, 4)`
 for the trial with internal pilot study, i.e., using this value as nominal level
 ensures that the actual significance level does not exceed $\alpha = 0.025$.
-Figure \ref{fig:toer} demonstrates that the type 1 error rate
+Figure \@ref(fig:plot-type-1-error) demonstrates that the type 1 error rate
 is protected at level $\alpha = 0.025$ if the adjusted significance level
 is applied.
 
@@ -455,7 +454,7 @@ The solution in these cases is to compute a $(1 - \gamma)$
 confidence interval of the nuisance parameter in the blinded interim analysis and
 adjust the significance level such that the actual level is below $\alpha - \gamma$
 for all values in this confidence interval [@FK2011].
-If this approach is applied, the user can set the parameter \code{gamma}.
+If this approach is applied, the user can set the parameter `gamma`.
 
 ```{r plot-type-1-error, cache=TRUE, echo=FALSE, fig=TRUE, fig.height=4, fig.width=6, fig.cap="\\label{fig:toer}Actual significance level for different nuisance parameters with (right panel) and without (left panel) adjustment of the nominal significance level. In the adjusted case, the actual level is below the desired level (red line) for all nuisance parameters in contrast to the un-adjusted case."}
 par(mfrow = c(1, 2))
@@ -474,8 +473,8 @@ par(mfrow = c(1, 1))
 
 
 To calculate the power of either the internal pilot study design or the fixed design,
-the function \code{pow} can be used.
-Again, the function is vectorized in either \code{n1} or \code{nuisance}.
+the function `pow` can be used.
+Again, the function is vectorized in either `n1` or `nuisance`.
 This function can be used to compare the power values of the two designs under
 different actual values of the nuisance parameter.
 
@@ -492,7 +491,7 @@ legend(0.35, 1, legend = c("fix", "recalculation"), lty = c(2, 1), cex=0.9,
        bty="n")
 
 ```
-As we can see in Figure \ref{fig:pow}, the power achieved by the internal pilot
+As we can see in Figure \@ref(fig:plot-pow), the power achieved by the internal pilot
 study design is very close to the target power of 0.8 in most cases.
 Only when the overall response rate is very close to 0 or 1, the power is exceeded.
 On the other hand, the fixed design is much more sensitive to the actual value
@@ -500,7 +499,7 @@ of the nuisance parameter and the actual power can either be way too large
 or way too small if the sample size was calculated under wrong assumptions.
 
 Finally, the distribution of the total sample size can be computed under
-different assumptions on the nuisance parameter with the function \code{n\_dist}.
+different assumptions on the nuisance parameter with the function `n_dist`.
 This is particularly useful for the planning of internal pilot study designs
 since it allows the investigation of what could happen in a certain clinical
 trial and helps the applicant to prepare for different scenarios.
@@ -510,9 +509,9 @@ p <- seq(0.2, 0.8, by = 0.1)
 n_dist(design, n1 = n/2, nuisance = p, plot = TRUE)
 ```
 
-By default, \code{n\_dist} prints a summary of the sample size distribution
+By default, `n_dist` prints a summary of the sample size distribution
 for each nuisance parameter.
-With \code{plot = TRUE}, a series of boxplots is drawn (cf. Figure \ref{fig:dist}).
+With `plot = TRUE`, a series of boxplots is drawn (cf. Figure \@ref(fig:sample-size-distribution)).
 Since the maximum sample size is obtained if the overall response rate is
 estimated to be 0.5 in the sample size recalculation, this maximum 
 can occur under any true value of the nuisance parameter (except for 0 and 1), 
@@ -522,12 +521,12 @@ For this reason, sample sizes that occur with a probability of less than
 sample size distributions are determined by simulation.
 
 For continuous outcomes, i.e., the (shifted) $t$-test, the functional
-content of \pkg{blindrecalc} is the same as in the binary case that
+content of **blindrecalc** is the same as in the binary case that
 was presented in this example.
 The only difference is that in the continuous case, the numbers are computed
 by simulation.
-Thus, the user can set the parameters \code{iters}, defining the number
-of simulation iterations, and \code{seed}, the random seed for the simulation.
+Thus, the user can set the parameters `iters`, defining the number
+of simulation iterations, and `seed`, the random seed for the simulation.
 
 
 # Development principles
@@ -536,51 +535,53 @@ The utilization of R's object-oriented programming capabilities implies
 that the example that was presented for the chi-squared test could
 very similarly be applied to the Farrington-Manning test or the $t$-test.
 Besides using S4 classes, the following development principles of
-\pkg{blindrecalc} should be briefly described.
+**blindrecalc** should be briefly described.
 
 All calculations for binary outcomes are exact and require nested for-loops.
 Since for-loops are known to be very slow in R, all computation-intensive functions
 for the chi-squared test and the Farrington-Manning test are implemented in
 C++ via the \CRANpkg{Rcpp} package [@Rcpp] to speed up the calculations significantly. 
 
-\pkg{blindrecalc} is developed open-source on GitHub.com.
+**blindrecalc** is developed open-source on GitHub.com.
 The entire source code can be found at
 \url{https://github.com/imbi-heidelberg/blindrecalc}.
-This allows anyone to contribute to \pkg{blindrecalc} and, furthermore,
+This allows anyone to contribute to **blindrecalc** and, furthermore,
 provides maximal transparency.
-To ensure a certain quality of the provided code, \pkg{blindrecalc} is checked
+To ensure a certain quality of the provided code, **blindrecalc** is checked
 by unit tests using the package \CRANpkg{covr} [@covr].
 The unit tests compare numbers for the sample size,
-type 1 error rate, and power calculated with \pkg{blindrecalc} with numbers
+type 1 error rate, and power calculated with **blindrecalc** with numbers
 from peer-reviewed publications and, furthermore, check the technical functionality
 of the package such as vectorization and display of error messages.
 Thus, the unit tests do not only monitor the technical accuracy
 of the package's results but also their content-related correctness.
-The current version \pkg{blindrecalc} 0.1.3 achieves a code coverage of 100\%,
+The current version **blindrecalc** 0.1.3 achieves a code coverage of 100\%,
 i.e., each line of the source code is checked by at least one unit test.
 
 
 # Conclusion
 
-In this paper, we introduced the R-package \pkg{blindrecalc} that can be used to
+In this paper, we introduced the R-package **blindrecalc** that can be used to
 plan clinical trials with a blinded sample size recalculation in an internal pilot
 study design when either continuous or binary outcomes in a superiority or 
 non-inferiority setting are of interest. We introduced the basic methodology
 of internal pilot studies and explained how the package can be used to calculate
 the operating characteristics of a trial with such a design.
 
-The scope of \pkg{blindrecalc} can simply be extended due to its modular character.
+The scope of **blindrecalc** can simply be extended due to its modular character.
 Blinded sample size recalculation can be applied to many different types of
 clinical trials.
 For instance, there exists research on further kinds of outcomes
 (e.g., see @Friede2010 for count data) or on different study designs (e.g., see
 @Golkowski2014 for bioequivalence trials).
-The implementation of internal pilot studies for such cases in \pkg{blindrecalc}
+The implementation of internal pilot studies for such cases in **blindrecalc**
 is an exciting area of future work.
-
-\bibliography{blindrecalc-paper}
-
 
 # Contribution
 
 The first two authors contributed equally to this manuscript.
+
+
+# References
+
+\bibliography{blindrecalc-paper}
