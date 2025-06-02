@@ -58,7 +58,7 @@ editor_options:
 ---
 
 This manuscript is published in the R Journal under 
-\url{https://doi.org/10.32614/RJ-2022-001}.
+https://doi.org/10.32614/RJ-2022-001.
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
@@ -415,7 +415,7 @@ equals $0.2$.
 In this setting, **blindrecalc** can be used to compare the actual levels
 of a fixed design and a recalculation design with the same parameters.
 
-```{r type-1-error, cache=TRUE}
+```{r type-1-error}
 n <- n_fix(design, nuisance = 0.2)
 p <- seq(0.1, 0.9, by = 0.01)
 toer_fix <- toer(design, n1 = n, nuisance = p, recalculation = FALSE)
@@ -431,7 +431,7 @@ If strict control of the type 1 error rate is desired, the function
 `adjusted_alpha` can be used to to calculate an adjusted significance level,
 such that the nominal significance level is preserved.
 
-```{r adjust-alpha, cache=TRUE}
+```{r adjust-alpha}
 adj_sig <- adjusted_alpha(design, n1 = n/2, nuisance = p, precision = 0.0001,
                           recalculation = TRUE)
 design@alpha <- adj_sig
@@ -456,7 +456,7 @@ adjust the significance level such that the actual level is below $\alpha - \gam
 for all values in this confidence interval [@FK2011].
 If this approach is applied, the user can set the parameter `gamma`.
 
-```{r plot-type-1-error, cache=TRUE, echo=FALSE, fig=TRUE, fig.height=4, fig.width=6, fig.cap="\\label{fig:toer}Actual significance level for different nuisance parameters with (right panel) and without (left panel) adjustment of the nominal significance level. In the adjusted case, the actual level is below the desired level (red line) for all nuisance parameters in contrast to the un-adjusted case."}
+```{r plot-type-1-error, echo=FALSE, fig=TRUE, fig.height=4, fig.width=6, fig.cap="\\label{fig:toer}Actual significance level for different nuisance parameters with (right panel) and without (left panel) adjustment of the nominal significance level. In the adjusted case, the actual level is below the desired level (red line) for all nuisance parameters in contrast to the un-adjusted case."}
 par(mfrow = c(1, 2))
 plot(p, toer_ips, type = "l", ylab = "actual level without adjustment", ylim = c(0.023, 0.03))
 lines(p, toer_fix, lty = 2)
@@ -478,12 +478,12 @@ Again, the function is vectorized in either `n1` or `nuisance`.
 This function can be used to compare the power values of the two designs under
 different actual values of the nuisance parameter.
 
-```{r power, cache=TRUE}
+```{r power}
 pow_fix <- pow(design, n1 = n, nuisance = p, recalculation = FALSE)
 pow_ips <- pow(design, n1 = n/2, nuisance = p, recalculation = TRUE)
 ```
 
-```{r plot-power, cache=TRUE, echo=FALSE, fig=TRUE, fig.height=4, fig.width=5, fig.cap="\\label{fig:pow}Power values for different nuisance parameters for a fixed design and a design with blinded sample size recalculation. The design with recalculation meets the target power (red line) for a wider range of nuisance parameters."}
+```{r plot-power, echo=FALSE, fig=TRUE, fig.height=4, fig.width=5, fig.cap="\\label{fig:pow}Power values for different nuisance parameters for a fixed design and a design with blinded sample size recalculation. The design with recalculation meets the target power (red line) for a wider range of nuisance parameters."}
 plot(p, pow_fix, type = "l", ylab = "power", lty = 2)
 lines(p, pow_ips, lty = 1)
 abline(a = 0.8, b = 0, col = "red")
@@ -491,7 +491,7 @@ legend(0.35, 1, legend = c("fix", "recalculation"), lty = c(2, 1), cex=0.9,
        bty="n")
 
 ```
-As we can see in Figure \@ref(fig:plot-pow), the power achieved by the internal pilot
+As we can see in Figure \@ref(fig:plot-power), the power achieved by the internal pilot
 study design is very close to the target power of 0.8 in most cases.
 Only when the overall response rate is very close to 0 or 1, the power is exceeded.
 On the other hand, the fixed design is much more sensitive to the actual value
@@ -504,7 +504,7 @@ This is particularly useful for the planning of internal pilot study designs
 since it allows the investigation of what could happen in a certain clinical
 trial and helps the applicant to prepare for different scenarios.
 
-```{r sample-size-distribution, cache=TRUE, fig=TRUE, fig.height=4, fig.width=5, fig.cap="\\label{fig:dist}Distribution of the sample size for a design with blinded sample size recalculation in dependence of the nuisance parameter. For more extreme values of the nuisance parameter the variance of the sample size distribution becomes larger."}
+```{r sample-size-distribution, fig=TRUE, fig.height=4, fig.width=5, fig.cap="\\label{fig:dist}Distribution of the sample size for a design with blinded sample size recalculation in dependence of the nuisance parameter. For more extreme values of the nuisance parameter the variance of the sample size distribution becomes larger."}
 p <- seq(0.2, 0.8, by = 0.1)
 n_dist(design, n1 = n/2, nuisance = p, plot = TRUE)
 ```
