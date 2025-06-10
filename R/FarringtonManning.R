@@ -241,8 +241,8 @@ setMethod("n_dist", signature("FarringtonManning"),
 #' such that the actual type I error rate is preserved.
 #'
 #' @template methods_fm
-#' @template adjalpha_binary
 #' @template recalculation
+#' @template adjalpha_binary
 #' @template allocation
 #' @template dotdotdot
 #'
@@ -260,8 +260,9 @@ setMethod("n_dist", signature("FarringtonManning"),
 #' @rdname adjusted_alpha.FarringtonManning
 #' @export
 setMethod("adjusted_alpha", signature("FarringtonManning"),
-  function(design, n1, nuisance, nuis_ass, precision = 0.001, gamma = 0,
-           recalculation, allocation = c("exact", "approximate"), ...) {
+  function(design, n1, nuisance, recalculation,
+           nuis_ass, precision = 0.001, gamma = 0,
+           allocation = c("exact", "approximate"), ...) {
     allocation <- match.arg(allocation)
     # Check if input is valid
     if (allocation == "exact") {

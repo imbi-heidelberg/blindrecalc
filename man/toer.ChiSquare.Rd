@@ -24,7 +24,7 @@
 Chi-Squared test this is the overall response rate.}
 
 \item{recalculation}{Should the sample size be recalculated after n1
-n1 patients are recruited?}
+patients are recruited?}
 
 \item{allocation}{Whether the allocation ratio should be preserved
 exactly (\code{exact}) or approximately (\code{approximate}

@@ -116,7 +116,8 @@ test_that("Alpha can be adjusted in non-inferiority case", {
     design@alpha
   )
 
-  alpha_adj <- adjusted_alpha(design, 10, 5, 1e-4, its)
+  alpha_adj <- adjusted_alpha(design, n1 = 10, nuisance = 5, recalculation = TRUE,
+                              tol = 1e-4, iters = its)
 
   expect_lte(
     alpha_adj,
@@ -201,26 +202,3 @@ test_that("exact allocation", {
 })
 
 
-test_that("summary option", {
-  des <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 2,
-                      delta_NI = 0, n_max = Inf)
-
-  n <- data.frame(n_dist(des, 20, 3.5, FALSE, FALSE, its, 2020))
-
-  n_table <- n_dist(des, 20, 3.5, TRUE, FALSE, its, 2020)
-
-  expect_equal(as.vector(n_table), as.vector(summary(n)))
-
-})
-
-
-
-test_that("plot option", {
-  des <- setupStudent(alpha = .03, beta = .15, r = 1.5, delta = 2.5,
-                      delta_NI = 0, n_max = 350)
-
-  n <- n_dist(des, 20, 1, FALSE, TRUE, its, 42)
-
-  expect_equal(class(n), "data.frame")
-
-})

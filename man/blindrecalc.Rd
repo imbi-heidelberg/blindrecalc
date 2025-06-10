@@ -16,3 +16,24 @@ and non-inferiority trials.
 For superiority trials with binary endpoint, the chi^2-test is implemented.
 The Farrington Manning test covers non-inferiority trials with binary endpoint.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/imbi-heidelberg/blindrecalc}
+}
+
+}
+\author{
+\strong{Maintainer}: Lukas Baumann \email{baumann@imbi.uni-heidelberg.de} (\href{https://orcid.org/0000-0001-7931-7470}{ORCID})
+
+Authors:
+\itemize{
+  \item Maximilian Pilz \email{maximilian.pilz@itwm.fraunhofer.de} (\href{https://orcid.org/0000-0002-9685-1613}{ORCID})
+}
+
+Other contributors:
+\itemize{
+  \item Institute of Medical Biometry - University of Heidelberg [copyright holder]
+}
+
+}

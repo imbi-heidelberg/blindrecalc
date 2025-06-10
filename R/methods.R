@@ -95,6 +95,7 @@ setGeneric("n_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE
 #' such that the actual type I error rate is preserved.
 #'
 #' @template methods
+#' @template recalculation
 #' @template dotdotdot
 #'
 #' @return Value of the adjusted significance level
@@ -111,10 +112,11 @@ setGeneric("n_dist", function(design, n1, nuisance, summary = TRUE, plot = FALSE
 #' @examples
 #' d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 0, delta_NI = 1.5, n_max = 848)
 #' sigma <- c(2, 5.5, 9)
-#' adjusted_alpha(design = d, n1 = 20, nuisance = sigma, tol = 1e-4, iters = 1e3)
+#' adjusted_alpha(design = d, n1 = 20, nuisance = sigma, recalculation = TRUE,
+#'                tol = 1e-4, iters = 1e3)
 #'
 #' @export
-setGeneric("adjusted_alpha", function(design, n1, nuisance, ...) {
+setGeneric("adjusted_alpha", function(design, n1, nuisance, recalculation, ...) {
   standardGeneric("adjusted_alpha")
 })
 

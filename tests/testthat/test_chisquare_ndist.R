@@ -39,3 +39,17 @@ test_that("n_dist works for multiple nuisance values", {
                    summary = FALSE, plot = TRUE)
   expect_equal(class(n_plot), "list")
 })
+
+
+test_that("ndist respects n_max", {
+  nmax = 350
+  design <- setupChiSquare(alpha = 0.025,
+                           beta = 0.1,
+                           r = 1,
+                           delta = 0.15,
+                           alternative = "greater",
+                           n_max = nmax)
+  distri <- n_dist(design, n1=50, nuisance=.8, summary=TRUE, plot=FALSE)
+  expect_equal(distri[nrow(distri), ], nmax)
+
+})

@@ -8,10 +8,10 @@
   design,
   n1,
   nuisance,
+  recalculation,
   nuis_ass,
   precision = 0.001,
   gamma = 0,
-  recalculation,
   allocation = c("exact", "approximate"),
   ...
 )
@@ -26,6 +26,9 @@
 \item{nuisance}{Value of the nuisance parameter in (0,1). For the
 Chi-Squared test this is the overall response rate.}
 
+\item{recalculation}{Should the sample size be recalculated after n1
+patients are recruited?}
+
 \item{nuis_ass}{If \code{recalculation = FALSE} this is the value for
 the overall response rate that is used to calculate the sample size
 for the adjusted significance level.}
@@ -38,9 +41,6 @@ preserved.}
 such that the actual level is at most \code{alpha - gamma}. This is
 necessary to maintain the nomininal significance level if a confidence
 interval approach proposed by Friede & Kieser (2011) is used.}
-
-\item{recalculation}{Should the sample size be recalculated after n1
-n1 patients are recruited?}
 
 \item{allocation}{Whether the allocation ratio should be preserved
 exactly (\code{exact}) or approximately (\code{approximate}

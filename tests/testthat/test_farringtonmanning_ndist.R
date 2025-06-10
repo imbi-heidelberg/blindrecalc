@@ -46,3 +46,15 @@ test_that("n_dist works for multiple n1 values", {
 
 })
 
+
+
+test_that("ndist respects n_max", {
+  nmax = 500
+  d <- setupFarringtonManning(alpha = 0.025, beta = 0.2, r = 2,
+                              delta = 0, delta_NI = 0.1, n_max = nmax)
+  distri <- n_dist(d, n1 = 25, nuisance = 0.8, allocation = "approximate",
+                   summary = TRUE, plot = FALSE)
+  expect_equal(distri[nrow(distri), ], nmax)
+
+})
+
