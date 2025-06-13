@@ -47,7 +47,7 @@ preamble: >
 output:
   bookdown::html_document2:
       base_format: rmarkdown::html_vignette
-date: "2025-06-13"
+date: "`r Sys.Date()`"
 bibliography: blindrecalc-paper.bib
 vignette: >
   %\VignetteIndexEntry{blindrecalc - An R Package for Blinded Sample Size Recalculation}
@@ -60,9 +60,17 @@ editor_options:
 This manuscript is published in the R Journal under
 https://doi.org/10.32614/RJ-2022-001.
 
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = ""
+)
+```
 
-
-
+```{r setup, echo=FALSE, warning=FALSE}
+library(blindrecalc)
+```
 
 
 # Introduction
@@ -383,8 +391,7 @@ Using **blindrecalc**, a chi-squared test that achieves a power of
 $1 - \beta = 0.8$ to detect this effect of $\Delta = 0.2$ and that uses a nominal
 type 1 error rate of $\alpha = 0.025$ can be set up by
 
-
-``` r
+```{r setup-design}
 design <- setupChiSquare(alpha = 0.025, beta = 0.2, delta = 0.2)
 ```
 
@@ -392,10 +399,8 @@ The sample size for a fixed design given one or multiple values of the
 nuisance parameter (argument `nuisance`) can then be calculated with
 the function `n_fix`:
 
-
-``` r
+```{r fixed-sample-size}
 n_fix(design, nuisance = c(0.2, 0.3, 0.4, 0.5))
-#> [1] 124 164 186 194
 ```
 
 The function `toer` calculates the actual level of a design with blinded
@@ -411,8 +416,7 @@ equals $0.2$.
 In this setting, **blindrecalc** can be used to compare the actual levels
 of a fixed design and a recalculation design with the same parameters.
 
-
-``` r
+```{r type-1-error}
 n <- n_fix(design, nuisance = 0.2)
 p <- seq(0.1, 0.9, by = 0.01)
 toer_fix <- toer(design, n1 = n, nuisance = p, recalculation = FALSE)
@@ -428,15 +432,14 @@ If strict control of the type 1 error rate is desired, the function
 `adjusted_alpha` can be used to to calculate an adjusted significance level,
 such that the nominal significance level is preserved.
 
-
-``` r
+```{r adjust-alpha}
 adj_sig <- adjusted_alpha(design, n1 = n/2, nuisance = p, precision = 0.0001,
                           recalculation = TRUE)
 design@alpha <- adj_sig
 toer_adj <- toer(design, n1 = n/2, nuisance = p, recalculation = TRUE)
 ```
 
-In this example, the adjusted significance level equals 0.0232
+In this example, the adjusted significance level equals `r round(adj_sig, 4)`
 for the trial with internal pilot study, i.e., using this value as nominal level
 ensures that the actual significance level does not exceed $\alpha = 0.025$.
 The figure demonstrates that the type 1 error rate
@@ -454,7 +457,20 @@ adjust the significance level such that the actual level is below $\alpha - \gam
 for all values in this confidence interval [@FK2011].
 If this approach is applied, the user can set the parameter `gamma`.
 
-![Actual significance level for different nuisance parameters with (right panel) and without (left panel) adjustment of the nominal significance level. In the adjusted case, the actual level is below the desired level (red line) for all nuisance parameters in contrast to the un-adjusted case.](plot-type-1-error-1.png)
+```{r plot-type-1-error, echo=FALSE, fig=TRUE, fig.height=4, fig.width=6, fig.cap="Actual significance level for different nuisance parameters with (right panel) and without (left panel) adjustment of the nominal significance level. In the adjusted case, the actual level is below the desired level (red line) for all nuisance parameters in contrast to the un-adjusted case."}
+par(mfrow = c(1, 2))
+plot(p, toer_ips, type = "l", ylab = "actual level without adjustment", ylim = c(0.023, 0.03))
+lines(p, toer_fix, lty = 2)
+abline(a = 0.025, b = 0, col = "red")
+legend(0.25, 0.0245, legend = c("fix", "recalculation"), lty = c(2, 1), cex=0.7,
+       bty="n")
+
+
+plot(p, toer_adj, type = "l", ylab = "actual level with adjustment", ylim = c(0.023, 0.03))
+abline(a = 0.025, b = 0, col = "red")
+
+par(mfrow = c(1, 1))
+```
 
 
 To calculate the power of either the internal pilot study design or the fixed design,
@@ -463,13 +479,18 @@ Again, the function is vectorized in either `n1` or `nuisance`.
 This function can be used to compare the power values of the two designs under
 different actual values of the nuisance parameter.
 
-
-``` r
+```{r power}
 pow_fix <- pow(design, n1 = n, nuisance = p, recalculation = FALSE)
 pow_ips <- pow(design, n1 = n/2, nuisance = p, recalculation = TRUE)
 ```
 
-![Power values for different nuisance parameters for a fixed design and a design with blinded sample size recalculation. The design with recalculation meets the target power (red line) for a wider range of nuisance parameters.](plot-power-1.png)
+```{r plot-power, echo=FALSE, fig=TRUE, fig.height=4, fig.width=5, fig.cap="Power values for different nuisance parameters for a fixed design and a design with blinded sample size recalculation. The design with recalculation meets the target power (red line) for a wider range of nuisance parameters."}
+plot(p, pow_fix, type = "l", ylab = "power", lty = 2)
+lines(p, pow_ips, lty = 1)
+abline(a = 0.8, b = 0, col = "red")
+legend(0.35, 1, legend = c("fix", "recalculation"), lty = c(2, 1), cex=0.9,
+       bty="n")
+```
 
 As we can see in the figure, the power achieved by the internal pilot
 study design is very close to the target power of 0.8 in most cases.
@@ -484,22 +505,9 @@ This is particularly useful for the planning of internal pilot study designs
 since it allows the investigation of what could happen in a certain clinical
 trial and helps the applicant to prepare for different scenarios.
 
-
-``` r
+```{r sample-size-distribution, fig=TRUE, fig.height=4, fig.width=5, fig.cap="Distribution of the sample size for a design with blinded sample size recalculation in dependence of the nuisance parameter. For more extreme values of the nuisance parameter the variance of the sample size distribution becomes larger."}
 p <- seq(0.2, 0.8, by = 0.1)
 n_dist(design, n1 = n/2, nuisance = p, plot = TRUE)
-```
-
-![Distribution of the sample size for a design with blinded sample size recalculation in dependence of the nuisance parameter. For more extreme values of the nuisance parameter the variance of the sample size distribution becomes larger.](sample-size-distribution-1.png)
-
-```
-#>         p = 0.2  p = 0.3  p = 0.4  p = 0.5  p = 0.6  p = 0.7 p = 0.8
-#> Min.     62.000  78.0000 124.0000 158.0000 124.0000  78.0000  62.000
-#> 1st Qu. 108.000 152.0000 182.0000 196.0000 182.0000 152.0000 108.000
-#> Median  124.000 170.0000 192.0000 198.0000 192.0000 170.0000 124.000
-#> Mean    125.021 164.6057 188.4801 196.5075 188.4801 164.6057 125.021
-#> 3rd Qu. 138.000 178.0000 196.0000 200.0000 196.0000 178.0000 138.000
-#> Max.    190.000 200.0000 200.0000 200.0000 200.0000 200.0000 190.000
 ```
 
 By default, `n_dist` prints a summary of the sample size distribution
