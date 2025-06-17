@@ -7,3 +7,6 @@
 ^LICENSE\.md$
 ^Thumbs.db$
 ^\.github$
+^vignettes/rebuild-long-running-vignette.R$
+^vignettes/blindrecalc_paper.Rmd.orig$
+^vignettes/blindrecalc_paper_cache$
