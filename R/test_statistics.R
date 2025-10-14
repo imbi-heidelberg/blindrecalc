@@ -36,7 +36,7 @@ setClass("TestStatistic", slots = c(
 #' \code{\link{adjusted_alpha}}, and \code{\link{n_fix}}.
 #' Check the design specific documentation for details.
 #'
-#' @references Lu, K. (2019).
+#' @references Lu, K. (2016).
 #' Distribution of the two-sample t-test statistic following blinded
 #' sample size re-estimation. Pharmaceutical Statistics 15(3): 208-215.
 #'

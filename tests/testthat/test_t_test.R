@@ -2,7 +2,7 @@ context("test t-test")
 
 its <- 1e5
 
-test_that("Examples of Lu (2019) can be reproduced", {
+test_that("Examples of Lu (2016) can be reproduced", {
   set.seed(123)
   design1 <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5,
                          delta_NI = 0, n_max = Inf)

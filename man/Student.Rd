@@ -76,7 +76,7 @@ d <- setupStudent(alpha = .025, beta = .2, r = 1, delta = 3.5, delta_NI = 0,
                   alternative = "greater", n_max = 156)
 }
 \references{
-Lu, K. (2019).
+Lu, K. (2016).
 Distribution of the two-sample t-test statistic following blinded
 sample size re-estimation. Pharmaceutical Statistics 15(3): 208-215.
 }
