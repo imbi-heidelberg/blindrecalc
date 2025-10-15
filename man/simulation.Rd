@@ -52,11 +52,11 @@ Note that here the nuisance parameter \code{nuisance} is the variance
 of the outcome variable sigma^2.
 }
 \details{
-The implementation follows the algorithm in Lu (2019):
+The implementation follows the algorithm in Lu (2016):
 Distribution of the two-sample t-test statistic following blinded
 sample size re-estimation.
 Pharmaceutical Statistics 15: 208-215.
-Since Lu (2019) assumes negative non-inferiority margins, the non-inferiority
+Since Lu (2016) assumes negative non-inferiority margins, the non-inferiority
 margin of \code{design} is multiplied with -1 internally.
 }
 \examples{

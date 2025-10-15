@@ -19,7 +19,7 @@ Description: Computation of key characteristics and plots for blinded sample siz
    Continuous as well as binary endpoints are supported in superiority and non-inferiority trials.
    See Baumann, Pilz, Kieser (2022) <doi:10.32614/RJ-2022-001> for a detailed description.
    The implemented methods include the approaches by
-   Lu, K. (2019) <doi:10.1002/pst.1737>,
+   Lu, K. (2016) <doi:10.1002/pst.1737>,
    Kieser, M. and Friede, T. (2000) <doi:10.1002/(SICI)1097-0258(20000415)19:7%3C901::AID-SIM405%3E3.0.CO;2-L>,
    Friede, T. and Kieser, M. (2004) <doi:10.1002/pst.140>, 
    Friede, T., Mitchell, C., Mueller-Veltern, G. (2007) <doi:10.1002/bimj.200610373>, and

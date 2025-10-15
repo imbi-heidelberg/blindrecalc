@@ -16,11 +16,11 @@
 #' @return Simulated rejection probabilities and sample sizes for
 #'    each nuisance parameter.
 #'
-#' @details The implementation follows the algorithm in Lu (2019):
+#' @details The implementation follows the algorithm in Lu (2016):
 #' Distribution of the two-sample t-test statistic following blinded
 #' sample size re-estimation.
 #' Pharmaceutical Statistics 15: 208-215.
-#' Since Lu (2019) assumes negative non-inferiority margins, the non-inferiority
+#' Since Lu (2016) assumes negative non-inferiority margins, the non-inferiority
 #' margin of \code{design} is multiplied with -1 internally.
 #'
 #' @examples
@@ -52,7 +52,7 @@ simulation <- function(design, n1, nuisance, recalculation = TRUE, delta_true,
   }
   alloc <- design@r / (1 + design@r)^2
 
-  # the following implements the 5 steps of the algorithm by Lu (2019), p.210
+  # the following implements the 5 steps of the algorithm by Lu (2016), p.210
   ## Step 1
   z1 <- stats::rnorm(n = iters, mean = 0, sd = 1)
   v1 <- stats::rchisq(n = iters, df = n1 - 2)
