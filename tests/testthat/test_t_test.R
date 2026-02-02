@@ -208,4 +208,7 @@ test_that("nmax cannot be smaller than n1", {
     alternative = "greater", n_max = 2
   )
   expect_error(toer(d, n1 = 3, nuisance = 5.5, recalculation = TRUE))
+  expect_error(pow(d, n1 = 3, nuisance = 5.5, recalculation = TRUE))
+  expect_error(n_dist(d, n1 = 3, nuisance = 5.5))
+  expect_error(adjusted_alpha(d, n1 = 3, nuisance = 5.5, recalculation = TRUE))
 })

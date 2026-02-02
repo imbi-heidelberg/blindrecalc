@@ -294,8 +294,8 @@ setMethod("n_dist", signature("Student"),
 setMethod("adjusted_alpha", signature("Student"),
           function(design, n1, nuisance, recalculation,
                    tol, iters = 1e4, seed = NULL, ...) {
-            if (n1 > design@n_max) {
-              stop(paste0("The first-stage sample size n1 = ", as.character(n1), " exceeds the design's maximum sample size of ", as.character(design@n_max) , "!"))
+            if (sum(design@n_max < n1) > 0) {
+              stop("n_max is smaller than n1.")
             }
 
             alpha_max <- function(alp) {
