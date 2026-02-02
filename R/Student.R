@@ -2,8 +2,8 @@
 #'
 #' This function simulates the probability that a test defined by
 #' \code{\link{setupStudent}} rejects the null hypothesis.
-#' Note that here the nuisance parameter \code{nuisance} is the variance
-#' of the outcome variable sigma^2.
+#' Note that here the nuisance parameter \code{nuisance} is the standard
+#' deviation of the outcome variable sigma.
 #'
 #' @template methods_student
 #' @template recalculation
@@ -133,6 +133,9 @@ setMethod("toer", signature("Student"),
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
             }
+            if (sum(design@n_max < n1) > 0) {
+              stop("n_max is smaller than n1.")
+            }
 
             # apply simulation function at the non-inferiority boundary (i.e., the null hypothesis)
             if (length(n1) == 1) {
@@ -174,6 +177,9 @@ setMethod("pow", signature("Student"),
                    allocation = c("approximate", "exact"), ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Either the nuisance parameter or the internal pilot study sample size must be of length 1!")
+            }
+            if (sum(design@n_max < n1) > 0) {
+              stop("n_max is smaller than n1.")
             }
 
             # apply simulation function at the specified effect size (i.e., the alternative hypothesis)
@@ -225,6 +231,9 @@ setMethod("n_dist", signature("Student"),
                    seed = NULL, range = 0, allocation = c("approximate", "exact"), ...) {
             if (length(nuisance) > 1 && length(n1) > 1) {
               stop("Only one of n1 and nuisance can have length > 1.")
+            }
+            if (sum(design@n_max < n1) > 0) {
+              stop("n_max is smaller than n1.")
             }
 
             # create data frame that includes the simulated sample sizes
@@ -285,6 +294,10 @@ setMethod("n_dist", signature("Student"),
 setMethod("adjusted_alpha", signature("Student"),
           function(design, n1, nuisance, recalculation,
                    tol, iters = 1e4, seed = NULL, ...) {
+            if (n1 > design@n_max) {
+              stop(paste0("The first-stage sample size n1 = ", as.character(n1), " exceeds the design's maximum sample size of ", as.character(design@n_max) , "!"))
+            }
+
             alpha_max <- function(alp) {
               d       <- design
               d@alpha <- alp

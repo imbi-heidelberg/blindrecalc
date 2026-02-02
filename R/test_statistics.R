@@ -22,8 +22,8 @@ setClass("TestStatistic", slots = c(
 #' For superiority trials,\eqn{\delta_{NI}} can be set to zero (default).
 #' If \code{alternative=="smaller"}, the direction of the effect is changed.
 #'
-#' @details The nuisance parameter is the variance \eqn{\sigma^2}.
-#' Within the blinded sample size recalculation procedure, it is re-estimated by
+#' @details The nuisance parameter is the standard deviation \eqn{\sigma}.
+#' Within the blinded sample size recalculation procedure, its square is re-estimated by
 #' the one-sample variance estimator that is defined by
 #' \deqn{\widehat{\sigma}^2
 #' := \frac{1}{n_1-1} \sum_{j \in \{T, C \}}
