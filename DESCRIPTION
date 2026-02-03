@@ -47,7 +47,7 @@ Collate:
     FarringtonManning.R 
     FarringtonManning_helper.R
     RcppExports.R
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 LinkingTo: 
     Rcpp
 VignetteBuilder: knitr

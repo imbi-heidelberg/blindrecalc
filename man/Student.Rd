@@ -57,8 +57,8 @@ The function \code{setupStudent} creates an object of class
 \code{\link{Student}} that can be used for sample size recalculation.
 }
 \details{
-The nuisance parameter is the variance \eqn{\sigma^2}.
-Within the blinded sample size recalculation procedure, it is re-estimated by
+The nuisance parameter is the standard deviation \eqn{\sigma}.
+Within the blinded sample size recalculation procedure, its square is re-estimated by
 the one-sample variance estimator that is defined by
 \deqn{\widehat{\sigma}^2
 := \frac{1}{n_1-1} \sum_{j \in \{T, C \}}
