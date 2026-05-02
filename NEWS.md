@@ -1,3 +1,7 @@
+# blindrecalc 1.1.1
+
+* fix two bugs in implementation of Student
+
 # blindrecalc 1.1.0
 
 * fix error that sample size distribution does not respect maximum sample size
