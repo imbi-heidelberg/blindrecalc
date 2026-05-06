@@ -1,3 +1,5 @@
+# blindrecalc (development version)
+
 # blindrecalc 1.1.1
 
 * fix two bugs in implementation of Student
