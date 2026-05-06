@@ -48,8 +48,8 @@ Simulated rejection probabilities and sample sizes for
 \description{
 This function simulates the probability that a test defined by
 \code{\link{setupStudent}} rejects the null hypothesis.
-Note that here the nuisance parameter \code{nuisance} is the variance
-of the outcome variable sigma^2.
+Note that here the nuisance parameter \code{nuisance} is the standard
+deviation of the outcome variable sigma.
 }
 \details{
 The implementation follows the algorithm in Lu (2016):
